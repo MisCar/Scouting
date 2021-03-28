@@ -1,0 +1,20 @@
+{
+    "short_name": "Scouting",
+    "name": "MisCar Scouting",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "256x256",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "logo.png",
+            "type": "image/png",
+            "sizes": "256x256"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#7e0c2b",
+    "background_color": "#222222"
+}
