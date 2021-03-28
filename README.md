@@ -25,3 +25,4 @@ REACT_APP_APP_ID="XYZ"
 -   If using this for your own team, you should probably change the following
     -   Inside the [manifest](./public/manifest.json) you can change the theme and background colors as well as the icon
     -   You can also swap the `favicon.ico` and `icon.png` files in the [public](./public) directory
+    - You can change the custom colors in [the tailwind configuration](./tailwind.config.js)

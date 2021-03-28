@@ -15,3 +15,7 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.button {
+    @apply bg-primary text-white focus:outline-none m-2 p-2 rounded-xl transform duration-200 hover:scale-110 hover:bg-lighter;
+}

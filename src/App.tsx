@@ -1,18 +1,31 @@
-import React from "react"
-import firebase from "firebase/app"
+import React, {useState} from "react"
+import TopBar from "./components/TopBar"
+import firebase from "./utilities/firebase"
 
-firebase.initializeApp({
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_APP_ID,
-})
 
 const App: React.FC = () => {
+    const [user, setUser] = useState<firebase.User | null>(null)
+
+    firebase.auth().onAuthStateChanged((user) => setUser(user))
+
+    const signIn = () => {
+        const provider = new firebase.auth.GoogleAuthProvider()
+        firebase.auth().signInWithPopup(provider)
+    }
+
     return (
-        <div>
-            <h1 className="text-center">Scouting</h1>
+        <div className="h-screen flex flex-col">
+            <TopBar photoURL={user?.photoURL}/>
+            <div className="flex-grow flex justify-center items-center bg-gray-200 dark:bg-gray-800 dark:text-white">
+                {user === null && (
+                    <button className="button" onClick={signIn}>
+                        Sign in with Google
+                    </button>
+                )}
+                {user !== null && (
+                    <h1>TODO</h1>
+                )}
+            </div>
         </div>
     )
 }
