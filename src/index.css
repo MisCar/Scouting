@@ -17,7 +17,7 @@ code {
 }
 
 .button {
-    @apply focus:outline-none rounded-xl transform duration-200 hover:scale-110 select-none;
+    @apply outline-none focus:outline-none rounded-xl transform duration-200 hover:scale-110 select-none;
 }
 
 .button.primary {

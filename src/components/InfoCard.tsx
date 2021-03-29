@@ -72,14 +72,10 @@ const InfoCard: React.FC = () => {
         }
     }
 
+    // @ts-ignore
     return (
         <Card title="מידע">
-            <Text
-                value={event}
-                setValue={setEvent}
-                store="Event Code"
-                placeholder="קוד אירוע"
-            />
+            <Text value={event} setValue={setEvent} placeholder="קוד אירוע" />
             <select
                 className="w-full dark:bg-gray-600 dark:text-white focus:outline-none p-2 my-2 rounded-xl appearance-none"
                 dir="ltr"
@@ -97,10 +93,10 @@ const InfoCard: React.FC = () => {
                 <option value="f">Finals</option>
             </select>
             <Text
-                value={game.toString()}
+                //@ts-ignore
+                value={game === 0 ? "" : game.toString()}
                 setValue={(s: string) => setGame(Number(s))}
                 type="number"
-                store="Game Number"
                 placeholder="מספר משחק"
             />
             {teams.length !== 0 && (
@@ -154,9 +150,10 @@ const InfoCard: React.FC = () => {
                 </>
             )}
             <Text
-                value={team.toString()}
-                setValue={(s: string) => setTeam(Number(s))}
-                store="Team Number"
+                value={team === 0 ? "" : team.toString()}
+                setValue={(s: string) => {
+                    setTeam(Number(s))
+                }}
                 placeholder="מספר קבוצה"
             />
             <button

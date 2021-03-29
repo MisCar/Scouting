@@ -1,7 +1,6 @@
 import React from "react"
 
 interface Props {
-    store: string
     type?: string
     placeholder?: string
     value: string
@@ -11,7 +10,6 @@ interface Props {
 const Text: React.FC<Props> = ({
     value,
     setValue,
-    store,
     type,
     placeholder,
 }: Props) => {

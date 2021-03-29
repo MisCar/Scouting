@@ -46,38 +46,44 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
         )
     }, [schema])
 
-    const send = () => {
+    const createSubmission = () => {
         const submission: any = {
-            general: {
-                game: JSON.parse(localStorage.getItem("Game Number")!),
-                level: localStorage.getItem("Competition Level"),
-                team: JSON.parse(localStorage.getItem("Team Number")!),
-                name: firebase.auth().currentUser?.displayName,
+            General: {
+                Game: JSON.parse(localStorage.getItem("Game Number")!),
+                Level: localStorage.getItem("Competition Level"),
+                Team: JSON.parse(localStorage.getItem("Team Number")!),
+                Scouter: firebase.auth().currentUser?.displayName,
             },
-            autonomous: {},
-            teleop: {},
-            endgame: {},
-            extra: {},
-            event: localStorage.getItem("Event Code")!.replaceAll('"', ""),
+            Autonomous: {},
+            TeleOperated: {},
+            Endgame: {},
+            Extra: {},
+            Event: localStorage.getItem("Event Code")!.replaceAll('"', ""),
         }
         for (let i = 0; i < schema.autonomous.length; i++) {
             const item = localStorage.getItem(
                 "Autonomous " + schema.autonomous[i].key
             )
-            submission.autonomous[schema.autonomous[i].key] = JSON.parse(item!)
+            submission.Autonomous[schema.autonomous[i].key] = JSON.parse(item!)
         }
         for (let i = 0; i < schema.teleop.length; i++) {
             const item = localStorage.getItem(
                 "TeleOperated " + schema.teleop[i].key
             )
-            submission.teleop[schema.teleop[i].key] = JSON.parse(item!)
+            submission.TeleOperated[schema.teleop[i].key] = JSON.parse(item!)
         }
         for (let i = 0; i < schema.endgame.length; i++) {
             const item = localStorage.getItem(
                 "Endgame " + schema.endgame[i].key
             )
-            submission.endgame[schema.endgame[i].key] = JSON.parse(item!)
+            submission.Endgame[schema.endgame[i].key] = JSON.parse(item!)
         }
+
+        return submission
+    }
+
+    const send = () => {
+        const submission = createSubmission()
 
         firebase
             .firestore()
@@ -87,9 +93,25 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
             .catch((e) => window.alert(e))
     }
 
+    const reset = () => {
+        const backups = window.localStorage.getItem("backups")
+        window.localStorage.clear()
+        if (backups !== null) {
+            window.localStorage.setItem("backups", backups)
+        }
+
+        window.dispatchEvent(new Event("local-storage"))
+    }
+
+    const copy = () => {
+        navigator.clipboard.writeText(
+            JSON.stringify(createSubmission(), null, 4)
+        )
+    }
+
     return (
         <Card title="הגשה">
-            {missing !== "" && <p>חסר: {missing}</p>}
+            {missing !== "" && <p className="text-center">חסר: {missing}</p>}
             {missing === "" && (
                 <button
                     className="flex mx-auto button primary p-2 m-1"
@@ -98,6 +120,18 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
                     שליחה
                 </button>
             )}
+            <button
+                className="flex mx-auto button primary p-2 m-1"
+                onClick={reset}
+            >
+                איפוס
+            </button>
+            <button
+                className="flex mx-auto button primary p-2 m-1"
+                onClick={copy}
+            >
+                העתקה
+            </button>
         </Card>
     )
 }
