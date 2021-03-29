@@ -1,7 +1,12 @@
-import React, { useState } from "react"
+import React from "react"
+import { useLocalStorage } from "../../utilities/hooks"
 
-const Boolean: React.FC = () => {
-    const [value, setValue] = useState<boolean | null>(null)
+interface Props {
+    store: string
+}
+
+const Boolean: React.FC<Props> = ({ store }: Props) => {
+    const [value, setValue] = useLocalStorage<boolean | null>(store, null)
 
     return (
         <button

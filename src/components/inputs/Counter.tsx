@@ -1,21 +1,23 @@
-import React, { useState } from "react"
+import React from "react"
+import { useLocalStorage } from "../../utilities/hooks"
 
 interface Props {
+    store: string
     min?: number
     max?: number
 }
 
-const Counter: React.FC<Props> = ({ min, max }: Props) => {
-    const [value, setValue] = useState<number>(min ?? 0)
+const Counter: React.FC<Props> = ({ store, min, max }: Props) => {
+    const [value, setValue] = useLocalStorage(store, min ?? 0)
 
     const increment = () => {
         if (value === max) return
-        setValue((value) => value + 1)
+        setValue(value + 1)
     }
 
     const decrement = () => {
         if (value === min) return
-        setValue((value) => value - 1)
+        setValue(value - 1)
     }
 
     return (

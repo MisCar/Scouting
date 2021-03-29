@@ -1,7 +1,12 @@
 import React, { useState } from "react"
+import { useLocalStorage } from "../../utilities/hooks"
 
-const Timer: React.FC = () => {
-    const [value, setValue] = useState(0)
+interface Props {
+    store: string
+}
+
+const Timer: React.FC<Props> = ({ store }: Props) => {
+    const [value, setValue] = useLocalStorage(store, 0)
     const [interval, setInterval] = useState(-1)
 
     const format = (x: number): string => {

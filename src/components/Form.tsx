@@ -26,13 +26,13 @@ const Form: React.FC<Props> = ({ schema }: Props) => {
     return (
         <div className="w-full flex flex-col justify-center items-center mt-72 md:mt-40 lg:mt-20">
             <Card title="אוטונומי">
-                <CardWidgets widgets={schema.autonomous} />
+                <CardWidgets prefix="Autonomous" widgets={schema.autonomous} />
             </Card>
             <Card title="טלאופ">
-                <CardWidgets widgets={schema.teleop} />
+                <CardWidgets prefix="TeleOperated" widgets={schema.teleop} />
             </Card>
             <Card title="סיום משחק">
-                <CardWidgets widgets={schema.endgame} />
+                <CardWidgets prefix="Endgame" widgets={schema.endgame} />
             </Card>
         </div>
     )

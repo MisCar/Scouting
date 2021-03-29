@@ -5,26 +5,41 @@ import Counter from "./inputs/Counter"
 import Timer from "./inputs/Timer"
 
 interface Props {
+    prefix: string
     widgets: Parameter[]
 }
 
-const CardWidgets: React.FC<Props> = ({ widgets }: Props) => {
+const CardWidgets: React.FC<Props> = ({ widgets, prefix }: Props) => {
     return (
         <div>
             {widgets.map((element) => {
+                const key = prefix + " " + element.key
+
+                console.log(key)
+                if (key === undefined)
+                    console.error("ERROR EOR EOR QERP IQJPOIJ")
+
                 return (
-                    <div className="w-100 flex flex-row items-center my-2">
+                    <div
+                        className="w-100 flex flex-row items-center my-2"
+                        key={key}
+                    >
                         <p className="inline">{element.label}</p>
                         <div className="flex-grow" />
                         <div className="w-40 flex justify-center">
-                            {element.widget === "Boolean" && <Boolean />}
+                            {element.widget === "Boolean" && (
+                                <Boolean store={key} />
+                            )}
                             {element.widget === "Counter" && (
                                 <Counter
+                                    store={key}
                                     min={element.min ?? 0}
                                     max={element.max}
                                 />
                             )}
-                            {element.widget === "Timer" && <Timer />}
+                            {element.widget === "Timer" && (
+                                <Timer store={key} />
+                            )}
                         </div>
                     </div>
                 )
