@@ -2,6 +2,7 @@ import React from "react"
 import Card from "./Card"
 import CardWidgets from "./CardWidgets"
 import InfoCard from "./InfoCard"
+import SubmissionCard from "./SubmissionCard"
 
 export interface Parameter {
     key: string
@@ -36,6 +37,7 @@ const Form: React.FC<Props> = ({ schema }: Props) => {
             <Card title="סיום משחק">
                 <CardWidgets prefix="Endgame" widgets={schema.endgame} />
             </Card>
+            <SubmissionCard schema={schema} />
         </div>
     )
 }

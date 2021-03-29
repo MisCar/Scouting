@@ -102,5 +102,8 @@ export function useLocalStorage<T>(
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    if (window.localStorage.getItem(key) === null)
+        window.localStorage.setItem(key, JSON.stringify(initialValue))
+
     return [storedValue, setValue]
 }
