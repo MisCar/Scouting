@@ -13,7 +13,7 @@ const Card: React.FC<React.PropsWithChildren<Props>> = ({
             className="container m-3 bg-gray-200 dark:bg-gray-700 p-3 rounded-2xl shadow-2xl"
             dir="rtl"
         >
-            <h2 className="font-bold text-2xl">{title}</h2>
+            <h2 className="font-black text-2xl">{title}</h2>
             {children}
         </div>
     )
