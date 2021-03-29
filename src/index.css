@@ -25,15 +25,6 @@ code {
     @apply bg-primary text-white hover:bg-lighter;
 }
 
-
-.main-body {
-    overflow-y: hidden;
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-}
-
-.form-container{
-    overflow-y: scroll;
+.webkit-overflow-scrolling-touch {
     -webkit-overflow-scrolling: touch;
 }
