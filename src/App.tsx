@@ -37,9 +37,9 @@ const App: React.FC = () => {
     return (
         <div className="h-screen flex flex-col">
             <TopBar photoURL={user?.photoURL} />
-            <div className="flex-grow flex flex-col justify-center items-center bg-gray-200 dark:bg-gray-800 dark:text-white p-3 overflow-y-auto">
+            <div className="flex-grow flex flex-col justify-center items-center dark:bg-gray-800 dark:text-white p-3 overflow-y-auto">
                 {user === null && (
-                    <button className="button p-2 m-2" onClick={signIn}>
+                    <button className="button primary p-2 m-2" onClick={signIn}>
                         Sign in with Google
                     </button>
                 )}

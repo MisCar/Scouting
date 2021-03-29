@@ -26,6 +26,8 @@ service cloud.firestore {
 }
 ```
 
+-   Create a TBA Read API Authentication Key and put it as `REACT_APP_TBA_AUTH_KEY` in the `.env` file
+
 Your `.env` file should look like so:
 
 ```shell
@@ -35,6 +37,7 @@ REACT_APP_PROJECT_ID="XYZ"
 REACT_APP_STORAGE_BUCKET="XYZ"
 REACT_APP_MESSAGING_SENDER_ID="XYZ"
 REACT_APP_APP_ID="XYZ"
+REACT_APP_TBA_AUTH_KEY="XYZ"
 ```
 
 ## Customizing

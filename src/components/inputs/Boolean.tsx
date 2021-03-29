@@ -10,7 +10,7 @@ const Boolean: React.FC<Props> = ({ store }: Props) => {
 
     return (
         <button
-            className="button p-1 w-20 dark:bg-gray-700"
+            className="button primary p-1 w-20 dark:bg-gray-700"
             onClick={() => setValue(value === null ? false : !value)}
         >
             {value === null ? "-" : value ? "כן" : "לא"}

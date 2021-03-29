@@ -36,7 +36,7 @@ const Timer: React.FC<Props> = ({ store }: Props) => {
 
     return (
         <button
-            className="button p-1 w-20 dark:bg-gray-700"
+            className="button primary p-1 w-20 dark:bg-gray-700"
             onClick={startStopTimer}
             onDoubleClick={() => setValue(0)}
         >

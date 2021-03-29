@@ -9,6 +9,8 @@ module.exports = {
             lighter: "#9d1036",
             gray: colors.trueGray,
             white: colors.white,
+            blue: colors.blue,
+            red: colors.red,
         },
     },
     variants: {

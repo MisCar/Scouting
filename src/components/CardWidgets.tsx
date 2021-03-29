@@ -15,10 +15,6 @@ const CardWidgets: React.FC<Props> = ({ widgets, prefix }: Props) => {
             {widgets.map((element) => {
                 const key = prefix + " " + element.key
 
-                console.log(key)
-                if (key === undefined)
-                    console.error("ERROR EOR EOR QERP IQJPOIJ")
-
                 return (
                     <div
                         className="w-100 flex flex-row items-center my-2"

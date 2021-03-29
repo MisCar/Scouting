@@ -29,7 +29,7 @@ const Counter: React.FC<Props> = ({ store, min, max }: Props) => {
                 +
             </button>
             <button
-                className="button p-1 w-20 dark:bg-gray-700"
+                className="button primary p-1 w-20 dark:bg-gray-700"
                 onDoubleClick={() => setValue(min ?? 0)}
             >
                 {value}
