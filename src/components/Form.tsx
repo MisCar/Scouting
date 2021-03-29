@@ -26,7 +26,7 @@ const Form: React.FC<Props> = ({ schema }: Props) => {
     if (schema.autonomous === undefined) return <></>
 
     return (
-        <div className="w-full flex flex-col justify-center items-center">
+        <div className="w-full flex flex-col justify-center items-center form-container">
             <InfoCard />
             <Card title="אוטונומי">
                 <CardWidgets prefix="Autonomous" widgets={schema.autonomous} />

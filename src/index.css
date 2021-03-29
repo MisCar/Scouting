@@ -32,3 +32,8 @@ code {
     position: fixed;
     width: 100%;
 }
+
+.form-container{
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
