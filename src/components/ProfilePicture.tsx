@@ -10,7 +10,8 @@ const ProfilePicture: React.FC<Props> = ({ photoURL, className }: Props) => {
     if (photoURL === undefined || photoURL === null) return <div />
 
     const signOut = () => {
-        firebase.auth().signOut()
+        if (window.confirm("Are you sure you want to sign out?"))
+            firebase.auth().signOut()
     }
 
     return (
