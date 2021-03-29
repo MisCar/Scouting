@@ -9,6 +9,7 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #7e0c2b;
 }
 
 code {
@@ -22,4 +23,12 @@ code {
 
 .button.primary {
     @apply bg-primary text-white hover:bg-lighter;
+}
+
+
+.main-body {
+    overflow-y: hidden;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
 }
