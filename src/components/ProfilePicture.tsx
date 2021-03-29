@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ProfilePicture: React.FC<Props> = ({ photoURL, className }: Props) => {
-    if (photoURL === undefined || photoURL === null) return (<div />)
+    if (photoURL === undefined || photoURL === null) return <div />
 
     const signOut = () => {
         firebase.auth().signOut()
@@ -15,7 +15,16 @@ const ProfilePicture: React.FC<Props> = ({ photoURL, className }: Props) => {
 
     return (
         <button onClick={signOut} className="focus:outline-none">
-            <img src={photoURL} alt="profile" height={40} width={40} className={"rounded-full" + (className === undefined ? "" : " " + className)} />
+            <img
+                src={photoURL}
+                alt="profile"
+                height={40}
+                width={40}
+                className={
+                    "rounded-full" +
+                    (className === undefined ? "" : " " + className)
+                }
+            />
         </button>
     )
 }
