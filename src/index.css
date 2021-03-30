@@ -24,7 +24,3 @@ code {
 .button.primary {
     @apply bg-primary text-white hover:bg-lighter;
 }
-
-.webkit-overflow-scrolling-touch {
-    -webkit-overflow-scrolling: touch;
-}
