@@ -1,7 +1,7 @@
 this.addEventListener("install", (event) => {
     event.waitUntil(
         caches.open("Scouting").then((cache) => {
-            cache.addAll(["index.html", "offline.html"])
+            cache.addAll(["offline.html"])
         })
     )
 })
@@ -12,6 +12,8 @@ this.addEventListener("fetch", (event) => {
             return fetch(event.request).catch(() =>
                 caches.match("offline.html")
             )
+        })
+            })
         })
     )
 })
