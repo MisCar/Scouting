@@ -19,7 +19,7 @@ const Text: React.FC<Props> = ({
             type={type}
             placeholder={placeholder}
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setValue!(e.target.value)}
         />
     )
 }

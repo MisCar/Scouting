@@ -18,9 +18,13 @@ code {
 }
 
 .button {
-    @apply outline-none focus:outline-none rounded-xl transform duration-200 hover:scale-110 select-none;
+    @apply outline-none focus:outline-none rounded-xl transform duration-200 select-none;
 }
 
 .button.primary {
     @apply bg-primary text-white hover:bg-lighter;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent !important;
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 import ProfilePicture from "./ProfilePicture"
 
 interface Props {
@@ -19,7 +20,9 @@ const TopBar: React.FC<Props> = ({ photoURL }: Props) => {
                 onClick={() => setRotation((r) => r + 72)}
                 style={{ transform: `rotate(${rotation}deg)` }}
             />
-            <h1 className="ml-3 font-bold text-white text-xl">Scouting</h1>
+            <Link to="/">
+                <h1 className="ml-3 font-bold text-white text-xl">Scouting</h1>
+            </Link>
             <div className="flex-grow" />
             <ProfilePicture photoURL={photoURL} className="mr-3" />
         </div>

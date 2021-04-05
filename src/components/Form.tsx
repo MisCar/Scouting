@@ -1,6 +1,7 @@
 import React from "react"
 import Card from "./Card"
 import CardWidgets from "./CardWidgets"
+import GameCard from "./GameCard"
 import InfoCard from "./InfoCard"
 import SubmissionCard from "./SubmissionCard"
 
@@ -38,6 +39,7 @@ const Form: React.FC<Props> = ({ schema }: Props) => {
                 <CardWidgets prefix="Endgame" widgets={schema.endgame} />
             </Card>
             <SubmissionCard schema={schema} />
+            <GameCard />
         </div>
     )
 }

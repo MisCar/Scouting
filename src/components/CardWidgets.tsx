@@ -3,6 +3,7 @@ import { Parameter } from "./Form"
 import Boolean from "./inputs/Boolean"
 import Counter from "./inputs/Counter"
 import Timer from "./inputs/Timer"
+import KeyText from "./inputs/KeyText"
 
 interface Props {
     prefix: string
@@ -35,6 +36,9 @@ const CardWidgets: React.FC<Props> = ({ widgets, prefix }: Props) => {
                             )}
                             {element.widget === "Timer" && (
                                 <Timer store={key} />
+                            )}
+                            {element.widget === "String" && (
+                                <KeyText store={key} />
                             )}
                         </div>
                     </div>
