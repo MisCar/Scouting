@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	function isValidUser(request) {
+    	return request.auth.uid != null && request.auth.token.email.matches(".*@miscar1574[.]org");
+    }
+  
+  	match /admin/schema {
+    	allow read: if isValidUser(request);
+    	allow write: if false;
+    }
+    
+    match /games/{document} {
+    	allow write: if request.auth.token.name == document;
+      allow read: if request.auth.uid != null;
+    }
+    
+    match /data/{document} {
+    	allow create: if isValidUser(request);
+      allow read, write: if false;
+    }
+  
+  	match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
