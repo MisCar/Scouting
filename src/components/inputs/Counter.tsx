@@ -23,7 +23,7 @@ const Counter: React.FC<Props> = ({ store, min, max }: Props) => {
     return (
         <div className="flex justify-center w-28">
             <button
-                className="bg-lighter rounded-r-xl focus:outline-none font-bold text-2xl px-2"
+                className="bg-lighter text-white rounded-r-xl focus:outline-none font-bold text-xl px-2"
                 onClick={increment}
             >
                 +
@@ -35,7 +35,7 @@ const Counter: React.FC<Props> = ({ store, min, max }: Props) => {
                 {value}
             </button>
             <button
-                className="bg-lighter rounded-l-xl focus:outline-none font-bold text-2xl px-2"
+                className="bg-lighter text-white rounded-l-xl focus:outline-none font-bold text-xl px-2"
                 onClick={decrement}
             >
                 &minus;

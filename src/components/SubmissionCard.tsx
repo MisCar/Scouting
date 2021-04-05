@@ -117,7 +117,7 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
             {missing !== "" && <p className="text-center">חסר: {missing}</p>}
             {missing === "" && (
                 <button
-                    className="flex mx-auto button primary p-2 m-1"
+                    className="flex mx-auto button primary p-2 m-1 rounded-xl"
                     onClick={send}
                 >
                     שליחה

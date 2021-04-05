@@ -30,7 +30,7 @@ const App: React.FC = () => {
                     {user === null && (
                         <div className="h-full w-full flex justify-center items-center">
                             <button
-                                className="button primary p-2 m-2"
+                                className="button primary p-2 m-2 rounded-xl"
                                 onClick={signIn}
                             >
                                 Sign in with Google

@@ -10,7 +10,7 @@ const Card: React.FC<React.PropsWithChildren<Props>> = ({
 }: React.PropsWithChildren<Props>) => {
     return (
         <div
-            className="container m-3 bg-gray-300 dark:bg-gray-700 rounded-2xl"
+            className="container m-3 bg-gray-100 dark:bg-gray-700 rounded-2xl"
             dir="auto"
         >
             <div className="w-full bg-gray-200 dark:bg-gray-900 p-3 rounded-t-2xl shadow-xl">
