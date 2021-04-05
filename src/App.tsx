@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import Form, { Schema } from "./components/Form"
+import Leaderboards from "./components/games/Leaderboards"
+import Snake from "./components/games/Snake"
 import TopBar from "./components/TopBar"
 import firebase from "./utilities/firebase"
-import Form, { Schema } from "./components/Form"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import Snake from "./components/games/Snake"
-import Leaderboards from "./components/games/Leaderboards"
-import GameCard from "./components/GameCard"
+import { useLocalStorage } from "./utilities/hooks"
 
 const App: React.FC = () => {
     const [user, setUser] = useState<firebase.User | null>(null)
-    const [schema, setSchema] = useState<Schema>({
+    const [schema, setSchema] = useLocalStorage<Schema>("Schema", {
         autonomous: [],
         teleop: [],
         endgame: [],
@@ -21,22 +21,6 @@ const App: React.FC = () => {
         const provider = new firebase.auth.GoogleAuthProvider()
         firebase.auth().signInWithPopup(provider)
     }
-
-    useEffect(() => {
-        if (user !== null) {
-            firebase
-                .firestore()
-                .doc("/admin/schema")
-                .get()
-                .then((result) => {
-                    const data = result.data()
-                    if (data !== undefined) {
-                        // @ts-ignore
-                        setSchema(data)
-                    }
-                })
-        }
-    }, [user])
 
     return (
         <Router>
@@ -53,7 +37,7 @@ const App: React.FC = () => {
                             </button>
                         </div>
                     )}
-                    {user !== null && schema.autonomous.length !== 0 && (
+                    {user !== null && (
                         <Switch>
                             <Route exact path="/games/snake">
                                 <Snake />
@@ -62,24 +46,9 @@ const App: React.FC = () => {
                                 <Leaderboards />
                             </Route>
                             <Route path="*">
-                                <Form schema={schema} />
+                                <Form schema={schema} setSchema={setSchema} />
                             </Route>
                         </Switch>
-                    )}
-                    {user !== null && schema.autonomous.length === 0 && (
-                        <Switch>
-                            <Route exact path="/games/snake">
-                                <Snake />
-                            </Route>
-                            <Route exact path="/games/leaderboards">
-                                <Leaderboards />
-                            </Route>
-                            <Route path="*">
-                                <div className="flex justify-center items-center">
-                                    <GameCard />
-                                </div>
-                            </Route>
-                    </Switch>
                     )}
                 </div>
             </div>

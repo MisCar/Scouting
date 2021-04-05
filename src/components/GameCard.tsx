@@ -8,13 +8,13 @@ const GameCard: React.FC = () => {
     return (
         <Card title="משחקים">
             <button
-                className="button primary p-2 my-1 flex mx-auto"
+                className="button primary p-2 my-1 flex mx-auto rounded-xl"
                 onClick={() => history.push("/games/leaderboards")}
             >
                 Leaderboards
             </button>
             <button
-                className="button primary p-2 my-1 flex mx-auto"
+                className="button primary p-2 my-1 flex mx-auto rounded-xl"
                 onClick={() => history.push("/games/snake")}
             >
                 Snake

@@ -18,7 +18,7 @@ code {
 }
 
 .button {
-    @apply outline-none focus:outline-none rounded-xl transform duration-200 select-none;
+    @apply outline-none focus:outline-none select-none;
 }
 
 .button.primary {

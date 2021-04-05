@@ -21,14 +21,15 @@ export interface Schema {
 
 interface Props {
     schema: Schema
+    setSchema: (value: Schema) => void
 }
 
-const Form: React.FC<Props> = ({ schema }: Props) => {
+const Form: React.FC<Props> = ({ schema, setSchema }: Props) => {
     if (schema.autonomous === undefined) return <></>
 
     return (
         <div className="w-full flex flex-col justify-center items-center">
-            <InfoCard />
+            <InfoCard setSchema={setSchema} />
             <Card title="אוטונומי">
                 <CardWidgets prefix="Autonomous" widgets={schema.autonomous} />
             </Card>

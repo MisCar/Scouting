@@ -94,11 +94,14 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
     }
 
     const reset = () => {
-        const backups = window.localStorage.getItem("backups")
-        window.localStorage.clear()
-        if (backups !== null) {
-            window.localStorage.setItem("backups", backups)
-        }
+        for (let i = 0; i < schema.autonomous.length; i++)
+            localStorage.removeItem("Autonomous " + schema.autonomous[i].key)
+
+        for (let i = 0; i < schema.teleop.length; i++)
+            localStorage.removeItem("TeleOperated " + schema.teleop[i].key)
+
+        for (let i = 0; i < schema.endgame.length; i++)
+            localStorage.removeItem("Endgame " + schema.endgame[i].key)
 
         window.dispatchEvent(new Event("local-storage"))
     }
@@ -121,13 +124,13 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
                 </button>
             )}
             <button
-                className="flex mx-auto button primary p-2 m-1"
+                className="flex mx-auto button primary p-2 m-1 rounded-xl"
                 onClick={reset}
             >
                 איפוס
             </button>
             <button
-                className="flex mx-auto button primary p-2 m-1"
+                className="flex mx-auto button primary p-2 m-1 rounded-xl"
                 onClick={copy}
             >
                 העתקה

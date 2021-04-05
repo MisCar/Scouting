@@ -8,8 +8,14 @@ import {
     QUARTERFINALS_ORDER,
     SEMIFINALS_ORDER,
 } from "../utilities/constants"
+import firebase from "../utilities/firebase"
+import { Schema } from "./Form"
 
-const InfoCard: React.FC = () => {
+interface Props {
+    setSchema: (value: Schema) => void
+}
+
+const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
     const [game, setGame] = useLocalStorage("Game Number", 0)
     const [team, setTeam] = useLocalStorage("Team Number", 0)
     const [event, setEvent] = useLocalStorage("Event Code", "")
@@ -72,9 +78,39 @@ const InfoCard: React.FC = () => {
         }
     }
 
-    // @ts-ignore
+    const update = () => {
+        const user = firebase.auth().currentUser
+        if (user !== null) {
+            firebase
+                .firestore()
+                .doc("/admin/schema")
+                .get()
+                .then((result) => {
+                    const data = result.data()
+                    if (data !== undefined) {
+                        // @ts-ignore
+                        setSchema(data)
+                    }
+                })
+        }
+
+        window.caches.open("Scouting").then((cache) => {
+            cache.keys().then((keys) => {
+                keys.forEach((key) => cache.delete(key))
+            })
+        })
+    }
+
     return (
         <Card title="מידע">
+            <div className="text-center">
+                <button
+                    className="button rounded-xl primary p-1 w-40"
+                    onClick={update}
+                >
+                    Update
+                </button>
+            </div>
             <Text value={event} setValue={setEvent} placeholder="קוד אירוע" />
             <select
                 className="w-full dark:bg-gray-600 dark:text-white focus:outline-none p-2 my-2 rounded-xl appearance-none"
@@ -157,7 +193,7 @@ const InfoCard: React.FC = () => {
                 placeholder="מספר קבוצה"
             />
             <button
-                className="button primary p-2 flex mx-auto"
+                className="button primary p-2 flex mx-auto rounded-xl"
                 onClick={fetchTeams}
             >
                 Fetch Teams from TBA

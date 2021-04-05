@@ -21,24 +21,24 @@ const Counter: React.FC<Props> = ({ store, min, max }: Props) => {
     }
 
     return (
-        <div>
+        <div className="flex justify-center w-28">
             <button
-                className="focus:outline-none ml-2 font-bold text-2xl w-5"
+                className="bg-lighter rounded-r-xl focus:outline-none font-bold text-2xl px-2"
                 onClick={increment}
             >
                 +
             </button>
             <button
-                className="button primary p-1 w-20 dark:bg-gray-700"
+                className="button primary p-1 flex-grow dark:bg-gray-700"
                 onDoubleClick={() => setValue(min ?? 0)}
             >
                 {value}
             </button>
             <button
-                className="focus:outline-none mr-2 font-bold text-2xl w-5"
+                className="bg-lighter rounded-l-xl focus:outline-none font-bold text-2xl px-2"
                 onClick={decrement}
             >
-                -
+                &minus;
             </button>
         </div>
     )

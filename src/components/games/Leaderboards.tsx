@@ -6,19 +6,18 @@ const Leaderboards: React.FC = () => {
     const [snake, setSnake] = useState<any[]>([])
 
     useEffect(() => {
-        if (snake.length === 0)
-            firebase
-                .firestore()
-                .collection("/games")
-                .orderBy("snake", "desc")
-                .get()
-                .then((result) => {
-                    const newSnake: any[] = []
-                    result.docs.forEach((userScores) => {
-                        newSnake.push([userScores.id, userScores.data().snake])
-                    })
-                    setSnake(newSnake)
+        firebase
+            .firestore()
+            .collection("/games")
+            .orderBy("snake", "desc")
+            .get()
+            .then((result) => {
+                const newSnake: any[] = []
+                result.docs.forEach((userScores) => {
+                    newSnake.push([userScores.id, userScores.data().snake])
                 })
+                setSnake(newSnake)
+            })
     }, [])
 
     return (
