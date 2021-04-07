@@ -8,28 +8,11 @@ interface Props {
 }
 
 const getMissing = (schema: Schema): string => {
-    for (let i = 0; i < schema.autonomous.length; i++) {
-        const item = localStorage.getItem(
-            "Autonomous " + schema.autonomous[i].key
-        )
-        if (item === null || item === "null") {
-            return schema.autonomous[i].label + " באוטונומי"
-        }
-    }
-
-    for (let i = 0; i < schema.teleop.length; i++) {
-        const item = localStorage.getItem(
-            "TeleOperated " + schema.teleop[i].key
-        )
-        if (item === null || item === "null") {
-            return schema.teleop[i].label + " בטלאופ"
-        }
-    }
-
-    for (let i = 0; i < schema.endgame.length; i++) {
-        const item = localStorage.getItem("Endgame " + schema.endgame[i].key)
-        if (item === null || item === "null") {
-            return schema.endgame[i].label + " בסיום המשחק"
+    for (const card of Object.values(schema)) {
+        for (const widget of card.widgets) {
+            const key = card.prefix + " " + widget.key
+            const item = localStorage.getItem(key)
+            if (item === null || item === "null") return key
         }
     }
 
@@ -54,29 +37,18 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
                 Team: JSON.parse(localStorage.getItem("Team Number")!),
                 Scouter: firebase.auth().currentUser?.displayName,
             },
-            Autonomous: {},
-            TeleOperated: {},
-            Endgame: {},
             Extra: {},
             Event: localStorage.getItem("Event Code")!.replaceAll('"', ""),
         }
-        for (let i = 0; i < schema.autonomous.length; i++) {
-            const item = localStorage.getItem(
-                "Autonomous " + schema.autonomous[i].key
-            )
-            submission.Autonomous[schema.autonomous[i].key] = JSON.parse(item!)
-        }
-        for (let i = 0; i < schema.teleop.length; i++) {
-            const item = localStorage.getItem(
-                "TeleOperated " + schema.teleop[i].key
-            )
-            submission.TeleOperated[schema.teleop[i].key] = JSON.parse(item!)
-        }
-        for (let i = 0; i < schema.endgame.length; i++) {
-            const item = localStorage.getItem(
-                "Endgame " + schema.endgame[i].key
-            )
-            submission.Endgame[schema.endgame[i].key] = JSON.parse(item!)
+
+        for (const card of Object.values(schema)) {
+            submission[card.prefix] = {}
+            for (const widget of card.widgets) {
+                const item = localStorage.getItem(
+                    card.prefix + " " + widget.key
+                )
+                submission[card.prefix][widget.key] = item
+            }
         }
 
         return submission
@@ -94,14 +66,11 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
     }
 
     const reset = () => {
-        for (let i = 0; i < schema.autonomous.length; i++)
-            localStorage.removeItem("Autonomous " + schema.autonomous[i].key)
-
-        for (let i = 0; i < schema.teleop.length; i++)
-            localStorage.removeItem("TeleOperated " + schema.teleop[i].key)
-
-        for (let i = 0; i < schema.endgame.length; i++)
-            localStorage.removeItem("Endgame " + schema.endgame[i].key)
+        Object.values(schema).forEach((card) => {
+            card.widgets.forEach((widget) => {
+                localStorage.removeItem(card.prefix + " " + widget.key)
+            })
+        })
 
         window.dispatchEvent(new Event("local-storage"))
     }

@@ -9,11 +9,7 @@ import { useLocalStorage } from "./utilities/hooks"
 
 const App: React.FC = () => {
     const [user, setUser] = useState<firebase.User | null>(null)
-    const [schema, setSchema] = useLocalStorage<Schema>("Schema", {
-        autonomous: [],
-        teleop: [],
-        endgame: [],
-    })
+    const [schema, setSchema] = useLocalStorage<Schema>("Schema", {})
 
     firebase.auth().onAuthStateChanged((user) => setUser(user))
 

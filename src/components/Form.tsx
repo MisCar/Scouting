@@ -13,10 +13,14 @@ export interface Parameter {
     max?: number
 }
 
+interface Card {
+    title: string
+    prefix: string
+    widgets: Parameter[]
+}
+
 export interface Schema {
-    autonomous: Parameter[]
-    teleop: Parameter[]
-    endgame: Parameter[]
+    [key: string]: Card
 }
 
 interface Props {
@@ -25,20 +29,21 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ schema, setSchema }: Props) => {
-    if (schema.autonomous === undefined) return <></>
+    if (schema === {}) return <></>
 
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <InfoCard setSchema={setSchema} />
-            <Card title="אוטונומי">
-                <CardWidgets prefix="Autonomous" widgets={schema.autonomous} />
-            </Card>
-            <Card title="טלאופ">
-                <CardWidgets prefix="TeleOperated" widgets={schema.teleop} />
-            </Card>
-            <Card title="סיום משחק">
-                <CardWidgets prefix="Endgame" widgets={schema.endgame} />
-            </Card>
+            {Object.values(schema).map((card) => {
+                return (
+                    <Card title={card.title ?? "Untitled"}>
+                        <CardWidgets
+                            prefix={card.prefix}
+                            widgets={card.widgets}
+                        />
+                    </Card>
+                )
+            })}
             <SubmissionCard schema={schema} />
             <GameCard />
         </div>
