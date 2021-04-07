@@ -20,8 +20,9 @@ const CardWidgets: React.FC<Props> = ({ widgets, prefix }: Props) => {
                     <div
                         className="w-100 flex flex-row items-center my-2"
                         key={key}
+                        dir="auto"
                     >
-                        <p className="inline">{element.label}</p>
+                        <p className="inline mx-2">{element.label}</p>
                         <div className="flex-grow" />
                         <div className="w-40 flex justify-center">
                             {element.widget === "Boolean" && (

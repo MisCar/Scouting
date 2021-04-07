@@ -1,13 +1,16 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Link } from "react-router-dom"
+import LanguageContext, { flags, Language, languages } from "../utilities/language"
 import ProfilePicture from "./ProfilePicture"
 
 interface Props {
     photoURL?: string | null
+    setLanguage: (language: Language) => void
 }
 
-const TopBar: React.FC<Props> = ({ photoURL }: Props) => {
+const TopBar: React.FC<Props> = ({ photoURL, setLanguage }: Props) => {
     const [rotation, setRotation] = useState(0)
+    const language = useContext(LanguageContext)
 
     return (
         <div className="h-16 flex-none bg-primary flex items-center">
@@ -24,6 +27,9 @@ const TopBar: React.FC<Props> = ({ photoURL }: Props) => {
                 <h1 className="ml-3 font-bold text-white text-xl">Scouting</h1>
             </Link>
             <div className="flex-grow" />
+            <button className="mr-2 text-3xl" onClick={() => setLanguage(languages[(languages.indexOf(language) + 1) % languages.length])}>
+                {flags[language]}
+            </button>
             <ProfilePicture photoURL={photoURL} className="mr-3" />
         </div>
     )

@@ -39,3 +39,4 @@ Try deploying the Firestore rules and the project to Firebase Hosting by running
     -   You can also swap the `favicon.ico` and `icon.png` files in the [public](./public) directory
     -   You can change the custom colors in [the tailwind configuration](./tailwind.config.js)
     -   You can change the font family by swapping the Google Fonts import in [the index](./public/index.html) and the [CSS](./src/index.css)
+    -   You can set `REACT_APP_DEFAULT_LANGUAGE` in the `.env` files to one of the supported languages to set the initial user language. We currently support Hebrew ("he") and English ("en")

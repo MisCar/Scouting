@@ -13,14 +13,14 @@ export interface Parameter {
     max?: number
 }
 
-interface Card {
+interface CardSchema {
     title: string
     prefix: string
     widgets: Parameter[]
 }
 
 export interface Schema {
-    [key: string]: Card
+    [key: string]: CardSchema
 }
 
 interface Props {

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Card from "./Card"
 import { Schema } from "./Form"
 import firebase from "../utilities/firebase"
+import LanguageContext, { getExpression } from "../utilities/language"
 
 interface Props {
     schema: Schema
@@ -21,6 +22,8 @@ const getMissing = (schema: Schema): string => {
 
 const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
     const [missing, setMissing] = useState(getMissing(schema))
+
+    const language = useContext(LanguageContext)
 
     useEffect(() => {
         window.addEventListener("storage", () => setMissing(getMissing(schema)))
@@ -82,27 +85,27 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
     }
 
     return (
-        <Card title="הגשה">
-            {missing !== "" && <p className="text-center">חסר: {missing}</p>}
+        <Card title={getExpression("submission", language)}>
+            {missing !== "" && <p className="text-center">{getExpression("missing", language)} {missing}</p>}
             {missing === "" && (
                 <button
                     className="flex mx-auto button primary p-2 m-1 rounded-xl"
                     onClick={send}
                 >
-                    שליחה
+                    {getExpression("submit", language)}
                 </button>
             )}
             <button
                 className="flex mx-auto button primary p-2 m-1 rounded-xl"
                 onClick={reset}
             >
-                איפוס
+                {getExpression("reset", language)}
             </button>
             <button
                 className="flex mx-auto button primary p-2 m-1 rounded-xl"
                 onClick={copy}
             >
-                העתקה
+                {getExpression("copy", language)}
             </button>
         </Card>
     )

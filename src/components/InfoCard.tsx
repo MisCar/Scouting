@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import Text from "./inputs/Text"
 import Card from "./Card"
 import axios from "axios"
@@ -10,6 +10,7 @@ import {
 } from "../utilities/constants"
 import firebase from "../utilities/firebase"
 import { Schema } from "./Form"
+import LanguageContext, { getExpression } from "../utilities/language"
 
 interface Props {
     setSchema: (value: Schema) => void
@@ -20,6 +21,8 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
     const [team, setTeam] = useLocalStorage("Team Number", 0)
     const [event, setEvent] = useLocalStorage("Event Code", "")
     const [teams, setTeams] = useState<number[]>([])
+
+    const language = useContext(LanguageContext)
 
     const fetchTeams = async () => {
         setTeams([])
@@ -102,7 +105,7 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
     }
 
     return (
-        <Card title="מידע">
+        <Card title={getExpression("info", language)}>
             <div className="text-center">
                 <button
                     className="button rounded-xl primary p-1 w-40"
@@ -111,7 +114,7 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
                     Update
                 </button>
             </div>
-            <Text value={event} setValue={setEvent} placeholder="קוד אירוע" />
+            <Text value={event} setValue={setEvent} placeholder={getExpression("eventCode", language)} />
             <select
                 className="w-full dark:bg-gray-600 dark:text-white focus:outline-none p-2 my-2 rounded-xl appearance-none"
                 dir="ltr"
@@ -133,7 +136,7 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
                 value={game === 0 ? "" : game.toString()}
                 setValue={(s: string) => setGame(Number(s))}
                 type="number"
-                placeholder="מספר משחק"
+                placeholder={getExpression("gameNumber", language)}
             />
             {teams.length !== 0 && (
                 <>
@@ -190,7 +193,7 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
                 setValue={(s: string) => {
                     setTeam(Number(s))
                 }}
-                placeholder="מספר קבוצה"
+                placeholder={getExpression("teamNumber", language)}
             />
             <button
                 className="button primary p-2 flex mx-auto rounded-xl"
