@@ -106,15 +106,19 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
 
     return (
         <Card title={getExpression("info", language)}>
-            <div className="text-center">
+            <div className="flex flex-col mx-auto items-center">
                 <button
-                    className="button rounded-xl primary p-1 w-40"
+                    className="button rounded-xl primary p-2 my-1 w-60"
                     onClick={update}
                 >
-                    Update
+                    {getExpression("update", language)}
                 </button>
             </div>
-            <Text value={event} setValue={setEvent} placeholder={getExpression("eventCode", language)} />
+            <Text
+                value={event}
+                setValue={setEvent}
+                placeholder={getExpression("eventCode", language)}
+            />
             <select
                 className="w-full dark:bg-gray-600 dark:text-white focus:outline-none p-2 my-2 rounded-xl appearance-none"
                 dir="ltr"
@@ -195,12 +199,14 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
                 }}
                 placeholder={getExpression("teamNumber", language)}
             />
-            <button
-                className="button primary p-2 flex mx-auto rounded-xl"
-                onClick={fetchTeams}
-            >
-                Fetch Teams from TBA
-            </button>
+            <div className="flex flex-col mx-auto items-center">
+                <button
+                    className="button primary p-2 my-1 w-60 rounded-xl"
+                    onClick={fetchTeams}
+                >
+                    {getExpression("fetchTeamsFromTBA", language)}
+                </button>
+            </div>
         </Card>
     )
 }

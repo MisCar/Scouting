@@ -2,18 +2,24 @@ import React, { useContext, useEffect, useState } from "react"
 import Card from "./Card"
 import { Schema } from "./Form"
 import firebase from "../utilities/firebase"
-import LanguageContext, { getExpression } from "../utilities/language"
+import LanguageContext, { getExpression, Language } from "../utilities/language"
 
 interface Props {
     schema: Schema
 }
 
-const getMissing = (schema: Schema): string => {
+const getMissing = (schema: Schema, language: Language): string => {
     for (const card of Object.values(schema)) {
         for (const widget of card.widgets) {
-            const key = card.prefix + " " + widget.key
-            const item = localStorage.getItem(key)
-            if (item === null || item === "null") return key
+            const item = localStorage.getItem(card.prefix + " " + widget.key)
+            if (item === null || item === "null")
+                return (
+                    widget.key +
+                    " " +
+                    getExpression("in", language) +
+                    " " +
+                    card.title
+                )
         }
     }
 
@@ -21,16 +27,18 @@ const getMissing = (schema: Schema): string => {
 }
 
 const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
-    const [missing, setMissing] = useState(getMissing(schema))
-
     const language = useContext(LanguageContext)
 
+    const [missing, setMissing] = useState(getMissing(schema, language))
+
     useEffect(() => {
-        window.addEventListener("storage", () => setMissing(getMissing(schema)))
-        window.addEventListener("local-storage", () =>
-            setMissing(getMissing(schema))
+        window.addEventListener("storage", () =>
+            setMissing(getMissing(schema, language))
         )
-    }, [schema])
+        window.addEventListener("local-storage", () =>
+            setMissing(getMissing(schema, language))
+        )
+    }, [schema, language])
 
     const createSubmission = () => {
         const submission: any = {
@@ -86,27 +94,33 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
 
     return (
         <Card title={getExpression("submission", language)}>
-            {missing !== "" && <p className="text-center">{getExpression("missing", language)} {missing}</p>}
-            {missing === "" && (
+            <div className="flex flex-col mx-auto items-center">
+                {missing !== "" && (
+                    <p className="text-center">
+                        {getExpression("missing", language)} {missing}
+                    </p>
+                )}
+                {missing === "" && (
+                    <button
+                        className="button primary p-2 m-1 w-28 rounded-xl"
+                        onClick={send}
+                    >
+                        {getExpression("submit", language)}
+                    </button>
+                )}
                 <button
-                    className="flex mx-auto button primary p-2 m-1 rounded-xl"
-                    onClick={send}
+                    className="button primary p-2 m-1 w-28 rounded-xl"
+                    onClick={reset}
                 >
-                    {getExpression("submit", language)}
+                    {getExpression("reset", language)}
                 </button>
-            )}
-            <button
-                className="flex mx-auto button primary p-2 m-1 rounded-xl"
-                onClick={reset}
-            >
-                {getExpression("reset", language)}
-            </button>
-            <button
-                className="flex mx-auto button primary p-2 m-1 rounded-xl"
-                onClick={copy}
-            >
-                {getExpression("copy", language)}
-            </button>
+                <button
+                    className="button primary p-2 m-1 w-28 rounded-xl"
+                    onClick={copy}
+                >
+                    {getExpression("copy", language)}
+                </button>
+            </div>
         </Card>
     )
 }

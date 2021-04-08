@@ -68,6 +68,14 @@ const expressions: { [key: string]: Expression } = {
         en: "Missing",
         he: "חסר",
     },
+    leaderboards: {
+        en: "Leaderboards",
+        he: "שיאים",
+    },
+    in: {
+        en: "in",
+        he: "ב",
+    },
 }
 
 export const flags = {

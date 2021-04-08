@@ -1,16 +1,23 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Form, { Schema } from "./components/Form"
 import Leaderboards from "./components/games/Leaderboards"
 import Snake from "./components/games/Snake"
 import TopBar from "./components/TopBar"
+import { VERSION } from "./utilities/constants"
 import firebase from "./utilities/firebase"
 import { useLocalStorage } from "./utilities/hooks"
-import LanguageContext, { defaultLanguage, Language } from "./utilities/language"
+import LanguageContext, {
+    defaultLanguage,
+    Language,
+} from "./utilities/language"
 
 const App: React.FC = () => {
     const [user, setUser] = useState<firebase.User | null>(null)
-    const [language, setLanguage] = useLocalStorage<Language>("Language", defaultLanguage)
+    const [language, setLanguage] = useLocalStorage<Language>(
+        "Language",
+        defaultLanguage
+    )
     const [schema, setSchema] = useLocalStorage<Schema>("Schema", {})
 
     firebase.auth().onAuthStateChanged((user) => setUser(user))
@@ -20,11 +27,29 @@ const App: React.FC = () => {
         firebase.auth().signInWithPopup(provider)
     }
 
+    useEffect(() => {
+        firebase
+            .firestore()
+            .doc("/admin/version")
+            .get()
+            .then((result) => {
+                const latest = result.data()?.version
+                if (latest !== null && latest > VERSION)
+                    window.alert(
+                        `You're using version ${VERSION} but version ${latest} is available. Please update!`
+                    )
+            })
+            .catch((_) => {})
+    }, [])
+
     return (
         <Router>
             <LanguageContext.Provider value={language}>
                 <div className="h-screen flex flex-col overflow-hidden fixed w-full">
-                    <TopBar photoURL={user?.photoURL} setLanguage={setLanguage} />
+                    <TopBar
+                        photoURL={user?.photoURL}
+                        setLanguage={setLanguage}
+                    />
                     <div className="flex-grow flex flex-col bg-white dark:bg-gray-800 dark:text-white p-3 overflow-y-auto">
                         {user === null && (
                             <div className="h-full w-full flex justify-center items-center">
@@ -33,7 +58,7 @@ const App: React.FC = () => {
                                     onClick={signIn}
                                 >
                                     Sign in with Google
-                            </button>
+                                </button>
                             </div>
                         )}
                         {user !== null && (
@@ -45,7 +70,10 @@ const App: React.FC = () => {
                                     <Leaderboards />
                                 </Route>
                                 <Route path="*">
-                                    <Form schema={schema} setSchema={setSchema} />
+                                    <Form
+                                        schema={schema}
+                                        setSchema={setSchema}
+                                    />
                                 </Route>
                             </Switch>
                         )}

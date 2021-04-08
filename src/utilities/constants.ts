@@ -23,3 +23,5 @@ export const SEMIFINALS_ORDER = [
 ]
 
 export const FINALS_ORDER = ["f1m1", "f1m2", "f1m3"]
+
+export const VERSION = "1.0.0"

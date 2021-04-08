@@ -10,6 +10,11 @@ service cloud.firestore {
     	allow write: if false;
     }
     
+  	match /admin/version {
+    	allow read: if isValidUser(request);
+    	allow write: if false;
+    }
+
     match /games/{document} {
     	allow write: if request.auth.token.name == document;
       allow read: if request.auth.uid != null;

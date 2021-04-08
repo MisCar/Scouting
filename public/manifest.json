@@ -5,12 +5,20 @@
         {
             "src": "favicon.ico",
             "sizes": "256x256",
-            "type": "image/x-icon"
+            "type": "image/x-icon",
+            "purpose": "any maskable"
         },
         {
             "src": "logo.png",
             "type": "image/png",
-            "sizes": "256x256"
+            "sizes": "256x256",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "logo-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
         }
     ],
     "start_url": ".",
