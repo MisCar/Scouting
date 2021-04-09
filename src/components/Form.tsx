@@ -36,7 +36,10 @@ const Form: React.FC<Props> = ({ schema, setSchema }: Props) => {
             <InfoCard setSchema={setSchema} />
             {Object.values(schema).map((card) => {
                 return (
-                    <Card title={card.title ?? "Untitled"}>
+                    <Card
+                        title={card.title ?? "Untitled"}
+                        key={card.title + " Card"}
+                    >
                         <CardWidgets
                             prefix={card.prefix}
                             widgets={card.widgets}

@@ -46,13 +46,13 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
                 code += level + game
                 break
             case "qf":
-                code += QUARTERFINALS_ORDER[Number(game)]
+                code += QUARTERFINALS_ORDER[Number(game) - 1]
                 break
             case "sf":
-                code += SEMIFINALS_ORDER[Number(game)]
+                code += SEMIFINALS_ORDER[Number(game) - 1]
                 break
             case "f":
-                code += FINALS_ORDER[Number(game)]
+                code += FINALS_ORDER[Number(game) - 1]
                 break
         }
         code = code.replaceAll('"', "")
@@ -76,7 +76,7 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
                 ),
             ])
         } catch (e) {
-            console.error(e)
+            window.alert(e)
         }
     }
 
@@ -144,19 +144,19 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
                         dir="ltr"
                     >
                         <button
-                            className="button py-2 px-5 my-1 mx-3 bg-red-300 dark:bg-red-700"
+                            className="button py-2 px-5 my-1 mx-3 bg-red-300 dark:bg-red-700 rounded-xl"
                             onClick={() => setTeam(teams[0])}
                         >
                             {teams[0]}
                         </button>
                         <button
-                            className="button py-2 px-5 my-1 mx-3 bg-red-300 dark:bg-red-700"
+                            className="button py-2 px-5 my-1 mx-3 bg-red-300 dark:bg-red-700 rounded-xl"
                             onClick={() => setTeam(teams[1])}
                         >
                             {teams[1]}
                         </button>
                         <button
-                            className="button py-2 px-5 my-1 mx-3 bg-red-300 dark:bg-red-700"
+                            className="button py-2 px-5 my-1 mx-3 bg-red-300 dark:bg-red-700 rounded-xl"
                             onClick={() => setTeam(teams[2])}
                         >
                             {teams[2]}
@@ -167,19 +167,19 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
                         dir="ltr"
                     >
                         <button
-                            className="button py-2 px-5 my-1 mx-3 bg-blue-300 dark:bg-blue-700"
+                            className="button py-2 px-5 my-1 mx-3 bg-blue-300 dark:bg-blue-700 rounded-xl"
                             onClick={() => setTeam(teams[3])}
                         >
                             {teams[3]}
                         </button>
                         <button
-                            className="button py-2 px-5 my-1 mx-3 bg-blue-300 dark:bg-blue-700"
+                            className="button py-2 px-5 my-1 mx-3 bg-blue-300 dark:bg-blue-700 rounded-xl"
                             onClick={() => setTeam(teams[4])}
                         >
                             {teams[4]}
                         </button>
                         <button
-                            className="button py-2 px-5 my-1 mx-3 bg-blue-300 dark:bg-blue-700"
+                            className="button py-2 px-5 my-1 mx-3 bg-blue-300 dark:bg-blue-700 rounded-xl"
                             onClick={() => setTeam(teams[5])}
                         >
                             {teams[5]}

@@ -37,6 +37,8 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
         window.addEventListener("local-storage", () =>
             setMissing(getMissing(schema, language))
         )
+
+        setMissing(getMissing(schema, language))
     }, [schema, language])
 
     const createSubmission = () => {
@@ -58,7 +60,7 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
                 const item = localStorage.getItem(
                     card.prefix + " " + widget.key
                 )
-                submission[card.prefix][widget.key] = item
+                submission[card.prefix][widget.key] = JSON.parse(item!)
             }
         }
 
@@ -71,9 +73,25 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
         firebase
             .firestore()
             .collection("data")
-            .add(submission)
-            .then(() => window.alert("Submission Received"))
-            .catch((e) => window.alert(e))
+            .where("General.Game", "==", submission.General.Game)
+            .where("General.Level", "==", submission.General.Level)
+            .where("General.Team", "==", submission.General.Team)
+            .where("Event", "==", submission.Event)
+            .get()
+            .then((result) => {
+                if (result.empty)
+                    firebase
+                        .firestore()
+                        .collection("data")
+                        .add(submission)
+                        .then(() => window.alert("Submission Received"))
+                        .catch((e) => window.alert(e))
+                else
+                    result.docs[0].ref
+                        .set(submission)
+                        .then(() => window.alert("Submission Updated"))
+                        .catch((e) => window.alert(e))
+            })
     }
 
     const reset = () => {

@@ -42,7 +42,7 @@ const Snake: React.FC = () => {
             {board.length === 0 && (
                 <>
                     <button
-                        className="text-center button primary p-1 my-2 w-20"
+                        className="text-center button primary p-1 my-2 w-20 rounded-xl"
                         onClick={start}
                     >
                         Start
@@ -120,27 +120,27 @@ const Snake: React.FC = () => {
             })}
             <div className="w-full flex flex-col justify-center items-center mt-5">
                 <button
-                    className="button primary p-1 w-20"
+                    className="button primary p-1 w-20 rounded-xl"
                     onClick={() => setDirection(Direction.Up)}
                 >
                     &uarr;
                 </button>
                 <div className="w-full flex justify-center items-center my-2">
                     <button
-                        className="button primary p-1 w-20 inline-block mr-4"
+                        className="button primary p-1 w-20 inline-block mr-4 rounded-xl"
                         onClick={() => attemptToSetDirection(Direction.Left)}
                     >
                         &larr;
                     </button>
                     <button
-                        className="button primary p-1 w-20 inline-block"
+                        className="button primary p-1 w-20 inline-block rounded-xl"
                         onClick={() => attemptToSetDirection(Direction.Right)}
                     >
                         &rarr;
                     </button>
                 </div>
                 <button
-                    className="button primary p-1 w-20"
+                    className="button primary p-1 w-20 rounded-xl"
                     onClick={() => attemptToSetDirection(Direction.Down)}
                 >
                     &darr;
