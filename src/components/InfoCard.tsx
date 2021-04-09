@@ -20,14 +20,13 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
     const [game, setGame] = useLocalStorage("Game Number", 0)
     const [team, setTeam] = useLocalStorage("Team Number", 0)
     const [event, setEvent] = useLocalStorage("Event Code", "")
+    const [level, setLevel] = useLocalStorage("Competition Level", "qm")
     const [teams, setTeams] = useState<number[]>([])
 
     const language = useContext(LanguageContext)
 
     const fetchTeams = async () => {
         setTeams([])
-
-        const level = window.localStorage.getItem("Competition Level")
 
         if (
             event === "" ||
@@ -122,12 +121,8 @@ const InfoCard: React.FC<Props> = ({ setSchema }: Props) => {
             <select
                 className="w-full dark:bg-gray-600 dark:text-white focus:outline-none p-2 my-2 rounded-xl appearance-none"
                 dir="ltr"
-                onChange={(e) =>
-                    window.localStorage.setItem(
-                        "Competition Level",
-                        e.target.value
-                    )
-                }
+                onChange={(e) => setLevel(e.target.value)}
+                value={level}
             >
                 <option value="pm">Practice</option>
                 <option value="qm">Qualifications</option>

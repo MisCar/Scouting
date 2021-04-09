@@ -17,7 +17,6 @@ const getMissing = (schema: Schema, language: Language): string => {
                     widget.key +
                     " " +
                     getExpression("in", language) +
-                    " " +
                     card.title
                 )
         }
@@ -44,11 +43,12 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
         const submission: any = {
             General: {
                 Game: JSON.parse(localStorage.getItem("Game Number")!),
-                Level: localStorage.getItem("Competition Level"),
+                Level: localStorage
+                    .getItem("Competition Level")!
+                    .replaceAll('"', ""),
                 Team: JSON.parse(localStorage.getItem("Team Number")!),
                 Scouter: firebase.auth().currentUser?.displayName,
             },
-            Extra: {},
             Event: localStorage.getItem("Event Code")!.replaceAll('"', ""),
         }
 

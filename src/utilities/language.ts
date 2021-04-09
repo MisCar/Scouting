@@ -73,7 +73,7 @@ const expressions: { [key: string]: Expression } = {
         he: "שיאים",
     },
     in: {
-        en: "in",
+        en: "in ",
         he: "ב",
     },
 }
