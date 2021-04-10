@@ -19,6 +19,12 @@ const GameCard: React.FC = () => {
                 </button>
                 <button
                     className="button primary p-2 my-1 w-28 rounded-xl"
+                    onClick={() => history.push("/games/simon")}
+                >
+                    Simon
+                </button>
+                <button
+                    className="button primary p-2 my-1 w-28 rounded-xl"
                     onClick={() => history.push("/games/leaderboards")}
                 >
                     {getExpression("leaderboards", language)}

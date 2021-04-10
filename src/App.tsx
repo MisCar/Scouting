@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Form, { Schema } from "./components/Form"
 import Leaderboards from "./components/games/Leaderboards"
+import Simon from "./components/games/Simon"
 import Snake from "./components/games/Snake"
 import TopBar from "./components/TopBar"
 import { VERSION } from "./utilities/constants"
@@ -65,6 +66,9 @@ const App: React.FC = () => {
                             <Switch>
                                 <Route exact path="/games/snake">
                                     <Snake />
+                                </Route>
+                                <Route exact path="/games/simon">
+                                    <Simon />
                                 </Route>
                                 <Route exact path="/games/leaderboards">
                                     <Leaderboards />
