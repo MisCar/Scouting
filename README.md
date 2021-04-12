@@ -6,17 +6,17 @@ Scouting is a React website and PWA for scouting teams at FRC competitions.
 
 -   Retain values between phone or app restarts using local storage
 -   Update match scouts and protect against duplicates in Firestore
--   Dark mode
+-   Dark mode (don't worry, light mode is available)
 
-![Dark mode](docs/main.png)
+<img src="docs/main.png" alt="Dark mode" width="250" />
 
 -   Fetch match teams from The Blue Alliance
 
-![TBA teams](docs/teams.png)
+<img src="docs/teams.png" alt="TBA teams" width="250" />
 
 -   Minigames in case of delays
 
-![Snake](docs/snake.png)
+<img src="docs/snake.png" alt="Snake" width="250" />
 
 ## Getting Started
 
