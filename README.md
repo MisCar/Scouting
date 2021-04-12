@@ -2,20 +2,36 @@
 
 Scouting is a React website and PWA for scouting teams at FRC competitions.
 
+## Features
+
+-   Retain values between phone or app restarts using local storage
+-   Update match scouts and protect against duplicates in Firestore
+-   Dark mode
+
+![Dark mode](docs/main.png)
+
+-   Fetch match teams from The Blue Alliance
+
+![TBA teams](docs/teams.png)
+
+-   Minigames in case of delays
+
+![Snake](docs/snake.png)
+
 ## Getting Started
 
-After cloning the repository, make sure to run `yarn install` to download all required dependencies.
+### Clone the Repository
 
--   Create a new Firebase project
--   In the Project Overview, add an app for the web and copy the Firebase SDK configuration
--   In the Authentication section, under 'Sign-in method', enable Google sign in
--   Paste it inside the `.env` files
-    -   Note: you can use different Firebase projects for production, development and testing, by using the `.env.production.local`, the `.env.development.local`, and the `.env.test.local`. Otherwise you can just use `.env.local`
--   Create a TBA Read API Authentication Key and put it as `REACT_APP_TBA_AUTH_KEY` in the `.env` file
+-   Make sure you have Git installed.
+-   Run `git clone https://github.com/miscar/scouting`.
 
-Your `.env` file should look like so:
+### Install the Dependencies
 
-```shell
+-   Scouting requires [NodeJS](https://nodejs.org/en/download) and [Yarn](https://yarnpkg.com/lang/en/docs/install) installed. If you don't have them yet, please install them before continuing.
+-   Run `yarn install` inside the scouting directory (if you've just cloned, you need to run `cd scouting`).
+-   Create a `.env.local` file and paste the following inside:
+
+```
 REACT_APP_API_KEY="XYZ"
 REACT_APP_AUTH_DOMAIN="XYZ"
 REACT_APP_PROJECT_ID="XYZ"
@@ -25,12 +41,35 @@ REACT_APP_APP_ID="XYZ"
 REACT_APP_TBA_AUTH_KEY="XYZ"
 ```
 
-Then, connect Firebase to your computer by running:
+### Create a Firebase Project
 
--   `yarn run firebase login`
--   `yarn run firebase use --add`
+-   Go to the [Firebase Console](https://console.firebase.google.com) and click "Add Project".
+-   Give it some proper name. You can enable or disable Google Analytics, it is not required for Scouting.
+-   After your project is created, click the "Web" icon to register the web app.
 
-Try deploying the Firestore rules and the project to Firebase Hosting by running `yarn deploy`
+![Create Web App in Firebase](docs/create_web_app_in_firebase.png)
+
+-   Give it some proper name and **enable** Firebase Hosting for the app!
+-   Copy the resulting API Key, Auth Domain, Project ID, Storage Bucket, Messaging Sender ID and App ID to the `.env.local` file instead of `XYZ`.
+-   Open Firestore and click "Create database". You can select "Start out in production mode" because the correct Firestore Rules will be uploaded from the local project (Notice `firestore.rules`)
+
+![Create Firestore](docs/create_firestore.png)
+
+-   Click "Start collection" and give it the ID "admin". As the Document ID, enter "version" and add the field "version" of type string with the value "1.0.0". You can update this value whenever a new update arrives for Scouting to send notifications to users so they update.
+-   Inside the "admin" collection click "Add document" and give it the ID "schema". It will need fields similar to the following:
+
+![Schema](docs/schema.png)
+
+### Create a TBA Authentication Key
+
+-   Inside your [Account Page](https://www.thebluealliance.com/account), under "Read API Keys", choose some description (e.g. "Scouting") and click "Add New Key".
+-   Copy the value under "X-TBA-Auth-Key" into `.env.local` in the `REACT_APP_TBA_AUTH_KEY`.
+
+### Final Deployment
+
+-   Inside the `scouting` directory, run `yarn run firebase login` to sign in with Google and then `yarn run firebase use --add` to select the project you've just created.
+-   Run `yarn deploy`.
+-   You're done! You should see the live link of your very own Scouting instance.
 
 ## Customizing
 
