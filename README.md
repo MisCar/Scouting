@@ -1,6 +1,8 @@
 # MisCar Scouting
 
-Scouting is a React website and PWA for scouting teams at FRC competitions.
+Scouting is a React website and PWA for scouting teams at FRC competitions. It allows you to have a group of people scouting teams and send their scouts to a central server on Firebase.
+
+Scouting is modular and you can pick your own criteria and sections - you can use the usual Autonomous/TeleOperated/Endgame, or an additional Extra section - however you'd like. You can pick from any of the available widgets - a boolean input (toggle), a counter and a timer. Additional widgets are simple to implement, so feel free to send a PR!
 
 ## Features
 
