@@ -81,3 +81,10 @@ REACT_APP_TBA_AUTH_KEY="XYZ"
     -   You can change the custom colors in [the tailwind configuration](./tailwind.config.js)
     -   You can change the font family by swapping the Google Fonts import in [the index](./public/index.html) and the [CSS](./src/index.css)
     -   You can set `REACT_APP_DEFAULT_LANGUAGE` in the `.env` files to one of the supported languages to set the initial user language. We currently support Hebrew ("he") and English ("en")
+
+## Roadmap
+
+-   [ ] Use css/sass instead of tailwindcss to improve speed
+-   [ ] Separate UI from business logic
+-   [ ] Create a custom backend as a Firebase alternative
+-   [ ] Add Simon minigame
