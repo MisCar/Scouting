@@ -22,6 +22,8 @@ Scouting is modular and you can pick your own criteria and sections - you can us
 
 ## Getting Started
 
+For automatic setup, run the `setup.py`. Keep in mind, you'll still need to create a schema, enable Firestore and Google Sign-in in Firebase, but most of the work should be done automatically.
+
 ### Clone the Repository
 
 -   Make sure you have Git installed.

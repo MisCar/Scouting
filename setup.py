@@ -44,3 +44,9 @@ REACT_APP_APP_ID="{output['appId']}"
 REACT_APP_TBA_AUTH_KEY="{tba}"
 """.strip()
 )
+print(
+    f"I did everything I could! Now you need to go to https://console.firebase.google.com/project/{id}/firestore and click 'Create database'"
+)
+print(
+    f"Also, you need to go to https://console.firebase.google.com/project/{id}/authentication, click 'Get started' and enable Google sign-in"
+)
