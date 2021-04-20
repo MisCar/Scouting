@@ -1,11 +1,25 @@
-# MisCar Scouting
+<h1 align="center">
+    Scouting
+    <br />
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg">
+</h1>
 
-Scouting is a React website and PWA for scouting teams at FRC competitions. It allows you to have a group of people scouting teams and send their scouts to a central server on Firebase.
+<h4 align="center">
+    A website and PWA for scouting teams at FRC competitions built with <a href="https://github.com/facebook/react">React</a> and <a href="https://firebase.google.com">Firebase</a>
+</h4>
 
-Scouting is modular and you can pick your own criteria and sections - you can use the usual Autonomous/TeleOperated/Endgame, or an additional Extra section - however you'd like. You can pick from any of the available widgets - a boolean input (toggle), a counter and a timer. Additional widgets are simple to implement, so feel free to send a PR!
+<p align="center">
+    <a href="#features">Features</a>
+    &middot
+    <a href="#getting-started">Getting Started</a>
+    &middot
+    <a href="#customizing">Customizing</a>
+</p>
 
 ## Features
 
+-   Create your own criteria and data to track
 -   Retain values between phone or app restarts using local storage
 -   Update match scouts and protect against duplicates in Firestore
 -   Dark mode (don't worry, light mode is available)
@@ -22,7 +36,13 @@ Scouting is modular and you can pick your own criteria and sections - you can us
 
 ## Getting Started
 
-For automatic setup, run the `setup.py`. Keep in mind, you'll still need to create a schema, enable Firestore and Google Sign-in in Firebase, but most of the work should be done automatically.
+For automatic setup, run the `setup.py`. After running the setup you need to do the following:
+
+-   Enable Google Login in the Firebase project
+-   Create Firestore in the Firebase project
+-   [Create a schema](#creating-a-schema)
+
+## Manual Setup
 
 ### Clone the Repository
 
@@ -59,15 +79,19 @@ REACT_APP_TBA_AUTH_KEY="XYZ"
 
 ![Create Firestore](docs/create_firestore.png)
 
--   Click "Start collection" and give it the ID "admin". As the Document ID, enter "version" and add the field "version" of type string with the value "1.0.0". You can update this value whenever a new update arrives for Scouting to send notifications to users so they update.
--   Inside the "admin" collection click "Add document" and give it the ID "schema". It will need fields similar to the following:
-
-![Schema](docs/schema.png)
+-   Click "Start collection" and give it the ID "admin". As the Document ID, enter "version" and add the field "version" of type string with the -value "1.0.0". You can update this value whenever a new update arrives for Scouting to send notifications to users so they update.
+-   Follow the instructions on [Creating a schema](#creating-a-schema)
 
 ### Create a TBA Authentication Key
 
 -   Inside your [Account Page](https://www.thebluealliance.com/account), under "Read API Keys", choose some description (e.g. "Scouting") and click "Add New Key".
 -   Copy the value under "X-TBA-Auth-Key" into `.env.local` in the `REACT_APP_TBA_AUTH_KEY`.
+
+## Creating A Schema
+
+Inside the "admin" collection click "Add document" and give it the ID "schema". It will need fields similar to the following:
+
+![Schema](docs/schema.png)
 
 ### Final Deployment
 
@@ -90,3 +114,6 @@ REACT_APP_TBA_AUTH_KEY="XYZ"
 -   [ ] Separate UI from business logic
 -   [ ] Create a custom backend as a Firebase alternative
 -   [ ] Add Simon minigame
+
+## License
+MIT
