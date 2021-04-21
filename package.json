@@ -26,7 +26,9 @@
         "test": "craco test",
         "eject": "react-scripts eject",
         "predeploy": "yarn build",
-        "deploy": "firebase deploy",
+        "deploy": "node scripts/deploy.js",
+        "deploy:firebase": "firebase deploy",
+        "deploy:schema": "node scripts/deploy-schema.js",
         "format": "prettier -w src public"
     },
     "eslintConfig": {
