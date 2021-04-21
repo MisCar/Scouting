@@ -26,8 +26,7 @@
         "test": "craco test",
         "eject": "react-scripts eject",
         "predeploy": "yarn build",
-        "deploy": "node scripts/deploy.js",
-        "deploy:firebase": "firebase deploy",
+        "deploy": "firebase deploy",
         "deploy:schema": "node scripts/deploy-schema.js",
         "format": "prettier -w src public"
     },

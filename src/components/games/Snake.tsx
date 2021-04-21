@@ -26,10 +26,10 @@ const Snake: React.FC = () => {
         direction === Direction.Up
             ? 0
             : direction === Direction.Right
-            ? 90
-            : direction === Direction.Left
-            ? 270
-            : 180
+                ? 90
+                : direction === Direction.Left
+                    ? 270
+                    : 180
 
     const attemptToSetDirection = (d: Direction) => {
         if (d !== -direction) setDirection(d)
@@ -82,7 +82,7 @@ const Snake: React.FC = () => {
                                         key={`Snake Row ${r} Column ${c}`}
                                     >
                                         <img
-                                            src="/food.jpg"
+                                            src="/food.png"
                                             alt="head"
                                             className="w-full h-full"
                                         />

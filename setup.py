@@ -141,3 +141,5 @@ driver.quit()
 
 print("Done! Running the final deployment.")
 system("yarn deploy")
+print("Deploying starter schema")
+system("yarn deploy:schema")
