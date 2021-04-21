@@ -1,10 +1,21 @@
 from os import system
 from sys import platform
+
+dependencies = ["requests", "selenium", "chromedriver-binary-auto"]
+print("Installing python setup dependencies: " + " ".join(dependencies))
+python = "py -3" if platform == "win32" else "python3"
+for dependency in dependencies:
+    system(python + " -m pip install " + dependency)
+
 from subprocess import Popen, PIPE
 from random import randint
 from json import loads
-from requests import get
 from time import sleep
+from requests import get
+import chromedriver_binary
+from selenium.webdriver import Chrome
+from selenium.webdriver.support.ui import Select
+
 
 print("Welcome to MisCar Scouting Automatic Setup!")
 
@@ -22,12 +33,13 @@ if system("yarn --version") != 0:
     if system("node --version") != 0:
         if platform == "win32":
             print("Node not found. Would you like to install it?")
-            node = get(
-                "https://nodejs.org/dist/v14.16.1/node-v14.16.1-x86.msi",
-                allow_redirects=True,
-            ).content
-            open("node-installer.msi", "wb").write(node)
-            system("start node-installer.msi")
+            if confirm():
+                node = get(
+                    "https://nodejs.org/dist/v14.16.1/node-v14.16.1-x86.msi",
+                    allow_redirects=True,
+                ).content
+                open("node-installer.msi", "wb").write(node)
+                system("start node-installer.msi")
     system("npm i -g yarn")
 
 print("Installing dependencies...")
@@ -76,9 +88,6 @@ content = (
     )
 )
 open("firestore.rules", "w").write(content)
-
-from selenium.webdriver import Chrome
-from selenium.webdriver.support.ui import Select
 
 driver = Chrome()
 driver.get(f"https://console.firebase.google.com/project/{id}/firestore")
