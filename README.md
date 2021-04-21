@@ -60,16 +60,54 @@ It should be enough to get going.
     -   You can change the font family by swapping the Google Fonts import in [the index](./public/index.html) and the [CSS](./src/index.css)
     -   You can set `REACT_APP_DEFAULT_LANGUAGE` in the `.env` files to one of the supported languages to set the initial user language. We currently support Hebrew ("he") and English ("en")
 
-### Create a TBA Authentication Key
+### Enable TBA Team Suggestions
 
 -   Inside your [Account Page](https://www.thebluealliance.com/account), under "Read API Keys", choose some description (e.g. "Scouting") and click "Add New Key".
 -   Copy the value under "X-TBA-Auth-Key" into `.env.local` in the `REACT_APP_TBA_AUTH_KEY`.
 
-## Creating A Schema
+## Changing the Schema
 
-Inside the "admin" collection click "Add document" and give it the ID "schema". It will need fields similar to the following:
+Edit the `schema.json` file and change it to match your own criteria.
+It is pretty self-explanatory:
 
-![Schema](docs/schema.png)
+```json
+{
+    "autonomous": {
+        "prefix": "Autonomous",
+        "title": "Autonomous",
+        "widgets": [
+            {
+                "key": "Passed Line",
+                "label": "Passed Line",
+                "widget": "Boolean"
+            },
+            {
+                "key": "Points Scored",
+                "label": "Points Scored",
+                "widget": "Counter"
+            },
+            {
+                "key": "Started",
+                "label": "Started At",
+                "widget": "Timer"
+            }
+        ]
+    },
+    "teleoperated": {
+        "prefix": "TeleOperated",
+        "title": "TeleOperated",
+        "widgets": [
+            {
+                "key": "Started",
+                "label": "Started At",
+                "widget": "Timer"
+            }
+        ]
+    }
+}
+```
+
+When you're done, run `yarn deploy` to push the changes to your users. You may also want to go to the Firebase website, and alter the version in `admin/version` so your users know to update.
 
 ## License
 
