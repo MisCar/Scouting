@@ -21,31 +21,50 @@
 
 ## Features
 
--   Create your own criteria and data to track
--   Retain values between phone or app restarts using local storage
--   Update match scouts and prevent duplicates in Firestore
--   Multiple languages
+<h4 align="center">
+    Create your own criteria and data to track    
+</h4>
+<h4 align="center">
+    Retain values between phone or app restarts using local storage
+</h4>
+<h4 align="center">
+    Update match scouts and prevent duplicates in Firestore
+</h4>
+<h4 align="center">
+    Multiple languages
+</h4>
+<p align="center">
+    <img src="docs/languages.gif" alt="Multi language" width="250" />
+</p>
 
-<img align="center" src="docs/languages.gif" alt="Multi language" width="250" />
+<h4 align="center">
+    Dark mode (and light mode)
+</h4>
 
--   Dark mode (and light mode)
+<p align="center">
+    <img src="docs/main.png" alt="Dark mode" width="250" />
+</p>
 
-<img align="center" src="docs/main.png" alt="Dark mode" width="250" />
+<h4 align="center">
+    Fetch match teams from The Blue Alliance
+</h4>
 
--   Fetch match teams from The Blue Alliance
+<p align="center">
+    <img src="docs/teams.png" alt="TBA teams" width="250" />
+</p>
 
-<img align="center" src="docs/teams.png" alt="TBA teams" width="250" />
+<h4 align="center">
+    Minigames (with leaderboards!) in case of delays
+</h4>
 
--   Minigames in case of delays
-
-<img align="center" src="docs/snake.png" alt="Snake" width="250" />
+<p align="center">
+    <img src="docs/snake.png" alt="Snake" width="250" />
+</p>
 
 ## Getting Started
 
 For automatic setup, run the `setup.py`. After running the setup you need to do the following:
 
--   Enable Google Login in the Firebase project
--   Create Firestore in the Firebase project
 -   [Create a schema](#creating-a-schema)
 
 ## Manual Setup
