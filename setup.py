@@ -44,6 +44,19 @@ REACT_APP_APP_ID="{output['appId']}"
 REACT_APP_TBA_AUTH_KEY="{tba}"
 """.strip()
 )
+email = input(
+    "Please enter your team's domain (e.g. miscar1574.org if your team's emails look like programming@miscar1574.org): "
+).replace(".", "[.]")
+content = (
+    open("firestore.rules", "r")
+    .read()
+    .replace(
+        r'request.auth.token.email.matches(".*@miscar1574[.]org")',
+        f'request.auth.token.email.matches(".*@{email}")',
+    )
+)
+
+
 print(
     f"I did everything I could! Now you need to go to https://console.firebase.google.com/project/{id}/firestore and click 'Create database'"
 )

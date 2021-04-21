@@ -1,4 +1,6 @@
 <h1 align="center">
+    <img src="docs/logo.png" width="218.5" height="189.5">
+    <br />
     Scouting
     <br />
     <img src="https://img.shields.io/badge/license-MIT-blue.svg">
@@ -6,7 +8,7 @@
 </h1>
 
 <h4 align="center">
-    A website and PWA for scouting teams at FRC competitions built with <a href="https://github.com/facebook/react">React</a> and <a href="https://firebase.google.com">Firebase</a>
+    A website and PWA for scouting teams at FRC competitions built with <a href="https://firebase.google.com">Firebase</a>
 </h4>
 
 <p align="center">
@@ -93,6 +95,17 @@ Inside the "admin" collection click "Add document" and give it the ID "schema". 
 
 ![Schema](docs/schema.png)
 
+### Specifying Domain
+
+Change the line `request.auth.token.email.matches(".*@miscar1574[.]org");` inside `firestore.rules` to match your team's address.
+If you don't have an adress, you may remove the statement from the `if` block like so:
+```
+function isValidUser(request) {
+    return request.auth.uid != null;
+}
+```
+However, any user signed up to your Firebase project will be able to see the schema and scout for you.
+
 ### Final Deployment
 
 -   Inside the `scouting` directory, run `yarn run firebase login` to sign in with Google and then `yarn run firebase use --add` to select the project you've just created.
@@ -116,4 +129,5 @@ Inside the "admin" collection click "Add document" and give it the ID "schema". 
 -   [ ] Add Simon minigame
 
 ## License
+
 MIT
