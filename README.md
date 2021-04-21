@@ -8,7 +8,7 @@
 </h1>
 
 <h4 align="center">
-    A website and PWA for scouting teams at FRC competitions built with <a href="https://firebase.google.com">Firebase</a>
+    A website and PWA for scouting teams at FRC competitions built with<a href="https://tailwindcss.com">Tailwind</a>, <a href="https://reactjs.org">React</a> and <a href="https://firebase.google.com">Firebase</a>
 </h4>
 
 <p align="center">
@@ -120,13 +120,6 @@ However, any user signed up to your Firebase project will be able to see the sch
     -   You can change the custom colors in [the tailwind configuration](./tailwind.config.js)
     -   You can change the font family by swapping the Google Fonts import in [the index](./public/index.html) and the [CSS](./src/index.css)
     -   You can set `REACT_APP_DEFAULT_LANGUAGE` in the `.env` files to one of the supported languages to set the initial user language. We currently support Hebrew ("he") and English ("en")
-
-## Roadmap
-
--   [ ] Use css/sass instead of tailwindcss to improve speed
--   [ ] Separate UI from business logic
--   [ ] Create a custom backend as a Firebase alternative
--   [ ] Add Simon minigame
 
 ## License
 
