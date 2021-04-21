@@ -23,18 +23,22 @@
 
 -   Create your own criteria and data to track
 -   Retain values between phone or app restarts using local storage
--   Update match scouts and protect against duplicates in Firestore
--   Dark mode (don't worry, light mode is available)
+-   Update match scouts and prevent duplicates in Firestore
+-   Multiple languages
 
-<img src="docs/main.png" alt="Dark mode" width="250" />
+<img align="center" src="docs/languages.gif" alt="Multi language" width="250" />
+
+-   Dark mode (and light mode)
+
+<img align="center" src="docs/main.png" alt="Dark mode" width="250" />
 
 -   Fetch match teams from The Blue Alliance
 
-<img src="docs/teams.png" alt="TBA teams" width="250" />
+<img align="center" src="docs/teams.png" alt="TBA teams" width="250" />
 
 -   Minigames in case of delays
 
-<img src="docs/snake.png" alt="Snake" width="250" />
+<img align="center" src="docs/snake.png" alt="Snake" width="250" />
 
 ## Getting Started
 
