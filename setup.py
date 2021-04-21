@@ -1,14 +1,34 @@
 from os import system
+from sys import platform
 from subprocess import Popen, PIPE
 from random import randint
 from json import loads
+from requests import get
+from time import sleep
 
 print("Welcome to MisCar Scouting Automatic Setup!")
 
+
+def confirm():
+    i = input("Yes/No: ")
+    if len(i) == 0:
+        return True
+    return i.lower().startswith("y")
+
+
 print("Making sure yarn is available...")
 if system("yarn --version") != 0:
-    print("Invalid yarn installation")
-    exit(-1)
+    print("Yarn not found - checking for nodejs...")
+    if system("node --version") != 0:
+        if platform == "win32":
+            print("Node not found. Would you like to install it?")
+            node = get(
+                "https://nodejs.org/dist/v14.16.1/node-v14.16.1-x86.msi",
+                allow_redirects=True,
+            ).content
+            open("node-installer.msi", "wb").write(node)
+            system("start node-installer.msi")
+    system("npm i -g yarn")
 
 print("Installing dependencies...")
 system("yarn install")
@@ -55,11 +75,69 @@ content = (
         f'request.auth.token.email.matches(".*@{email}")',
     )
 )
+open("firestore.rules", "w").write(content)
 
+from selenium.webdriver import Chrome
+from selenium.webdriver.support.ui import Select
 
-print(
-    f"I did everything I could! Now you need to go to https://console.firebase.google.com/project/{id}/firestore and click 'Create database'"
-)
-print(
-    f"Also, you need to go to https://console.firebase.google.com/project/{id}/authentication, click 'Get started' and enable Google sign-in"
-)
+driver = Chrome()
+driver.get(f"https://console.firebase.google.com/project/{id}/firestore")
+
+found = False
+while not found:
+    sleep(2)
+    for button in driver.find_elements_by_tag_name("button"):
+        try:
+            if "Create database" in button.text:
+                button.click()
+                sleep(2)
+                driver.find_element_by_class_name("next").click()
+                sleep(2)
+                driver.find_element_by_class_name("enable").click()
+                sleep(40)
+                found = True
+                break
+        except:
+            continue
+
+driver.get(f"https://console.firebase.google.com/project/{id}/authentication")
+
+found = False
+while not found:
+    for button in driver.find_elements_by_tag_name("button"):
+        try:
+            if "Get started" in button.text:
+                button.click()
+                found = True
+                break
+        except:
+            continue
+
+sleep(5)
+
+for row in driver.find_elements_by_tag_name("mat-row"):
+    if "Google" in row.text:
+        row.click()
+
+sleep(2)
+
+driver.find_element_by_tag_name("mat-slide-toggle").click()
+sleep(2)
+for select in driver.find_elements_by_tag_name("mat-select"):
+    if "Not configured" in select.text:
+        select.click()
+        break
+sleep(2)
+driver.find_element_by_tag_name("mat-option").click()
+sleep(2)
+for button in driver.find_elements_by_tag_name("button"):
+    if "Save" in button.text:
+        button.click()
+        break
+
+sleep(10)
+
+driver.quit()
+
+print("Done! Running the final deployment.")
+system("yarn deploy")
