@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="docs/logo.png" width="218.5" height="189.5">
+    <img src="docs/logo.png" width="218.5">
     <br />
     Scouting
     <br />
