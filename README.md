@@ -38,19 +38,11 @@
 </p>
 
 <h4 align="center">
-    Dark mode (and light mode)
-</h4>
-
-<p align="center">
-    <img src="docs/main.png" alt="Dark mode" width="250" />
-</p>
-
-<h4 align="center">
     Fetch match teams from The Blue Alliance
 </h4>
 
 <p align="center">
-    <img src="docs/teams.png" alt="TBA teams" width="250" />
+    <img src="docs/tba.gif" alt="TBA teams" width="250" />
 </p>
 
 <h4 align="center">
@@ -58,7 +50,7 @@
 </h4>
 
 <p align="center">
-    <img src="docs/snake.png" alt="Snake" width="250" />
+    <img src="docs/games.gif" alt="Snake" width="250" />
 </p>
 
 ## Getting Started
