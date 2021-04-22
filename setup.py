@@ -1,7 +1,7 @@
 from os import system
 from sys import platform
 
-dependencies = ["requests", "selenium", "chromedriver-binary-auto"]
+dependencies = ["requests", "selenium", "chromedriver-py"]
 print("Installing python setup dependencies: " + " ".join(dependencies))
 python = "py -3" if platform == "win32" else "python3"
 for dependency in dependencies:
@@ -12,9 +12,9 @@ from random import randint
 from json import loads
 from time import sleep
 from requests import get
-import chromedriver_binary
+from chromedriver_py import binary_path
 from selenium.webdriver import Chrome
-from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import SessionNotCreatedExecption
 
 
 print("Welcome to MisCar Scouting Automatic Setup!")
@@ -44,6 +44,8 @@ if system("node --version") != 0:
             exit(-1)
 
 system("npm i -g yarn")
+print("Making sure npm is up to date...")
+system("npm i -g npm")
 print("Installing dependencies...")
 system("npm exec yarn install")
 
@@ -55,15 +57,13 @@ id = f"scouting-{randint(1574, 157415741574)}"
 system(f"npm exec yarn run firebase projects:create --display-name {id} {id}")
 system(f"npm exec yarn run firebase use {id}")
 
+system("npm exec yarn run firebase apps:create WEB Scouting")
+
 output = str(
     Popen(
-        "npm exec yarn run firebase apps:create WEB Scouting", shell=True, stdout=PIPE
+        "npm exec yarn run firebase apps:sdkconfig WEB", shell=True, stdout=PIPE
     ).stdout.read()
 )
-output = output[output.index("firebase apps:sdkconfig WEB") :]
-output = output[: output.index("\\n")]
-
-output = str(Popen("yarn run " + output, shell=True, stdout=PIPE).stdout.read())
 output = output[output.index("{") : output.index("}") + 1].replace("\\n", "")
 output = loads(output)
 tba = input("Please enter your TBA Authentication Key: ")
@@ -91,7 +91,17 @@ content = (
 )
 open("firestore.rules", "w").write(content)
 
-driver = Chrome()
+driver = None
+try:
+    driver = Chrome(executable_path=binary_path)
+except SessionNotStartedException as e:
+    e = str(e)
+    version = e[e.index("Current browser version is") :].split(" ")[4].split(".")[0]
+    system(python + f" -m pip install chromedriver_py=={version}.*")
+    from chromedriver_py import binary_path
+
+    driver = Chrome(executable_path=binary_path)
+
 driver.get(f"https://console.firebase.google.com/project/{id}/firestore")
 
 found = False
@@ -143,8 +153,13 @@ driver.find_element_by_tag_name("mat-option").click()
 sleep(2)
 for button in driver.find_elements_by_tag_name("button"):
     if "Save" in button.text:
-        button.click()
-        break
+        done = False
+        while not done:
+            try:
+                button.click()
+                done = True
+            except:
+                continue
 
 sleep(10)
 
