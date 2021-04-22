@@ -27,35 +27,37 @@ def confirm():
     return i.lower().startswith("y")
 
 
-print("Making sure yarn is available...")
-if system("yarn --version") != 0:
-    print("Yarn not found - checking for nodejs...")
-    if system("node --version") != 0:
-        if platform == "win32":
-            print("Node not found. Would you like to install it?")
-            if confirm():
-                node = get(
-                    "https://nodejs.org/dist/v14.16.1/node-v14.16.1-x86.msi",
-                    allow_redirects=True,
-                ).content
-                open("node-installer.msi", "wb").write(node)
-                system("start node-installer.msi")
-    system("npm i -g yarn")
+if system("node --version") != 0:
+    if platform == "win32":
+        print("Node not found. Would you like to install it?")
+        if confirm():
+            node = get(
+                "https://nodejs.org/dist/v14.16.1/node-v14.16.1-x86.msi",
+                allow_redirects=True,
+            ).content
+            open("node-installer.msi", "wb").write(node)
+            system("start node-installer.msi")
+            print(
+                "Please run this script again after Node is installed. Press enter to exit..."
+            )
+            input()
+            exit(-1)
 
+system("npm i -g yarn")
 print("Installing dependencies...")
-system("yarn install")
+system("npm exec yarn install")
 
 print("Logging in to Firebase... Please sign in in your browser")
-system("yarn run firebase login")
+system("npm exec yarn run firebase login")
 
 print("Creating a new Firebase project...")
 id = f"scouting-{randint(1574, 157415741574)}"
-system(f"yarn run firebase projects:create --display-name {id} {id}")
-system(f"yarn run firebase use {id}")
+system(f"npm exec yarn run firebase projects:create --display-name {id} {id}")
+system(f"npm exec yarn run firebase use {id}")
 
 output = str(
     Popen(
-        "yarn run firebase apps:create WEB Scouting", shell=True, stdout=PIPE
+        "npm exec yarn run firebase apps:create WEB Scouting", shell=True, stdout=PIPE
     ).stdout.read()
 )
 output = output[output.index("firebase apps:sdkconfig WEB") :]
@@ -149,6 +151,6 @@ sleep(10)
 driver.quit()
 
 print("Done! Running the final deployment.")
-system("yarn deploy")
+system("npm exec yarn deploy")
 print("Deploying starter schema")
-system("yarn deploy:schema")
+system("npm exec yarn deploy:schema")
