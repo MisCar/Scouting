@@ -94,7 +94,7 @@ open("firestore.rules", "w").write(content)
 driver = None
 try:
     driver = Chrome(executable_path=binary_path)
-except SessionNotStartedException as e:
+except SessionNotCreatedException as e:
     e = str(e)
     version = e[e.index("Current browser version is") :].split(" ")[4].split(".")[0]
     system(python + f" -m pip install chromedriver_py=={version}.*")
