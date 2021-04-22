@@ -72,38 +72,40 @@ It is pretty self-explanatory:
 
 ```json
 {
-    "autonomous": {
-        "prefix": "Autonomous",
-        "title": "Autonomous",
-        "widgets": [
-            {
-                "key": "Passed Line",
-                "label": "Passed Line",
-                "widget": "Boolean"
-            },
-            {
-                "key": "Points Scored",
-                "label": "Points Scored",
-                "widget": "Counter"
-            },
-            {
-                "key": "Started",
-                "label": "Started At",
-                "widget": "Timer"
-            }
-        ]
-    },
-    "teleoperated": {
-        "prefix": "TeleOperated",
-        "title": "TeleOperated",
-        "widgets": [
-            {
-                "key": "Started",
-                "label": "Started At",
-                "widget": "Timer"
-            }
-        ]
-    }
+    "sections": [
+        {
+            "prefix": "Autonomous",
+            "title": "Autonomous",
+            "widgets": [
+                {
+                    "key": "Passed Line",
+                    "label": "Passed Line",
+                    "widget": "Boolean"
+                },
+                {
+                    "key": "Points Scored",
+                    "label": "Points Scored",
+                    "widget": "Counter"
+                },
+                {
+                    "key": "Started",
+                    "label": "Started At",
+                    "widget": "Timer"
+                }
+            ]
+        },
+        {
+            "prefix": "TeleOperated",
+            "title": "TeleOperated",
+            "widgets": [
+                {
+                    "key": "Started",
+                    "label": "Started At",
+                    "widget": "Timer"
+                }
+            ]
+        }
+    ]
 }
 ```
 
