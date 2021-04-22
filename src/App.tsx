@@ -29,18 +29,30 @@ const App: React.FC = () => {
     }
 
     useEffect(() => {
-        firebase
-            .firestore()
-            .doc("/admin/version")
-            .get()
-            .then((result) => {
-                const latest = result.data()?.version
-                if (latest !== null && latest > VERSION)
-                    window.alert(
-                        `You're using version ${VERSION} but version ${latest} is available. Please update!`
+        const checkVersion = () => {
+            firebase
+                .firestore()
+                .doc("/admin/version")
+                .get()
+                .then((result) => {
+                    localStorage.setItem(
+                        "Last Version Check",
+                        new Date().toISOString()
                     )
-            })
-            .catch((_) => {})
+                    const latest = result.data()?.version
+                    if (latest !== null && latest > VERSION)
+                        window.alert(
+                            `You're using version ${VERSION} but version ${latest} is available. Please update!`
+                        )
+                })
+                .catch((_) => {})
+        }
+
+        const last = localStorage.getItem("Last Version Check")
+        if (last === null) checkVersion()
+        // More than a day
+        else if (new Date().getSeconds() - new Date(last).getSeconds() > 86400)
+            checkVersion()
     }, [])
 
     return (
