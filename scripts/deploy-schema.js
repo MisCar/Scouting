@@ -1,11 +1,12 @@
 const firebase = require("firebase")
 const fs = require("fs")
 const dotenv = require("dotenv")
-const fs = require("fs")
 const { exec } = require("child_process")
 
 const rules = fs.readFileSync("firestore.rules")
-fs.writeFileSync("firestore.rules", `rules_version = '2';
+fs.writeFileSync(
+    "firestore.rules",
+    `rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
   	match /admin/schema {
@@ -17,9 +18,15 @@ service cloud.firestore {
     }
   }
 }
-`)
+`
+)
 exec("yarn run deploy:firebase --only firestore:rules", () => {
-    for (dot of [".env.local", ".env.development.local", ".env.test.local", ".env.production.local"]) {
+    for (dot of [
+        ".env.local",
+        ".env.development.local",
+        ".env.test.local",
+        ".env.production.local",
+    ]) {
         dotenv.config({ path: dot })
     }
 
@@ -34,7 +41,12 @@ exec("yarn run deploy:firebase --only firestore:rules", () => {
         })
     } else firebase.app()
 
-    firebase.firestore().doc("/admin/schema").set(JSON.parse(fs.readFileSync("schema.json", "utf8"))).then(() => console.log("Success")).catch(() => console.log("Failed"))
+    firebase
+        .firestore()
+        .doc("/admin/schema")
+        .set(JSON.parse(fs.readFileSync("schema.json", "utf8")))
+        .then(() => console.log("Success"))
+        .catch(() => console.log("Failed"))
     fs.writeFileSync("firestore.rules", rules)
     exec("yarn run deploy:firebase --only firestore:rules")
 })

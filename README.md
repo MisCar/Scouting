@@ -53,7 +53,7 @@ It should be enough to get going.
 ## Customizing
 
 -   If using this for your own team, you can change the following
-    -   Most importantly, play around with the `schema.json` file and run `yarn deploy` when you're satisfied with your criteria
+    -   Most importantly, play around with the `schema.json` file and run `yarn deploy:schema` when you're satisfied with your criteria
     -   Inside the [manifest](./public/manifest.json) you can change the theme and background colors as well as the icon
     -   You can also swap the `favicon.ico` and `icon.png` files in the [public](./public) directory
     -   You can change the custom colors in [the tailwind configuration](./tailwind.config.js)

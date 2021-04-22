@@ -9,7 +9,8 @@ interface Props {
 }
 
 const getMissing = (schema: Schema, language: Language): string => {
-    for (const card of Object.values(schema)) {
+    if (schema.sections === undefined) return ""
+    for (const card of schema.sections) {
         for (const widget of card.widgets) {
             const item = localStorage.getItem(card.prefix + " " + widget.key)
             if (item === null || item === "null")
@@ -54,15 +55,16 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
             Event: localStorage.getItem("Event Code")!.replaceAll('"', ""),
         }
 
-        for (const card of Object.values(schema)) {
-            submission[card.prefix] = {}
-            for (const widget of card.widgets) {
-                const item = localStorage.getItem(
-                    card.prefix + " " + widget.key
-                )
-                submission[card.prefix][widget.key] = JSON.parse(item!)
+        if (schema.sections !== undefined)
+            for (const card of schema.sections) {
+                submission[card.prefix] = {}
+                for (const widget of card.widgets) {
+                    const item = localStorage.getItem(
+                        card.prefix + " " + widget.key
+                    )
+                    submission[card.prefix][widget.key] = JSON.parse(item!)
+                }
             }
-        }
 
         return submission
     }
@@ -95,11 +97,12 @@ const SubmissionCard: React.FC<Props> = ({ schema }: Props) => {
     }
 
     const reset = () => {
-        Object.values(schema).forEach((card) => {
-            card.widgets.forEach((widget) => {
-                localStorage.removeItem(card.prefix + " " + widget.key)
+        if (schema.sections !== undefined)
+            schema.sections.forEach((card) => {
+                card.widgets.forEach((widget) => {
+                    localStorage.removeItem(card.prefix + " " + widget.key)
+                })
             })
-        })
 
         window.dispatchEvent(new Event("local-storage"))
     }

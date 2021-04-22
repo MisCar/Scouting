@@ -20,7 +20,7 @@ interface CardSchema {
 }
 
 export interface Schema {
-    [key: string]: CardSchema
+    sections?: CardSchema[]
 }
 
 interface Props {
@@ -29,24 +29,23 @@ interface Props {
 }
 
 const Form: React.FC<Props> = ({ schema, setSchema }: Props) => {
-    if (schema === {}) return <></>
-
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <InfoCard setSchema={setSchema} />
-            {Object.values(schema).map((card) => {
-                return (
-                    <Card
-                        title={card.title ?? "Untitled"}
-                        key={card.title + " Card"}
-                    >
-                        <CardWidgets
-                            prefix={card.prefix}
-                            widgets={card.widgets}
-                        />
-                    </Card>
-                )
-            })}
+            {schema.sections &&
+                schema.sections.map((card) => {
+                    return (
+                        <Card
+                            title={card.title ?? "Untitled"}
+                            key={card.title + " Card"}
+                        >
+                            <CardWidgets
+                                prefix={card.prefix}
+                                widgets={card.widgets}
+                            />
+                        </Card>
+                    )
+                })}
             <SubmissionCard schema={schema} />
             <GameCard />
         </div>

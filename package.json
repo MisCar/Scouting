@@ -27,6 +27,7 @@
         "eject": "react-scripts eject",
         "predeploy": "yarn build",
         "deploy": "firebase deploy",
+        "deploy:firebase": "firebase deploy",
         "deploy:schema": "node scripts/deploy-schema.js",
         "format": "prettier -w src public"
     },
@@ -57,7 +58,7 @@
         "tabWidth": 4
     },
     "devDependencies": {
-        "@tailwindcss/postcss7-compat": "^2.0.4",
+        "@tailwindcss/postcss7-compat": "npm:@tailwindcss/postcss7-compat",
         "@types/react-router-dom": "^5.1.7",
         "autoprefixer": "^9",
         "firebase-tools": "^9.8.0",
