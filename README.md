@@ -49,6 +49,7 @@
 
 For automatic setup, run the `setup.py`!
 It should be enough to get going.
+Manual setup steps are available [here](./docs/MANUAL.md).
 
 ## Customizing
 
