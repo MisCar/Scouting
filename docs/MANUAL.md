@@ -25,7 +25,7 @@ REACT_APP_TBA_AUTH_KEY="XYZ"
 
 -   Go to the [Firebase Console](https://console.firebase.google.com) and click "Add Project".
 -   Give it some proper name. You can enable or disable Google Analytics, it is not required for Scouting.
--   After your project is created, click the "eb" icon to register the web app.
+-   After your project is created, click the "Web" icon to register the web app.
 
 ![Create Web App in Firebase](./create_web_app_in_firebase.png)
 
