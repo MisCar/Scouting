@@ -18,7 +18,7 @@ code {
 }
 
 .button {
-    @apply outline-none focus:outline-none select-none;
+    @apply outline-none focus:outline-none select-none transition duration-500;
 }
 
 .button.primary {
