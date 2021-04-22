@@ -54,7 +54,7 @@ system("npm exec yarn run firebase login")
 
 print("Creating a new Firebase project...")
 id = f"scouting-{randint(1574, 157415741574)}"
-system(f"npm exec yarn run firebase projects:create --display-name {id} {id}")
+system(f"npm exec -- yarn run firebase projects:create --display-name {id} {id}")
 system(f"npm exec yarn run firebase use {id}")
 
 system("npm exec yarn run firebase apps:create WEB Scouting")
