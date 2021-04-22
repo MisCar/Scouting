@@ -14,7 +14,7 @@ from time import sleep
 from requests import get
 from chromedriver_py import binary_path
 from selenium.webdriver import Chrome
-from selenium.common.exceptions import SessionNotCreatedExecption
+from selenium.common.exceptions import SessionNotCreatedException
 
 
 print("Welcome to MisCar Scouting Automatic Setup!")
