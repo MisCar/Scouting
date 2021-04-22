@@ -3,7 +3,7 @@ const fs = require("fs")
 const dotenv = require("dotenv")
 const { exec } = require("child_process")
 
-const rules = fs.readFileSync("firestore.rules")
+const rules = fs.readFileSync("firestore.rules", "utf8")
 fs.writeFileSync(
     "firestore.rules",
     `rules_version = '2';

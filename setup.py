@@ -49,7 +49,7 @@ system("npm i -g npm")
 print("Installing dependencies...")
 system("npm exec yarn install")
 
-print("Logging in to Firebase... Please sign in in your browser")
+print("Logging in to Firebase...")
 system("npm exec yarn run firebase login")
 
 print("Creating a new Firebase project...")
@@ -66,7 +66,9 @@ output = str(
 )
 output = output[output.index("{") : output.index("}") + 1].replace("\\n", "")
 output = loads(output)
-tba = input("Please enter your TBA Authentication Key: ")
+tba = input(
+    "Please enter your TBA Authentication Key (Enter gibberish if you don't have one): "
+)
 open(".env.local", "w").write(
     f"""
 REACT_APP_API_KEY="{output['apiKey']}"
@@ -169,3 +171,10 @@ print("Done! Running the final deployment.")
 system("npm exec yarn deploy")
 print("Deploying starter schema")
 system("npm exec yarn deploy:schema")
+print(f"Your Scouting instance is available at https://{id}.web.app!")
+print(
+    "You may now wish to read the CUSTOMIZING and CHANGING THE SCHEMA sections of the README."
+)
+print(
+    "Also, if you haven't created a TBA Authentication Token yet, you may want to read the ENABLE TBA TEAM SUGGESTIONS section."
+)
