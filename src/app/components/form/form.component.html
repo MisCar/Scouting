@@ -1,0 +1,16 @@
+<mat-stepper orientation="vertical">
+  <mat-step *ngFor="let section of schema.sections">
+    <ng-template matStepLabel>{{ section.title }}</ng-template>
+    <ng-template matStepContent>
+      <div
+        *ngFor="let widget of section.widgets"
+        [ngSwitch]="widget.type"
+        class="widget-row"
+      >
+        <div class="label">{{ widget.label }}</div>
+        <div class="spacer"></div>
+        <app-counter *ngSwitchCase="'Counter'" [widget]="widget"></app-counter>
+      </div>
+    </ng-template>
+  </mat-step>
+</mat-stepper>

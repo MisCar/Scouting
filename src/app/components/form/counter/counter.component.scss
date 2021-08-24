@@ -1,0 +1,23 @@
+.value {
+  border-radius: 0;
+}
+
+.increment {
+  border-radius: 0 50px 50px 0;
+}
+
+.decrement {
+  border-radius: 50px 0 0 50px;
+}
+
+.increment,
+.decrement {
+  min-width: 40px;
+  max-width: 40px;
+  padding: 0 4px;
+}
+
+.value {
+  min-width: 50px;
+  max-width: 50px;
+}

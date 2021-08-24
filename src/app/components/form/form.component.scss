@@ -1,0 +1,13 @@
+.widget-row {
+  display: flex;
+  margin-top: 10px;
+
+  .label {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+}
