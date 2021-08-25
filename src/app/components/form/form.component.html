@@ -1,6 +1,6 @@
 <mat-card style="margin-bottom: 20px">
   <mat-card-title>Game</mat-card-title>
-  <div class="content">
+  <div class="content centered">
     <mat-form-field appearance="fill" class="input">
       <mat-label>Event Code</mat-label>
       <input matInput />
@@ -45,10 +45,10 @@
 </mat-card>
 <mat-card>
   <mat-card-title>Submission</mat-card-title>
-  <div class="content button-bar">
-    <button mat-stroked-button>Copy</button>
-    <button mat-stroked-button>Save</button>
-    <button mat-stroked-button>Send</button>
-    <button mat-stroked-button color="warn">Clear</button>
+  <div class="content centered button-bar">
+    <button mat-stroked-button (click)="copy()">Copy</button>
+    <button mat-stroked-button (click)="save()">Save</button>
+    <button mat-stroked-button (click)="send()">Send</button>
+    <button mat-stroked-button color="warn" (click)="clear()">Clear</button>
   </div>
 </mat-card>

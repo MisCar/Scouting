@@ -1,5 +1,7 @@
 import { WidgetInfo } from "app/models/schema.model"
 
+export const storagePrefix = "[Form] "
+
 export default abstract class Widget<T> {
   private key?: string
   private _value?: T
@@ -21,12 +23,12 @@ export default abstract class Widget<T> {
     }
   }
 
-  constructor(initial?: T) {
+  constructor(private initial?: T) {
     this.value = initial
   }
 
   protected initialize(info: WidgetInfo, prefix: string) {
-    this.key = prefix + " " + info.key
+    this.key = storagePrefix + prefix + " " + info.key
     const current = localStorage.getItem(this.key)
     if (current !== null) {
       this.update(current)
@@ -38,6 +40,10 @@ export default abstract class Widget<T> {
       if (this.key !== undefined && key === this.key) {
         this.update(newValue)
       }
+    })
+
+    addEventListener("formclear", () => {
+      this.value = this.initial
     })
   }
 }

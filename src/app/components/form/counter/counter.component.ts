@@ -15,7 +15,7 @@ export class CounterComponent extends Widget<number> implements OnInit {
   prefix?: string
 
   constructor() {
-    super()
+    super(0)
     this.value = 0
   }
 
