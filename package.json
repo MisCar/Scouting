@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "deploy": "ng deploy",
     "test": "ng test",
     "firebase:environment": "node scripts/firebase.js"
   },
@@ -22,6 +23,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@angular/service-worker": "~12.2.0",
     "firebase": "9.0.0-202171919375",
     "rxfire": "6.0.0-rc.0",
     "rxjs": "~6.6.0",

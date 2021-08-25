@@ -1,4 +1,4 @@
-<mat-card style="margin: 20px">
+<mat-card style="margin-bottom: 20px">
   <mat-card-title>Game</mat-card-title>
   <div class="content">
     <mat-form-field appearance="fill" class="input">
@@ -25,7 +25,7 @@
     </mat-form-field>
   </div>
 </mat-card>
-<mat-card *ngFor="let section of schema.sections" style="margin: 20px">
+<mat-card *ngFor="let section of schema.sections" style="margin-bottom: 20px">
   <mat-card-title>{{ section.title }}</mat-card-title>
   <div class="content">
     <div
@@ -43,7 +43,7 @@
     </div>
   </div>
 </mat-card>
-<mat-card style="margin: 20px">
+<mat-card>
   <mat-card-title>Submission</mat-card-title>
   <div class="content button-bar">
     <button mat-stroked-button>Copy</button>

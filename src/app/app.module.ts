@@ -21,7 +21,9 @@ import config from "../environments/firebase.json"
 import { FormComponent } from "./components/form/form.component"
 import { CounterComponent } from "./components/form/counter/counter.component"
 import { MatIconModule } from "@angular/material/icon"
-import { LongPressDirective } from "./directives/long-press.directive"
+import { LongPressDirective } from "./directives/long-press.directive";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [
@@ -45,6 +47,12 @@ import { LongPressDirective } from "./directives/long-press.directive"
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
