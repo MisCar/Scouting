@@ -10,7 +10,10 @@ import { provideFirestore, getFirestore } from "@angular/fire/firestore"
 import { provideAuth, getAuth } from "@angular/fire/auth"
 import { MatButtonModule } from "@angular/material/button"
 import { MatCardModule } from "@angular/material/card"
-import { MatStepperModule } from "@angular/material/stepper"
+import { MatTabsModule } from "@angular/material/tabs"
+import { MatFormFieldModule } from "@angular/material/form-field"
+import { MatInputModule } from "@angular/material/input"
+import { MatSelectModule } from "@angular/material/select"
 
 import { ReactiveFormsModule } from "@angular/forms"
 
@@ -37,8 +40,11 @@ import { LongPressDirective } from "./directives/long-press.directive"
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    MatStepperModule,
+    MatTabsModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

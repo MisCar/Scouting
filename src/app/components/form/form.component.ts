@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { Firestore, doc, onSnapshot } from "@angular/fire/firestore"
-import Schema from "src/app/interfaces/schema"
+import Schema from "app/models/schema.model"
 
 @Component({
   selector: "app-form",

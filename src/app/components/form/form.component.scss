@@ -1,6 +1,5 @@
 .widget-row {
   display: flex;
-  margin-top: 10px;
 
   .label {
     margin-top: auto;
@@ -10,4 +9,16 @@
   .spacer {
     flex-grow: 1;
   }
+}
+
+.content {
+  padding: 10px;
+
+  .widget-row:not(:last-child) {
+    padding-bottom: 10px;
+  }
+}
+
+.input:not(:last-child) {
+  margin-right: 20px;
 }

@@ -1,16 +1,54 @@
-<mat-stepper orientation="vertical">
-  <mat-step *ngFor="let section of schema.sections">
-    <ng-template matStepLabel>{{ section.title }}</ng-template>
-    <ng-template matStepContent>
-      <div
-        *ngFor="let widget of section.widgets"
-        [ngSwitch]="widget.type"
-        class="widget-row"
-      >
-        <div class="label">{{ widget.label }}</div>
-        <div class="spacer"></div>
-        <app-counter *ngSwitchCase="'Counter'" [widget]="widget"></app-counter>
-      </div>
-    </ng-template>
-  </mat-step>
-</mat-stepper>
+<mat-card style="margin: 20px">
+  <mat-card-title>Game</mat-card-title>
+  <div class="content">
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Event Code</mat-label>
+      <input matInput />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Stage</mat-label>
+      <mat-select>
+        <mat-option value="pr">Practice</mat-option>
+        <mat-option value="qm">Qualifications</mat-option>
+        <mat-option value="qf">Quarterfinals</mat-option>
+        <mat-option value="sf">Semifinals</mat-option>
+        <mat-option value="f">Finals</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Game Number</mat-label>
+      <input matInput type="number" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Team Number</mat-label>
+      <input matInput type="number" />
+    </mat-form-field>
+  </div>
+</mat-card>
+<mat-card *ngFor="let section of schema.sections" style="margin: 20px">
+  <mat-card-title>{{ section.title }}</mat-card-title>
+  <div class="content">
+    <div
+      *ngFor="let widget of section.widgets"
+      [ngSwitch]="widget.type"
+      class="widget-row"
+    >
+      <div class="label">{{ widget.label }}</div>
+      <div class="spacer"></div>
+      <app-counter
+        *ngSwitchCase="'Counter'"
+        [widget]="widget"
+        [prefix]="section.prefix"
+      ></app-counter>
+    </div>
+  </div>
+</mat-card>
+<mat-card style="margin: 20px">
+  <mat-card-title>Submission</mat-card-title>
+  <div class="content button-bar">
+    <button mat-stroked-button>Copy</button>
+    <button mat-stroked-button>Save</button>
+    <button mat-stroked-button>Send</button>
+    <button mat-stroked-button color="warn">Clear</button>
+  </div>
+</mat-card>

@@ -1,18 +1,21 @@
 import { Component, Input, OnInit } from "@angular/core"
-import { Widget } from "src/app/interfaces/schema"
+import { WidgetInfo } from "app/models/schema.model"
+import Widget from "app/utilities/widget"
 
 @Component({
   selector: "app-counter",
   templateUrl: "./counter.component.html",
   styleUrls: ["./counter.component.scss"],
 })
-export class CounterComponent implements OnInit {
+export class CounterComponent extends Widget<number> implements OnInit {
   @Input()
-  widget?: Widget
+  widget?: WidgetInfo
 
-  value: number
+  @Input()
+  prefix?: string
 
   constructor() {
+    super()
     this.value = 0
   }
 
@@ -21,12 +24,20 @@ export class CounterComponent implements OnInit {
   }
 
   increment() {
-    this.value++
+    if (this.value !== undefined) {
+      this.value++
+    }
   }
 
   decrement() {
-    this.value--
+    if (this.value !== undefined) {
+      this.value--
+    }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.widget !== undefined && this.prefix !== undefined) {
+      this.initialize(this.widget, this.prefix)
+    }
+  }
 }
