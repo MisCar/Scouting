@@ -40,6 +40,7 @@
         [widget]="widget"
         [prefix]="section.prefix"
       ></app-counter>
+      <app-text *ngSwitchCase="'Text'" [widget]="widget" [prefix]="section.prefix"></app-text>
     </div>
   </div>
 </mat-card>

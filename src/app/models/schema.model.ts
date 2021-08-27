@@ -1,7 +1,7 @@
 export interface WidgetInfo {
   key: string
   label: string
-  type: "Counter" | "Toggle" | "Timer"
+  type: "Counter" | "Toggle" | "Timer" | "Text"
 }
 
 export interface Section {

@@ -24,6 +24,7 @@ import { MatIconModule } from "@angular/material/icon"
 import { LongPressDirective } from "./directives/long-press.directive"
 import { ServiceWorkerModule } from "@angular/service-worker"
 import { environment } from "../environments/environment"
+import { TextComponent } from "./components/form/text/text.component"
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { environment } from "../environments/environment"
     FormComponent,
     CounterComponent,
     LongPressDirective,
+    TextComponent,
   ],
   imports: [
     BrowserModule,
