@@ -14,6 +14,7 @@ import { MatFormFieldModule } from "@angular/material/form-field"
 import { MatInputModule } from "@angular/material/input"
 import { MatSelectModule } from "@angular/material/select"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 
 import { ReactiveFormsModule } from "@angular/forms"
 
@@ -25,6 +26,7 @@ import { LongPressDirective } from "./directives/long-press.directive"
 import { ServiceWorkerModule } from "@angular/service-worker"
 import { environment } from "../environments/environment"
 import { TextComponent } from "./components/form/text/text.component"
+import { ToggleComponent } from "./components/form/toggle/toggle.component"
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { TextComponent } from "./components/form/text/text.component"
     CounterComponent,
     LongPressDirective,
     TextComponent,
+    ToggleComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { TextComponent } from "./components/form/text/text.component"
     MatInputModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
