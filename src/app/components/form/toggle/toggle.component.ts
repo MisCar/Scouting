@@ -16,8 +16,9 @@ export class ToggleComponent extends Widget<boolean> implements OnInit {
   prefix?: string
 
   constructor() {
-    super(false)
+    super()
     this.value = false
+    this.initial = this.value
   }
 
   changed(event: MatSlideToggleChange) {

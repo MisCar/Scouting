@@ -15,8 +15,9 @@ export class TextComponent extends Widget<string> implements OnInit {
   prefix?: string
 
   constructor() {
-    super("")
+    super()
     this.value = ""
+    this.initial = this.value
   }
 
   changed(event: Event): void {

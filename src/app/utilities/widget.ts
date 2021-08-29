@@ -4,6 +4,7 @@ export const storagePrefix = "[Form] "
 
 export default abstract class Widget<T> {
   private key?: string
+  private _initial?: T
   private _value?: T
 
   public get value(): T | undefined {
@@ -17,14 +18,18 @@ export default abstract class Widget<T> {
     }
   }
 
+  public get initial(): T | undefined {
+    return this._initial
+  }
+
+  public set initial(value: T | undefined) {
+    this._initial = value
+  }
+
   private update(value: string | null) {
     if (value !== null) {
       this.value = JSON.parse(value)
     }
-  }
-
-  constructor(private initial?: T) {
-    this.value = initial
   }
 
   protected initialize(info: WidgetInfo, prefix: string) {

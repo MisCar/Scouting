@@ -2,6 +2,8 @@ export interface WidgetInfo {
   key: string
   label: string
   type: "Counter" | "Toggle" | "Timer" | "Text"
+  min?: number
+  max?: number
 }
 
 export interface Section {

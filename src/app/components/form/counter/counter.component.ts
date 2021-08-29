@@ -15,22 +15,24 @@ export class CounterComponent extends Widget<number> implements OnInit {
   prefix?: string
 
   constructor() {
-    super(0)
-    this.value = 0
+    super()
   }
 
   reset() {
-    this.value = 0
+    this.value = this.widget?.min ?? 0
+    console.log(this.widget?.min)
   }
 
   increment() {
-    if (this.value !== undefined) {
+    const max = this.widget?.max
+    if (this.value !== undefined && (max === undefined || this.value < max)) {
       this.value++
     }
   }
 
   decrement() {
-    if (this.value !== undefined) {
+    const min = this.widget?.min
+    if (this.value !== undefined && (min === undefined || this.value > min)) {
       this.value--
     }
   }
@@ -38,6 +40,8 @@ export class CounterComponent extends Widget<number> implements OnInit {
   ngOnInit(): void {
     if (this.widget !== undefined && this.prefix !== undefined) {
       this.initialize(this.widget, this.prefix)
+      this.value = this.widget.min ?? 0
+      this.initial = this.value
     }
   }
 }

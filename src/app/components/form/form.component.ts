@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
   event = "event"
   level = "qm"
   game = 15
+  team = 1574
 
   constructor(private firestore: Firestore, private snack: MatSnackBar) {
     this.schema = {
@@ -56,7 +57,7 @@ export class FormComponent implements OnInit {
 
   send(): void {
     setDoc(
-      doc(this.firestore, `${this.event}/${this.level}${this.game}`),
+      doc(this.firestore, `${this.event}/${this.level}${this.game} ${this.team}`),
       this.getValues(),
       {
         merge: true,
