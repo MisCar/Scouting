@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, Input, ViewChild } from "@angular/core"
 import { Firestore, doc, onSnapshot, setDoc } from "@angular/fire/firestore"
 import Schema from "app/models/schema.model"
 import { storagePrefix } from "app/utilities/widget"
 import { MatSnackBar } from "@angular/material/snack-bar"
+import { MatSelect } from "@angular/material/select"
 
 interface Scout {
   [keyof: string]: {
@@ -17,10 +18,10 @@ interface Scout {
 })
 export class FormComponent implements OnInit {
   schema: Schema
-  event = "event"
-  level = "qm"
-  game = 15
-  team = 1574
+
+  event?: string
+  game?: number
+  team?: number
 
   constructor(private firestore: Firestore, private snack: MatSnackBar) {
     this.schema = {
@@ -30,6 +31,18 @@ export class FormComponent implements OnInit {
       this.schema = snapshot.data() as Schema
     })
   }
+
+  changedEvent(event: Event): void {
+    this.event = (event.target as HTMLInputElement).value
+  }
+  changedGame(event: Event): void {
+    this.game = Number((event.target as HTMLInputElement).value)
+  }
+  changedTeam(event: Event): void {
+    this.team = Number((event.target as HTMLInputElement).value)
+  }
+
+  @ViewChild("stage") level?: MatSelect
 
   ngOnInit(): void {}
 
@@ -57,7 +70,10 @@ export class FormComponent implements OnInit {
 
   send(): void {
     setDoc(
-      doc(this.firestore, `${this.event}/${this.level}${this.game} ${this.team}`),
+      doc(
+        this.firestore,
+        `${this.event}/${this.level?.value} ${this.game} ${this.team}`
+      ),
       this.getValues(),
       {
         merge: true,
