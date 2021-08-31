@@ -17,8 +17,9 @@ interface Scout {
   styleUrls: ["./form.component.scss"],
 })
 export class FormComponent implements OnInit {
-  schema: Schema
+  @ViewChild("stage") stage?: MatSelect
 
+  schema: Schema
   event?: string
   game?: number
   team?: number
@@ -41,8 +42,6 @@ export class FormComponent implements OnInit {
   changedTeam(event: Event): void {
     this.team = Number((event.target as HTMLInputElement).value)
   }
-
-  @ViewChild("stage") level?: MatSelect
 
   ngOnInit(): void {}
 
@@ -72,7 +71,7 @@ export class FormComponent implements OnInit {
     setDoc(
       doc(
         this.firestore,
-        `${this.event}/${this.level?.value} ${this.game} ${this.team}`
+        `${this.event}/${this.stage?.value} ${this.game} ${this.team}`
       ),
       this.getValues(),
       {

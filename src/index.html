@@ -3,8 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <title>Scouting</title>
+    <meta
+      name="description"
+      content="An open-source competition scouting application"
+    />
     <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -16,12 +23,24 @@
       rel="stylesheet"
     />
     <link rel="manifest" href="manifest.webmanifest" />
-    <meta name="theme-color" content="#1976d2" />
+    <meta name="theme-color" content="#7e0c2b" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="MisCar Scouting" />
+    <link rel="apple-touch-icon" href="/assets/icons/icon-ios.png" />
+    <script lang="js">
+      /* Fix iOS invisible keyboard issue (see https://stackoverflow.com/questions/55120331/white-panel-arrives-on-double-tap-from-bottom-in-pwa-in-standalone-mode) */
+      document
+        .querySelector("app-root")
+        .addEventListener("touchstart", (event) => {})
+    </script>
   </head>
   <body class="mat-typography">
     <app-root></app-root>
-    <noscript
-      >Please enable JavaScript to continue using this application.</noscript
-    >
+    <noscript>
+      Please enable JavaScript to continue using this application.
+    </noscript>
   </body>
 </html>

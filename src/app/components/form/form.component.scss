@@ -11,24 +11,19 @@
   }
 }
 
-mat-card {
+.content {
   display: flex;
   flex-direction: column;
-}
-
-.content {
-  padding: 10px;
+  padding: 10px 0;
 
   .widget-row:not(:last-child) {
     padding-bottom: 10px;
   }
-
-  &.centered {
-    margin-right: auto;
-    margin-left: auto;
-  }
 }
 
-.input:not(:last-child) {
-  margin-right: 20px;
+@media (max-width: 400px) {
+  .button-bar button {
+    padding: 0 10px;
+    min-width: 55px;
+  }
 }

@@ -64,11 +64,9 @@ $scouting-dark-theme: material.define-dark-theme(
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@media (prefers-color-scheme: light) {
-  @include material.all-component-themes($scouting-light-theme);
-}
+@include material.all-component-themes($scouting-light-theme);
 @media (prefers-color-scheme: dark) {
-  @include material.all-component-themes($scouting-dark-theme);
+  @include material.all-component-colors($scouting-dark-theme);
 
   body {
     background-color: #333;

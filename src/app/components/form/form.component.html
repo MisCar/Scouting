@@ -1,64 +1,68 @@
-<mat-card style="margin-bottom: 20px">
-  <mat-card-title>Game</mat-card-title>
-  <div class="content centered">
-    <mat-form-field appearance="fill" class="input">
-      <mat-label>Event Code</mat-label>
-      <input matInput (input)="changedEvent($event)" />
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="input">
-      <mat-label>Stage</mat-label>
-      <mat-select #stage>
-        <mat-option value="pr">Practice</mat-option>
-        <mat-option value="qm">Qualifications</mat-option>
-        <mat-option value="qf">Quarterfinals</mat-option>
-        <mat-option value="sf">Semifinals</mat-option>
-        <mat-option value="f">Finals</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="input">
-      <mat-label>Game Number</mat-label>
-      <input matInput type="number" (input)="changedGame($event)" />
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="input">
-      <mat-label>Team Number</mat-label>
-      <input matInput type="number" (input)="changedTeam($event)" />
-    </mat-form-field>
-  </div>
-</mat-card>
-<mat-card *ngFor="let section of schema.sections" style="margin-bottom: 20px">
-  <mat-card-title>{{ section.title }}</mat-card-title>
-  <div class="content">
-    <div
-      *ngFor="let widget of section.widgets"
-      [ngSwitch]="widget.type"
-      class="widget-row"
-    >
-      <div class="label">{{ widget.label }}</div>
-      <div class="spacer"></div>
-      <app-counter
-        *ngSwitchCase="'Counter'"
-        [widget]="widget"
-        [prefix]="section.prefix"
-      ></app-counter>
-      <app-text
-        *ngSwitchCase="'Text'"
-        [widget]="widget"
-        [prefix]="section.prefix"
-      ></app-text>
-      <app-toggle
-        *ngSwitchCase="'Toggle'"
-        [widget]="widget"
-        [prefix]="section.prefix"
-      ></app-toggle>
+<div style="max-width: 600px; margin-right: auto; margin-left: auto">
+  <mat-card style="margin-bottom: 20px">
+    <mat-card-title>Game</mat-card-title>
+    <div class="content">
+      <mat-form-field appearance="fill">
+        <mat-label>Event Code</mat-label>
+        <input matInput (input)="changedEvent($event)" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Stage</mat-label>
+        <mat-select #stage>
+          <mat-option value="pr">Practice</mat-option>
+          <mat-option value="qm">Qualifications</mat-option>
+          <mat-option value="qf">Quarterfinals</mat-option>
+          <mat-option value="sf">Semifinals</mat-option>
+          <mat-option value="f">Finals</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Game Number</mat-label>
+        <input matInput type="number" (input)="changedGame($event)" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Team Number</mat-label>
+        <input matInput type="number" (input)="changedTeam($event)" />
+      </mat-form-field>
     </div>
-  </div>
-</mat-card>
-<mat-card>
-  <mat-card-title>Submission</mat-card-title>
-  <div class="content centered button-bar">
-    <button mat-stroked-button (click)="copy()">Copy</button>
-    <button mat-stroked-button (click)="save()">Save</button>
-    <button mat-stroked-button (click)="send()">Send</button>
-    <button mat-stroked-button color="warn" (click)="clear()">Clear</button>
-  </div>
-</mat-card>
+  </mat-card>
+  <mat-card *ngFor="let section of schema.sections" style="margin-bottom: 20px">
+    <mat-card-title>{{ section.title }}</mat-card-title>
+    <div class="content">
+      <div
+        *ngFor="let widget of section.widgets"
+        [ngSwitch]="widget.type"
+        class="widget-row"
+      >
+        <div class="label">{{ widget.label }}</div>
+        <div class="spacer"></div>
+        <app-counter
+          *ngSwitchCase="'Counter'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-counter>
+        <app-text
+          *ngSwitchCase="'Text'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-text>
+        <app-toggle
+          *ngSwitchCase="'Toggle'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-toggle>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>Submission</mat-card-title>
+    <div class="content">
+      <div class="button-bar" style="display: flex; justify-content: center">
+        <button mat-stroked-button (click)="copy()">Copy</button>
+        <button mat-stroked-button (click)="save()">Save</button>
+        <button mat-stroked-button (click)="send()">Send</button>
+        <button mat-stroked-button color="warn" (click)="clear()">Clear</button>
+      </div>
+    </div>
+  </mat-card>
+</div>
