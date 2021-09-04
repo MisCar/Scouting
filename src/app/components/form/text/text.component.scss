@@ -1,0 +1,11 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  width: 40.5em;
+  height: auto;
+
+  .widget-row:not(:last-child) {
+    padding-bottom: 10px;
+  }
+}

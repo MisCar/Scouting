@@ -4,6 +4,7 @@ export interface WidgetInfo {
   type: "Counter" | "Toggle" | "Timer" | "Text"
   min?: number
   max?: number
+  rows?: number
 }
 
 export interface Section {

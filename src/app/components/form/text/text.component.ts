@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core"
+import { CdkTextareaAutosize } from "@angular/cdk/text-field"
+import { Component, Input, OnInit, ViewChild } from "@angular/core"
 import { WidgetInfo } from "app/models/schema.model"
 import Widget from "app/utilities/widget"
 
@@ -14,6 +15,9 @@ export class TextComponent extends Widget<string> implements OnInit {
   @Input()
   prefix?: string
 
+  @Input()
+  numOfRows?: number
+
   constructor() {
     super()
     this.value = ""
@@ -22,6 +26,7 @@ export class TextComponent extends Widget<string> implements OnInit {
 
   changed(event: Event): void {
     this.value = (event.target as HTMLInputElement).value
+    console.log(this.widget?.rows)
   }
 
   ngOnInit(): void {

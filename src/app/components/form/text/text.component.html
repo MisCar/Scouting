@@ -1,17 +1,27 @@
-<div>
-  <mat-form-field
-    appearance="fill"
-    style="
-      width: 40.5em;
-      margin-right: auto;
-      margin-left: auto;
-      display: flex;
-      flex-direction: column;
-    "
-  >
-    <div *ngIf="widget !== undefined && widget.label !== undefined">
-      <mat-label>{{ widget.label }}</mat-label>
-    </div>
-    <input matInput type="string" (input)="changed($event)" />
-  </mat-form-field>
-</div>
+<mat-form-field appearance="fill" class="content">
+  <mat-label *ngIf="widget !== undefined && widget.label !== undefined">{{
+    widget.label
+  }}</mat-label>
+  <textarea
+    *ngIf="widget?.rows !== undefined; elee: elseBlock"
+    matInput
+    type="text"
+    (input)="changed($event)"
+    matInput
+    cdkTextareaAutosize
+    #autosize="cdkTextareaAutosize"
+    cdkAutosizeMinRows="{{ widget?.rows }}"
+    cdkAutosizeMaxRows="999"
+  ></textarea>
+  <textarea
+    #elseBlock
+    matInput
+    type="text"
+    (input)="changed($event)"
+    matInput
+    cdkTextareaAutosize
+    #autosize="cdkTextareaAutosize"
+    cdkAutosizeMinRows="1"
+    cdkAutosizeMaxRows="999"
+  ></textarea>
+</mat-form-field>
