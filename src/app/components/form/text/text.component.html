@@ -1,3 +1,17 @@
-<mat-form-field appearance="standard">
-  <input matInput (input)="changed($event)" [value]="value" />
-</mat-form-field>
+<div>
+  <mat-form-field
+    appearance="fill"
+    style="
+      width: 40.5em;
+      margin-right: auto;
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+    "
+  >
+    <div *ngIf="widget !== undefined && widget.label !== undefined">
+      <mat-label>{{ widget.label }}</mat-label>
+    </div>
+    <input matInput type="string" (input)="changed($event)" />
+  </mat-form-field>
+</div>

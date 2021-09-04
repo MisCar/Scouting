@@ -34,23 +34,25 @@
         [ngSwitch]="widget.type"
         class="widget-row"
       >
-        <div class="label">{{ widget.label }}</div>
-        <div class="spacer"></div>
+        <div class="label" *ngIf="widget.type !== 'Text'">
+          {{ widget.label }}
+        </div>
+        <div class="spacer" *ngIf="widget.type !== 'Text'"></div>
         <app-counter
           *ngSwitchCase="'Counter'"
           [widget]="widget"
           [prefix]="section.prefix"
         ></app-counter>
-        <app-text
-          *ngSwitchCase="'Text'"
-          [widget]="widget"
-          [prefix]="section.prefix"
-        ></app-text>
         <app-toggle
           *ngSwitchCase="'Toggle'"
           [widget]="widget"
           [prefix]="section.prefix"
         ></app-toggle>
+        <app-text
+          *ngSwitchCase="'Text'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-text>
       </div>
     </div>
   </mat-card>
