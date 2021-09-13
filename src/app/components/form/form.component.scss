@@ -1,24 +1,7 @@
-.widget-row {
-  display: flex;
-
-  .label {
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-
-  .spacer {
-    flex-grow: 1;
-  }
-}
-
 .content {
   display: flex;
   flex-direction: column;
   padding: 10px 0;
-
-  .widget-row:not(:last-child) {
-    padding-bottom: 10px;
-  }
 }
 
 @media (max-width: 400px) {

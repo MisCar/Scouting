@@ -28,8 +28,6 @@ export class ToggleComponent extends Widget<boolean> implements OnInit {
   ngOnInit(): void {
     if (this.widget !== undefined && this.prefix !== undefined) {
       this.initialize(this.widget, this.prefix)
-    } else {
-      console.log(this.widget, this.prefix)
     }
   }
 }

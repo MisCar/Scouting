@@ -26,14 +26,11 @@ export class TextComponent extends Widget<string> implements OnInit {
 
   changed(event: Event): void {
     this.value = (event.target as HTMLInputElement).value
-    console.log(this.widget?.rows)
   }
 
   ngOnInit(): void {
     if (this.widget !== undefined && this.prefix !== undefined) {
       this.initialize(this.widget, this.prefix)
-    } else {
-      console.log(this.widget, this.prefix)
     }
   }
 }

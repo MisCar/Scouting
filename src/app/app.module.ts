@@ -27,6 +27,9 @@ import { ServiceWorkerModule } from "@angular/service-worker"
 import { environment } from "../environments/environment"
 import { TextComponent } from "./components/form/text/text.component"
 import { ToggleComponent } from "./components/form/toggle/toggle.component"
+import { TimerComponent } from "./components/form/timer/timer.component"
+import { ShortPressDirective } from "./directives/short-press.directive"
+import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component"
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { ToggleComponent } from "./components/form/toggle/toggle.component"
     LongPressDirective,
     TextComponent,
     ToggleComponent,
+    TimerComponent,
+    ShortPressDirective,
+    WidgetRowComponent,
   ],
   imports: [
     BrowserModule,

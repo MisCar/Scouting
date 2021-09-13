@@ -1,0 +1,20 @@
+.widget-row {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.label {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.widget-row:not(:last-child) {
+  padding-bottom: 10px;
+}

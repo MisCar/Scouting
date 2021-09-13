@@ -1,11 +1,13 @@
-<div class="button-bar">
-  <button mat-stroked-button (click)="decrement()" class="decrement">
-    <mat-icon inline="true">remove</mat-icon>
-  </button>
-  <button mat-stroked-button class="value" (longclick)="reset()">
-    <span>{{ value }}</span>
-  </button>
-  <button mat-stroked-button (click)="increment()" class="increment">
-    <mat-icon inline="true">add</mat-icon>
-  </button>
-</div>
+<app-widget-row [label]="widget?.label">
+  <div class="button-bar">
+    <button mat-stroked-button (click)="decrement()" class="decrement">
+      <mat-icon inline="true">remove</mat-icon>
+    </button>
+    <button mat-stroked-button class="value" (longclick)="reset()">
+      <span>{{ value }}</span>
+    </button>
+    <button mat-stroked-button (click)="increment()" class="increment">
+      <mat-icon inline="true">add</mat-icon>
+    </button>
+  </div>
+</app-widget-row>

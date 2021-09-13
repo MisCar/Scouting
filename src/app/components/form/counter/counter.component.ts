@@ -20,7 +20,6 @@ export class CounterComponent extends Widget<number> implements OnInit {
 
   reset() {
     this.value = this.widget?.min ?? 0
-    console.log(this.widget?.min)
   }
 
   increment() {

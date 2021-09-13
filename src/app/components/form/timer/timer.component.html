@@ -1,0 +1,10 @@
+<app-widget-row [label]="widget?.label">
+  <button
+    mat-stroked-button
+    (shortclick)="click()"
+    (longclick)="reset()"
+    class="button"
+  >
+    {{ text }}
+  </button>
+</app-widget-row>

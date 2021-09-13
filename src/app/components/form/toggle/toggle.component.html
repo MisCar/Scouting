@@ -1,5 +1,7 @@
-<mat-slide-toggle
-  appearance="standard"
-  (change)="changed($event)"
-  [checked]="value"
-></mat-slide-toggle>
+<app-widget-row [label]="widget?.label">
+  <mat-slide-toggle
+    appearance="standard"
+    (change)="changed($event)"
+    [checked]="value"
+  ></mat-slide-toggle>
+</app-widget-row>

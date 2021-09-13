@@ -29,15 +29,7 @@
   <mat-card *ngFor="let section of schema.sections" style="margin-bottom: 20px">
     <mat-card-title>{{ section.title }}</mat-card-title>
     <div class="content">
-      <div
-        *ngFor="let widget of section.widgets"
-        [ngSwitch]="widget.type"
-        class="widget-row"
-      >
-        <div class="label" *ngIf="widget.type !== 'Text'">
-          {{ widget.label }}
-        </div>
-        <div class="spacer" *ngIf="widget.type !== 'Text'"></div>
+      <div *ngFor="let widget of section.widgets" [ngSwitch]="widget.type">
         <app-counter
           *ngSwitchCase="'Counter'"
           [widget]="widget"
@@ -53,6 +45,11 @@
           [widget]="widget"
           [prefix]="section.prefix"
         ></app-text>
+        <app-timer
+          *ngSwitchCase="'Timer'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-timer>
       </div>
     </div>
   </mat-card>
