@@ -4,12 +4,7 @@
   }}</mat-label>
   <textarea
     matInput
-    type="text"
     (input)="changed($event)"
-    matInput
-    cdkTextareaAutosize
-    #autosize="cdkTextareaAutosize"
-    [cdkAutosizeMinRows]="widget?.rows ?? 1"
-    cdkAutosizeMaxRows="999"
+    rows="widget?.rows ?? 1"
   ></textarea>
 </mat-form-field>

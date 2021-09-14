@@ -86,6 +86,9 @@ body {
 }
 
 .button-bar {
+  height: 36px;
+  display: flex;
+
   button:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -105,4 +108,8 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+mat-form-field {
+  max-width: 100%;
 }

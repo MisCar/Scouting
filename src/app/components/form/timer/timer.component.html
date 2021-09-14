@@ -1,10 +1,10 @@
 <app-widget-row [label]="widget?.label">
-  <button
-    mat-stroked-button
-    (shortclick)="click()"
-    (longclick)="reset()"
-    class="button"
-  >
-    {{ text }}
-  </button>
+  <div class="button-bar">
+    <button mat-stroked-button (click)="click()" class="timer">
+      {{ text }}
+    </button>
+    <button mat-stroked-button (click)="reset()" class="reset">
+      <mat-icon inline="true">restart_alt</mat-icon>
+    </button>
+  </div>
 </app-widget-row>

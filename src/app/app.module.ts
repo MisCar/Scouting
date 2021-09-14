@@ -28,7 +28,6 @@ import { environment } from "../environments/environment"
 import { TextComponent } from "./components/form/text/text.component"
 import { ToggleComponent } from "./components/form/toggle/toggle.component"
 import { TimerComponent } from "./components/form/timer/timer.component"
-import { ShortPressDirective } from "./directives/short-press.directive"
 import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component"
 
 @NgModule({
@@ -40,7 +39,6 @@ import { WidgetRowComponent } from "./components/form/widget-row/widget-row.comp
     TextComponent,
     ToggleComponent,
     TimerComponent,
-    ShortPressDirective,
     WidgetRowComponent,
   ],
   imports: [
