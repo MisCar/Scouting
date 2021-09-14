@@ -1,23 +1,40 @@
+body {
+  background-color: #7e0c2b;
+  text-align: center;
+  margin-top: 30px;
+}
+
 .panel {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.panel:hover {
+  box-shadow: inset 0px 0px 0px 5px white;
+  box-sizing: border-box;
 }
 .bottom-right-panel {
-  border-bottom-right-radius: 200px;
+  border-bottom-right-radius: 80%;
   background-color: red;
 }
 
 .bottom-left-panel {
-  border-bottom-left-radius: 200px;
+  border-bottom-left-radius: 80%;
   background-color: blue;
 }
 
 .top-right-panel {
-  border-top-right-radius: 200px;
+  border-top-right-radius: 80%;
   background-color: green;
 }
 
 .top-left-panel {
-  border-top-left-radius: 200px;
+  border-top-left-radius: 80%;
   background-color: yellow;
+}
+
+.active {
+  background-color: white;
 }

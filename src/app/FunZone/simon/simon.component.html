@@ -7,13 +7,28 @@
     <title>Document</title>
   </head>
   <body>
+    <button (click)="start()">start game</button>
+    <div>{{ score }}</div>
     <div>
-      <div class="panel top-left-panel"></div>
-      <div class="panel top-right-panel"></div>
+      <div
+        (click)="panelClicked('top-left-panel')"
+        class="top-left-panel panel"
+      ></div>
+      <div
+        (click)="panelClicked('top-right-panel')"
+        class="top-right-panel panel"
+      ></div>
     </div>
     <div>
-      <div class="panel bottom-left-panel"></div>
-      <div class="panel bottom-right-panel"></div>
+      <div
+        (click)="panelClicked('bottom-left-panel')"
+        class="bottom-left-panel panel"
+      ></div>
+      <div
+        (click)="panelClicked('bottom-right-panel')"
+        class="bottom-right-panel panel"
+      ></div>
     </div>
+    <div class="center"></div>
   </body>
 </html>
