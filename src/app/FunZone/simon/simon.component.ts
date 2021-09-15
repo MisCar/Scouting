@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, ViewChild } from "@angular/core"
 
 @Component({
   selector: "app-simon",
@@ -6,80 +6,86 @@ import { Component, OnInit } from "@angular/core"
   styleUrls: ["./simon.component.scss"],
 })
 export class SimonComponent {
+  @ViewChild("topLeft") topLeft!: HTMLObjectElement
+  @ViewChild("bottomLeft") bottomLeft!: HTMLObjectElement
+  @ViewChild("bottomRight") bottomRight!: HTMLObjectElement
+  @ViewChild("topRight") topRight!: HTMLObjectElement
+
   constructor() {
     this.canClick = false
-    this.sequnce = []
-    this.sequensToGuess = []
+    this.sequence = []
+    this.sequenceToGuess = []
     this.score = 0
   }
   canClick: boolean
-  sequnce: HTMLObjectElement[]
-  sequensToGuess: HTMLObjectElement[]
+  sequence: any[]
+  sequenceToGuess: any[]
   score: number
 
   async start() {
+    this.startPanels()
     this.score = 0
-    topLeft = document.querySelector(".top-left-panel")
-    topRight = document.querySelector(".top-right-panel")
-    bottomRight = document.querySelector(".bottom-right-panel")
-    bottomLeft = document.querySelector(".bottom-left-panel")
-    this.sequnce = [getRandomPanel()]
-    this.sequensToGuess = [...this.sequnce]
+    this.sequence = [this.getRandomPanel()]
+    this.sequenceToGuess = [...this.sequence]
 
-    console.log(this.sequnce[0])
     await this.runSequens()
   }
 
+  startPanels() {}
+
   async runSequens() {
     this.canClick = false
-    for (const panel of this.sequnce) {
-      //console.log(getRandomPanel())
-      await flash(panel)
+    for (const panel of this.sequence) {
+      await this.flash(panel)
     }
     this.canClick = true
   }
 
   panelClicked = async (panel: string) => {
     if (!this.canClick) return
-    const exeptedPanel = this.sequensToGuess.shift()
-    if (String(exeptedPanel?.className).includes(panel.substr(0, 10))) {
-      if (this.sequensToGuess.length === 0) {
-        this.sequnce.push(getRandomPanel())
-        this.sequensToGuess = [...this.sequnce]
+    const exeptedPanel = this.sequenceToGuess.shift()
+    console.log(exeptedPanel)
+    if (
+      String(exeptedPanel?.nativeElement.className).includes(
+        panel.substr(0, 10)
+      )
+    ) {
+      if (this.sequenceToGuess.length === 0) {
+        this.sequence.push(this.getRandomPanel())
+        this.sequenceToGuess = [...this.sequence]
         this.score++
         await new Promise((f) => setTimeout(f, 1000))
         this.runSequens()
       }
     } else {
       this.score = 0
-      console.log(String(this.sequensToGuess))
+      console.log(String(this.sequenceToGuess))
       alert("you guessed the wrong panel \n game over")
     }
   }
-}
 
-var topLeft: any
-var topRight: any
-var bottomRight: any
-var bottomLeft: any
-const getRandomPanel = () => {
-  const panels = [topLeft, topRight, bottomLeft, bottomRight]
-  return panels[randomIntFromInterval(0, 3)]
-}
+  getRandomPanel = () => {
+    const panels = [
+      this.topLeft,
+      this.topRight,
+      this.bottomLeft,
+      this.bottomRight,
+    ]
+    return panels[Math.floor(Math.random() * 4)]
+  }
 
-function randomIntFromInterval(min: number, max: number) {
-  // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-const flash = (panel: any) => {
-  return new Promise((resolve, reject) => {
-    panel.className += " active"
-    setTimeout(() => {
-      panel.className = panel.className.replace(" active", "")
+  flash = (panel: any) => {
+    return new Promise((resolve, reject) => {
+      panel.nativeElement.className += " active"
       setTimeout(() => {
-        resolve(panel.className)
-      }, 250)
-    }, 800)
-  })
+        panel.nativeElement.className = panel.nativeElement.className.replace(
+          " active",
+          ""
+        )
+        setTimeout(() => {
+          resolve(panel.nativeElement.className)
+        }, 250)
+      }, 800)
+    })
+  }
 }
