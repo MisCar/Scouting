@@ -1,3 +1,4 @@
+import { MatSnackBar } from "@angular/material/snack-bar"
 import { Component, OnInit, ViewChild } from "@angular/core"
 
 @Component({
@@ -11,7 +12,7 @@ export class SimonComponent {
   @ViewChild("bottomRight") bottomRight!: HTMLObjectElement
   @ViewChild("topRight") topRight!: HTMLObjectElement
 
-  constructor() {
+  constructor(private snackBar: MatSnackBar) {
     this.canClick = false
     this.sequence = []
     this.sequenceToGuess = []
@@ -28,12 +29,12 @@ export class SimonComponent {
     this.sequence = [this.getRandomPanel()]
     this.sequenceToGuess = [...this.sequence]
 
-    await this.runSequens()
+    await this.runSequence()
   }
 
   startPanels() {}
 
-  async runSequens() {
+  async runSequence() {
     this.canClick = false
     for (const panel of this.sequence) {
       await this.flash(panel)
@@ -43,24 +44,19 @@ export class SimonComponent {
 
   panelClicked = async (panel: string) => {
     if (!this.canClick) return
-    const exeptedPanel = this.sequenceToGuess.shift()
-    console.log(exeptedPanel)
-    if (
-      String(exeptedPanel?.nativeElement.className).includes(
-        panel.substr(0, 10)
-      )
-    ) {
+    const expectedPanel = this.sequenceToGuess.shift()
+    if (expectedPanel?.nativeElement.className.includes(panel.substr(0, 10))) {
       if (this.sequenceToGuess.length === 0) {
         this.sequence.push(this.getRandomPanel())
         this.sequenceToGuess = [...this.sequence]
         this.score++
         await new Promise((f) => setTimeout(f, 1000))
-        this.runSequens()
+        this.runSequence()
       }
     } else {
+      this.canClick = false
       this.score = 0
-      console.log(String(this.sequenceToGuess))
-      alert("you guessed the wrong panel \n game over")
+      this.snackBar.open("You Guessed the Wrong Panel! \n Game Over", "Dismis")
     }
   }
 
@@ -73,8 +69,7 @@ export class SimonComponent {
     ]
     return panels[Math.floor(Math.random() * 4)]
   }
-
-  flash = (panel: any) => {
+  async flash(panel: any) {
     return new Promise((resolve, reject) => {
       panel.nativeElement.className += " active"
       setTimeout(() => {

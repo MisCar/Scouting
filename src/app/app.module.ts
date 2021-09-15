@@ -29,8 +29,8 @@ import { TextComponent } from "./components/form/text/text.component"
 import { ToggleComponent } from "./components/form/toggle/toggle.component"
 import { TimerComponent } from "./components/form/timer/timer.component"
 import { ShortPressDirective } from "./directives/short-press.directive"
-import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component";
-import { SimonComponent } from './FunZone/simon/simon.component'
+import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component"
+import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
 
 @NgModule({
   declarations: [
