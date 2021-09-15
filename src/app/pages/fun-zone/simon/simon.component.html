@@ -1,0 +1,31 @@
+<div class="background">
+  <div style="flex-direction: row">
+    <div id="score">score: {{ score }}</div>
+    <button (click)="start()">start game</button>
+  </div>
+  <div>
+    <div
+      #topLeft
+      (click)="panelClicked('top-left-panel')"
+      class="top-left-panel panel"
+    ></div>
+    <div
+      #topRight
+      (click)="panelClicked('top-right-panel')"
+      class="top-right-panel panel"
+    ></div>
+  </div>
+  <div>
+    <div
+      #bottomLeft
+      (click)="panelClicked('bottom-left-panel')"
+      class="bottom-left-panel panel"
+    ></div>
+    <div
+      #bottomRight
+      (click)="panelClicked('bottom-right-panel')"
+      class="bottom-right-panel panel"
+    ></div>
+  </div>
+  <div class="center"></div>
+</div>

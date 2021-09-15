@@ -25,6 +25,7 @@ import { TextComponent } from "./components/form/text/text.component"
 import { TimerComponent } from "./components/form/timer/timer.component"
 import { ToggleComponent } from "./components/form/toggle/toggle.component"
 import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component"
+import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
 import { LongPressDirective } from "./directives/long-press.directive"
 
 @NgModule({
@@ -37,6 +38,7 @@ import { LongPressDirective } from "./directives/long-press.directive"
     ToggleComponent,
     TimerComponent,
     WidgetRowComponent,
+    SimonComponent,
   ],
   imports: [
     BrowserModule,
