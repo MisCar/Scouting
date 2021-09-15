@@ -1,36 +1,32 @@
 import { NgModule } from "@angular/core"
-import { BrowserModule } from "@angular/platform-browser"
-
-import { AppRoutingModule } from "./app-routing.module"
-import { AppComponent } from "./app.component"
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
-
-import { provideFirebaseApp, initializeApp } from "@angular/fire/app"
-import { provideFirestore, getFirestore } from "@angular/fire/firestore"
-import { provideAuth, getAuth } from "@angular/fire/auth"
+import { initializeApp, provideFirebaseApp } from "@angular/fire/app"
+import { getAuth, provideAuth } from "@angular/fire/auth"
+import { getFirestore, provideFirestore } from "@angular/fire/firestore"
+import { ReactiveFormsModule } from "@angular/forms"
 import { MatButtonModule } from "@angular/material/button"
 import { MatCardModule } from "@angular/material/card"
 import { MatFormFieldModule } from "@angular/material/form-field"
+import { MatIconModule } from "@angular/material/icon"
 import { MatInputModule } from "@angular/material/input"
 import { MatSelectModule } from "@angular/material/select"
-import { MatSnackBarModule } from "@angular/material/snack-bar"
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
-
-import { ReactiveFormsModule } from "@angular/forms"
-
-import config from "../environments/firebase.json"
-import { FormComponent } from "./components/form/form.component"
-import { CounterComponent } from "./components/form/counter/counter.component"
-import { MatIconModule } from "@angular/material/icon"
-import { LongPressDirective } from "./directives/long-press.directive"
+import { MatToolbarModule } from "@angular/material/toolbar"
+import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { BrowserModule } from "@angular/platform-browser"
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 import { ServiceWorkerModule } from "@angular/service-worker"
 import { environment } from "../environments/environment"
+import config from "../environments/firebase.json"
+import { AppRoutingModule } from "./app-routing.module"
+import { AppComponent } from "./app.component"
+import { CounterComponent } from "./components/form/counter/counter.component"
+import { FormComponent } from "./components/form/form.component"
 import { TextComponent } from "./components/form/text/text.component"
-import { ToggleComponent } from "./components/form/toggle/toggle.component"
 import { TimerComponent } from "./components/form/timer/timer.component"
-import { ShortPressDirective } from "./directives/short-press.directive"
+import { ToggleComponent } from "./components/form/toggle/toggle.component"
 import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component"
 import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
+import { LongPressDirective } from "./directives/long-press.directive"
 
 @NgModule({
   declarations: [
@@ -41,7 +37,6 @@ import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
     TextComponent,
     ToggleComponent,
     TimerComponent,
-    ShortPressDirective,
     WidgetRowComponent,
     SimonComponent,
   ],
@@ -61,6 +56,7 @@ import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
     MatSelectModule,
     MatSnackBarModule,
     MatSlideToggleModule,
+    MatToolbarModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

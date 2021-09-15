@@ -1,3 +1,34 @@
-<div style="padding: 20px">
-  <app-simon></app-simon>
+<div class="root">
+  <mat-toolbar>
+    <button
+      mat-icon-button
+      *ngIf="authentication.signedIn; else login"
+      (click)="authentication.signOut()"
+    >
+      <img
+        [src]="authentication.user?.photoURL ?? '/resources/anonymous.png'"
+        height="100%"
+        width="100%"
+      />
+    </button>
+    <ng-template #login>
+      <button mat-icon-button (click)="authentication.signIn()">
+        <mat-icon>login</mat-icon>
+      </button>
+    </ng-template>
+    <span style="padding: 0 10px">Scouting</span>
+    <div style="flex-grow: 1"></div>
+    <button mat-icon-button>
+      <mat-icon>celebration</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>admin_panel_settings</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="content">
+    <app-form></app-form>
+  </div>
 </div>

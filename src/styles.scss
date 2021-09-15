@@ -77,7 +77,9 @@ $scouting-dark-theme: material.define-dark-theme(
 
 html,
 body {
+  position: fixed;
   height: 100%;
+  width: 100%;
 }
 
 body {
@@ -86,6 +88,9 @@ body {
 }
 
 .button-bar {
+  height: 36px;
+  display: flex;
+
   button:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -95,6 +100,14 @@ body {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
+
+  button:disabled {
+    border-color: rgba(0, 0, 0, 0.12);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+  }
 }
 
 input::-webkit-outer-spin-button,
@@ -103,6 +116,14 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+mat-form-field {
+  max-width: 100%;
 }

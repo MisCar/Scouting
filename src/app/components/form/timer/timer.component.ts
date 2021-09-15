@@ -45,6 +45,11 @@ export class TimerComponent extends Widget<number> implements OnInit {
 
   click() {
     if (this.started === undefined) {
+      if (this.value === undefined) {
+        this.value = 0
+      }
+      this.offset = this.value
+
       this.started = Date.now()
       this.interval = window.setInterval(() => this.updateTimer(), 50)
     } else {

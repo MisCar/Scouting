@@ -1,5 +1,5 @@
 <div style="max-width: 600px; margin-right: auto; margin-left: auto">
-  <mat-card style="margin-bottom: 20px">
+  <mat-card>
     <mat-card-title>Game</mat-card-title>
     <div class="content">
       <mat-form-field appearance="fill">
@@ -56,10 +56,20 @@
   <mat-card>
     <mat-card-title>Submission</mat-card-title>
     <div class="content">
+      <p *ngIf="!authentication.signedIn" style="text-align: center">
+        <b>Note: </b>
+        <i>You cannot send your response until you are logged in!</i>
+      </p>
       <div class="button-bar" style="display: flex; justify-content: center">
         <button mat-stroked-button (click)="copy()">Copy</button>
         <button mat-stroked-button (click)="save()">Save</button>
-        <button mat-stroked-button (click)="send()">Send</button>
+        <button
+          mat-stroked-button
+          (click)="send()"
+          [disabled]="!authentication.signedIn"
+        >
+          Send
+        </button>
         <button mat-stroked-button color="warn" (click)="clear()">Clear</button>
       </div>
     </div>

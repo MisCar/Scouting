@@ -4,6 +4,7 @@ import Schema from "app/models/schema.model"
 import { storagePrefix } from "app/utilities/widget"
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { MatSelect } from "@angular/material/select"
+import { AuthenticationService } from "app/services/authentication.service"
 
 interface Scout {
   [keyof: string]: {
@@ -24,7 +25,11 @@ export class FormComponent implements OnInit {
   game?: number
   team?: number
 
-  constructor(private firestore: Firestore, private snack: MatSnackBar) {
+  constructor(
+    private firestore: Firestore,
+    private snack: MatSnackBar,
+    public authentication: AuthenticationService
+  ) {
     this.schema = {
       sections: [],
     }

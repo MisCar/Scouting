@@ -1,9 +1,11 @@
 {
   "hosting": [
     {
-      "target": "Scouting",
-      "public": "dist/Scouting",
-      "ignore": ["**/.*"],
+      "target": "scouting",
+      "public": "dist/scouting",
+      "ignore": [
+        "**/.*"
+      ],
       "headers": [
         {
           "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
