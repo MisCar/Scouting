@@ -1,31 +1,34 @@
-<div class="background">
+<div id="root">
   <div style="flex-direction: row">
-    <div id="score">score: {{ score }}</div>
-    <button (click)="start()">start game</button>
+    <h1 id="score">Score: {{ score }}</h1>
+    <button mat-stroked-button color="secondary" (click)="start()">
+      Start Game
+    </button>
   </div>
-  <div>
-    <div
-      #topLeft
-      (click)="panelClicked('top-left-panel')"
-      class="top-left-panel panel"
-    ></div>
-    <div
-      #topRight
-      (click)="panelClicked('top-right-panel')"
-      class="top-right-panel panel"
-    ></div>
+  <div style="padding: 20px">
+    <div class="row">
+      <div
+        #topLeft
+        (click)="panelClicked('top-left-panel')"
+        class="top-left-panel panel"
+      ></div>
+      <div
+        #topRight
+        (click)="panelClicked('top-right-panel')"
+        class="top-right-panel panel"
+      ></div>
+    </div>
+    <div class="row">
+      <div
+        #bottomLeft
+        (click)="panelClicked('bottom-left-panel')"
+        class="bottom-left-panel panel"
+      ></div>
+      <div
+        #bottomRight
+        (click)="panelClicked('bottom-right-panel')"
+        class="bottom-right-panel panel"
+      ></div>
+    </div>
   </div>
-  <div>
-    <div
-      #bottomLeft
-      (click)="panelClicked('bottom-left-panel')"
-      class="bottom-left-panel panel"
-    ></div>
-    <div
-      #bottomRight
-      (click)="panelClicked('bottom-right-panel')"
-      class="bottom-right-panel panel"
-    ></div>
-  </div>
-  <div class="center"></div>
 </div>

@@ -3,24 +3,23 @@
   height: 150px;
   display: inline-block;
   cursor: pointer;
+  border-color: transparent;
+  transition: 100ms ease-in-out;
 }
 
-#score {
-  text-align: left;
-  margin-right: 80rem;
-  width: 50px;
-  display: inline;
+.row {
+  display: flex;
+  justify-content: center;
 }
 
-.background {
+#root {
   text-align: center;
-  background-color: #7e0c2b;
 }
 
 .panel:hover {
-  box-shadow: inset 0px 0px 0px 8px #7e0c2b;
-  box-sizing: border-box;
+  filter: brightness(90%);
 }
+
 .bottom-right-panel {
   border-bottom-right-radius: 80%;
   background-color: red;

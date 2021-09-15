@@ -7,26 +7,26 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
   styleUrls: ["./simon.component.scss"],
 })
 export class SimonComponent {
-  @ViewChild("topLeft") topLeft!: HTMLObjectElement
-  @ViewChild("bottomLeft") bottomLeft!: HTMLObjectElement
-  @ViewChild("bottomRight") bottomRight!: HTMLObjectElement
-  @ViewChild("topRight") topRight!: HTMLObjectElement
+  @ViewChild("topLeft") topLeft!: ElementRef<HTMLDivElement>
+  @ViewChild("bottomLeft") bottomLeft!: ElementRef<HTMLDivElement>
+  @ViewChild("bottomRight") bottomRight!: ElementRef<HTMLDivElement>
+  @ViewChild("topRight") topRight!: ElementRef<HTMLDivElement>
 
-  constructor(private snackBar: MatSnackBar) {
+  canClick: boolean
+  sequence: ElementRef<HTMLDivElement>[]
+  sequenceToGuess: ElementRef<HTMLDivElement>[]
+  score: number
+  timeBetweenFlashs: number
+
+  constructor(private snack: MatSnackBar) {
     this.canClick = false
     this.sequence = []
     this.sequenceToGuess = []
     this.score = 0
     this.timeBetweenFlashs = 800
   }
-  canClick: boolean
-  sequence: ElementRef["nativeElement"][]
-  sequenceToGuess: ElementRef["nativeElement"][]
-  score: number
-  timeBetweenFlashs: number
 
   async start() {
-    this.startPanels()
     this.score = 0
     this.sequence = [this.getRandomPanel()]
     this.sequenceToGuess = [...this.sequence]
@@ -34,56 +34,53 @@ export class SimonComponent {
     await this.runSequence()
   }
 
-  startPanels() {}
-
   async runSequence() {
     this.canClick = false
     for (const panel of this.sequence) {
-      await this.flash(panel.nativeElement)
+      await this.flash(panel)
     }
     this.canClick = true
   }
 
-  panelClicked = async (panel: string) => {
+  async panelClicked(panel: string) {
     if (!this.canClick) return
+
     const expectedPanel = this.sequenceToGuess.shift()
-    if (expectedPanel?.nativeElement.className.includes(panel.substr(0, 10))) {
+    if (expectedPanel?.nativeElement.classList.contains(panel)) {
       if (this.sequenceToGuess.length === 0) {
         this.sequence.push(this.getRandomPanel())
         this.sequenceToGuess = [...this.sequence]
         this.score++
         this.canClick = false
-        await new Promise((f) => setTimeout(f, 1000))
+        await new Promise((resolve) => setTimeout(resolve, 1000))
         this.runSequence()
       }
     } else {
       this.canClick = false
       this.score = 0
-      this.snackBar.open("You Guessed the Wrong Panel! \n Game Over", "Dismis")
+      this.snack.open("You Guessed the Wrong Panel! Game Over", "Dismiss")
     }
   }
 
-  getRandomPanel = () => {
+  getRandomPanel() {
     const panels = [
       this.topLeft,
       this.topRight,
       this.bottomLeft,
       this.bottomRight,
     ]
-    return panels[Math.floor(Math.random() * 4)]
+    return panels[Math.floor(Math.random() * panels.length)]
   }
-  async flash(panel: HTMLObjectElement) {
-    return new Promise((resolve, reject) => {
-      if (this.timeBetweenFlashs > 200) this.timeBetweenFlashs -= 30
 
-      console.log(panel)
-      panel.className += " active"
-      setTimeout(() => {
-        panel.className = panel.className.replace(" active", "")
-        setTimeout(() => {
-          resolve(panel.className)
-        }, 250)
-      }, this.timeBetweenFlashs)
-    })
+  async flash(panel: ElementRef<HTMLDivElement>) {
+    if (this.timeBetweenFlashs > 200) {
+      this.timeBetweenFlashs -= 30
+    }
+
+    panel.nativeElement.classList.add("active")
+    await new Promise((resolve) => setTimeout(resolve, this.timeBetweenFlashs))
+    panel.nativeElement.classList.remove("active")
+
+    await new Promise((resolve) => setTimeout(resolve, 250))
   }
 }
