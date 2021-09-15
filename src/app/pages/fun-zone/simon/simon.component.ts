@@ -1,5 +1,5 @@
 import { MatSnackBar } from "@angular/material/snack-bar"
-import { Component, OnInit, ViewChild } from "@angular/core"
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
 
 @Component({
   selector: "app-simon",
@@ -17,11 +17,13 @@ export class SimonComponent {
     this.sequence = []
     this.sequenceToGuess = []
     this.score = 0
+    this.timeBetweenFlashs = 800
   }
   canClick: boolean
-  sequence: any[]
-  sequenceToGuess: any[]
+  sequence: ElementRef["nativeElement"][]
+  sequenceToGuess: ElementRef["nativeElement"][]
   score: number
+  timeBetweenFlashs: number
 
   async start() {
     this.startPanels()
@@ -37,7 +39,7 @@ export class SimonComponent {
   async runSequence() {
     this.canClick = false
     for (const panel of this.sequence) {
-      await this.flash(panel)
+      await this.flash(panel.nativeElement)
     }
     this.canClick = true
   }
@@ -50,6 +52,7 @@ export class SimonComponent {
         this.sequence.push(this.getRandomPanel())
         this.sequenceToGuess = [...this.sequence]
         this.score++
+        this.canClick = false
         await new Promise((f) => setTimeout(f, 1000))
         this.runSequence()
       }
@@ -69,18 +72,18 @@ export class SimonComponent {
     ]
     return panels[Math.floor(Math.random() * 4)]
   }
-  async flash(panel: any) {
+  async flash(panel: HTMLObjectElement) {
     return new Promise((resolve, reject) => {
-      panel.nativeElement.className += " active"
+      if (this.timeBetweenFlashs > 200) this.timeBetweenFlashs -= 30
+
+      console.log(panel)
+      panel.className += " active"
       setTimeout(() => {
-        panel.nativeElement.className = panel.nativeElement.className.replace(
-          " active",
-          ""
-        )
+        panel.className = panel.className.replace(" active", "")
         setTimeout(() => {
-          resolve(panel.nativeElement.className)
+          resolve(panel.className)
         }, 250)
-      }, 800)
+      }, this.timeBetweenFlashs)
     })
   }
 }
