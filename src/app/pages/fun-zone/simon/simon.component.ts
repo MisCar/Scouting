@@ -1,8 +1,7 @@
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
-import { Firestore, doc, onSnapshot, setDoc } from "@angular/fire/firestore"
+import { Firestore, doc, setDoc } from "@angular/fire/firestore"
 import { AuthenticationService } from "app/services/authentication.service"
-import { SnapshotListenOptions } from "rxfire/firestore/interfaces"
 import { getDoc } from "@firebase/firestore"
 
 @Component({
@@ -100,10 +99,7 @@ export class SimonComponent {
 
   async updateHighScore(highScore: number, email?: string | null) {
     if (email === undefined || email === null) email = ""
-    console.log("i updatehisg score")
     let currentHighScore = this.getCurrentHighScore(email)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    console.log("high score  " + currentHighScore)
     if (highScore > (await currentHighScore)) {
       setDoc(
         doc(this.firestore, `high scores/simon`),
@@ -111,34 +107,16 @@ export class SimonComponent {
         { merge: true }
       )
     }
-    console.log("update firestore")
   }
 
-  async getCurrentHighScore(targetEmail: string): Promise<number | void> {
+  async getCurrentHighScore(targetEmail: string): Promise<number> {
     let highScore = 15
-    //  onSnapshot=(doc(this.firestore, "high scores/simon"), (snapshot) => {
-    //  const data = snapshot.data()
-    //  for (let email in data) {
-    //  if (email === targetEmail) {
-    //  let score = data[email].score
-    //  highScore = score
-    //
-    //  console.log(
-    //  "the high score in firestore " + score + " by user " + email
-    //  )
-    //  }
-    //  }
-    //  })
     const document = await getDoc(doc(this.firestore, "high scores/simon"))
     const data = document.data()
-    console.log(document.data())
     for (let email in data) {
       if (email === targetEmail) {
         let score = data[email].score
         highScore = score
-        console.log(
-          "the high score in firestore " + score + " by user " + email
-        )
       }
     }
     return highScore
