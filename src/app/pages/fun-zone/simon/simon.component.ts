@@ -1,5 +1,7 @@
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
+import { Firestore, doc, onSnapshot, setDoc } from "@angular/fire/firestore"
+import { AuthenticationService } from "app/services/authentication.service"
 
 @Component({
   selector: "app-simon",
@@ -19,7 +21,11 @@ export class SimonComponent {
   highScore: number
   timeBetweenFlashs: number
 
-  constructor(private snack: MatSnackBar) {
+  constructor(
+    private snack: MatSnackBar,
+    private firestore: Firestore,
+    private authentication: AuthenticationService
+  ) {
     this.canClick = false
     this.sequence = []
     this.sequenceToGuess = []
@@ -62,7 +68,7 @@ export class SimonComponent {
       }
     } else {
       this.canClick = false
-
+      this.updateHighScore(this.highScore, this.authentication.user?.email)
       this.score = 0
       this.snack.open("You Guessed the Wrong Panel! Game Over", "Dismiss")
     }
@@ -88,5 +94,15 @@ export class SimonComponent {
     panel.nativeElement.classList.remove("active")
 
     await new Promise((resolve) => setTimeout(resolve, 250))
+  }
+
+  updateHighScore(highScore: number, email?: string | null) {
+    if (email === undefined || email === null) email = ""
+    setDoc(
+      doc(this.firestore, `high scores/simon`),
+      { [email]: { score: highScore } },
+      { merge: true }
+    )
+    console.log("update firestore")
   }
 }

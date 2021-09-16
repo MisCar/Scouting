@@ -117,6 +117,7 @@ export class FormComponent implements OnInit {
 
       result[prefix][key] = value
     }
+    console.log(result)
 
     return result
   }
