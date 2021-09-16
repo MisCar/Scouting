@@ -2,6 +2,8 @@ import { MatSnackBar } from "@angular/material/snack-bar"
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
 import { Firestore, doc, onSnapshot, setDoc } from "@angular/fire/firestore"
 import { AuthenticationService } from "app/services/authentication.service"
+import { SnapshotListenOptions } from "rxfire/firestore/interfaces"
+import { getDoc } from "@firebase/firestore"
 
 @Component({
   selector: "app-simon",
@@ -96,13 +98,49 @@ export class SimonComponent {
     await new Promise((resolve) => setTimeout(resolve, 250))
   }
 
-  updateHighScore(highScore: number, email?: string | null) {
+  async updateHighScore(highScore: number, email?: string | null) {
     if (email === undefined || email === null) email = ""
-    setDoc(
-      doc(this.firestore, `high scores/simon`),
-      { [email]: { score: highScore } },
-      { merge: true }
-    )
+    console.log("i updatehisg score")
+    let currentHighScore = this.getCurrentHighScore(email)
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    console.log("high score  " + currentHighScore)
+    if (highScore > (await currentHighScore)) {
+      setDoc(
+        doc(this.firestore, `high scores/simon`),
+        { [email]: { score: highScore } },
+        { merge: true }
+      )
+    }
     console.log("update firestore")
+  }
+
+  async getCurrentHighScore(targetEmail: string): Promise<number | void> {
+    let highScore = 15
+    //  onSnapshot=(doc(this.firestore, "high scores/simon"), (snapshot) => {
+    //  const data = snapshot.data()
+    //  for (let email in data) {
+    //  if (email === targetEmail) {
+    //  let score = data[email].score
+    //  highScore = score
+    //
+    //  console.log(
+    //  "the high score in firestore " + score + " by user " + email
+    //  )
+    //  }
+    //  }
+    //  })
+    const document = await getDoc(doc(this.firestore, "high scores/simon"))
+    const data = document.data()
+    console.log(document.data())
+    for (let email in data) {
+      if (email === targetEmail) {
+        let score = data[email].score
+        highScore = score
+        console.log(
+          "the high score in firestore " + score + " by user " + email
+        )
+      }
+    }
+    return highScore
   }
 }
