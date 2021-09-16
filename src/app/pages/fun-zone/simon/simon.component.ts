@@ -16,6 +16,7 @@ export class SimonComponent {
   sequence: ElementRef<HTMLDivElement>[]
   sequenceToGuess: ElementRef<HTMLDivElement>[]
   score: number
+  highScore: number
   timeBetweenFlashs: number
 
   constructor(private snack: MatSnackBar) {
@@ -24,6 +25,7 @@ export class SimonComponent {
     this.sequenceToGuess = []
     this.score = 0
     this.timeBetweenFlashs = 800
+    this.highScore = 0
   }
 
   async start() {
@@ -51,12 +53,16 @@ export class SimonComponent {
         this.sequence.push(this.getRandomPanel())
         this.sequenceToGuess = [...this.sequence]
         this.score++
+        if (this.score > this.highScore) {
+          this.highScore = this.score
+        }
         this.canClick = false
         await new Promise((resolve) => setTimeout(resolve, 1000))
         this.runSequence()
       }
     } else {
       this.canClick = false
+
       this.score = 0
       this.snack.open("You Guessed the Wrong Panel! Game Over", "Dismiss")
     }
