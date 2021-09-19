@@ -4,13 +4,13 @@ import { getDoc } from "firebase/firestore"
 import { __values } from "tslib"
 import { MatTable } from "@angular/material/table"
 
-export interface PeriodicElement {
+export interface RowElement {
   position: number
   name: string
   score: number
 }
 
-const ELEMENT_DATA: PeriodicElement[] = []
+const ELEMENT_DATA: RowElement[] = []
 
 @Component({
   selector: "app-leaderbord",
@@ -18,16 +18,15 @@ const ELEMENT_DATA: PeriodicElement[] = []
   styleUrls: ["./leaderbord.component.scss"],
 })
 export class LeaderbordComponent implements OnInit {
+  dataSource = [...ELEMENT_DATA]
   highScores = new Map()
   names: [string]
+  displayedColumns: string[] = ["position", "name", "score"]
   constructor(private firestore: Firestore) {
     this.names = [""]
   }
 
-  @ViewChild(MatTable) table!: MatTable<PeriodicElement>
-
-  displayedColumns: string[] = ["position", "name", "score"]
-  dataSource = [...ELEMENT_DATA]
+  @ViewChild(MatTable) table!: MatTable<RowElement>
 
   ngOnInit(): void {
     this.updateTable()
@@ -48,7 +47,7 @@ export class LeaderbordComponent implements OnInit {
     let names = Array.from((await this.getHighScoresArray()).keys())
     let scores = Array.from((await this.getHighScoresArray()).values())
     for (let i = 1; i < Math.min(names.length + 1, 11); i++) {
-      let row: PeriodicElement = {
+      let row: RowElement = {
         position: i,
         name: names[i - 1],
         score: scores[i - 1],

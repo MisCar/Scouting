@@ -109,8 +109,7 @@ export class SimonComponent {
 
   async updateHighScore(highScore: number, name?: string | null) {
     if (name === undefined || name === null) name = ""
-    let currentHighScore = this.getCurrentHighScore(name)
-    if (highScore > (await currentHighScore)) {
+    if (highScore > (await this.getCurrentHighScore(name))) {
       setDoc(
         doc(this.firestore, `high scores/simon`),
         { [name]: { score: highScore } },
