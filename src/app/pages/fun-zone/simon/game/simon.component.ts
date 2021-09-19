@@ -21,6 +21,7 @@ export class SimonComponent {
   score: number
   highScore: number
   timeBetweenFlashs: number
+  lastPanleGussed?: ElementRef<HTMLDivElement>
 
   constructor(
     private snack: MatSnackBar,
@@ -36,6 +37,7 @@ export class SimonComponent {
   }
 
   async start() {
+    this.timeBetweenFlashs = 800
     this.score = 0
     this.sequence = [this.getRandomPanel()]
     this.sequenceToGuess = [...this.sequence]
@@ -69,7 +71,10 @@ export class SimonComponent {
       }
     } else {
       this.canClick = false
-      this.updateHighScore(this.highScore, this.authentication.user?.displayName)
+      this.updateHighScore(
+        this.highScore,
+        this.authentication.user?.displayName
+      )
       this.score = 0
       this.snack.open("You Guessed the Wrong Panel! Game Over", "Dismiss")
     }
@@ -82,7 +87,12 @@ export class SimonComponent {
       this.bottomLeft,
       this.bottomRight,
     ]
-    return panels[Math.floor(Math.random() * panels.length)]
+    let panel = panels[Math.floor(Math.random() * panels.length)]
+    if (panel === this.lastPanleGussed) {
+      panel = panels[Math.floor(Math.random() * panels.length)]
+    }
+    this.lastPanleGussed = panel
+    return panel
   }
 
   async flash(panel: ElementRef<HTMLDivElement>) {
@@ -99,9 +109,7 @@ export class SimonComponent {
 
   async updateHighScore(highScore: number, name?: string | null) {
     if (name === undefined || name === null) name = ""
-    console.log(name)
     let currentHighScore = this.getCurrentHighScore(name)
-    console.log(currentHighScore)
     if (highScore > (await currentHighScore)) {
       setDoc(
         doc(this.firestore, `high scores/simon`),

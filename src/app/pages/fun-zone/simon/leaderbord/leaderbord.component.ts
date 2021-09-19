@@ -12,13 +12,12 @@ export interface PeriodicElement {
 
 const ELEMENT_DATA: PeriodicElement[] = []
 
-
 @Component({
-  selector: "app-leadbord",
-  templateUrl: "./leadbord.component.html",
-  styleUrls: ["./leadbord.component.scss"],
+  selector: "app-leaderbord",
+  templateUrl: "./leaderbord.component.html",
+  styleUrls: ["./leaderbord.component.scss"],
 })
-export class LeadbordComponent implements OnInit {
+export class LeaderbordComponent implements OnInit {
   highScores = new Map()
   names: [string]
   constructor(private firestore: Firestore) {
@@ -30,7 +29,9 @@ export class LeadbordComponent implements OnInit {
   displayedColumns: string[] = ["position", "name", "score"]
   dataSource = [...ELEMENT_DATA]
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.updateTable()
+  }
   async getHighScoresArray(): Promise<Map<string, number>> {
     const document = await getDoc(doc(this.firestore, "high scores/simon"))
     const data = document.data()
@@ -43,13 +44,18 @@ export class LeadbordComponent implements OnInit {
   }
 
   async updateTable() {
+    this.dataSource = [...ELEMENT_DATA]
     let names = Array.from((await this.getHighScoresArray()).keys())
     let scores = Array.from((await this.getHighScoresArray()).values())
-    for(let i = 1; i < names.length + 1; i++){
-      let row: PeriodicElement = {position : i,name : names[i - 1] ,score : scores[i - 1]}
+    for (let i = 1; i < Math.min(names.length + 1, 11); i++) {
+      let row: PeriodicElement = {
+        position: i,
+        name: names[i - 1],
+        score: scores[i - 1],
+      }
       this.dataSource.push(row)
     }
-    
-    this.table.renderRows();
+
+    this.table.renderRows()
   }
 }
