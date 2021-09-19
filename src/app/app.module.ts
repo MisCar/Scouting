@@ -25,8 +25,9 @@ import { TextComponent } from "./components/form/text/text.component"
 import { TimerComponent } from "./components/form/timer/timer.component"
 import { ToggleComponent } from "./components/form/toggle/toggle.component"
 import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component"
-import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
+import { SimonComponent } from "./pages/fun-zone/simon/game/simon.component"
 import { LongPressDirective } from "./directives/long-press.directive"
+import { LeadbordComponent } from "./pages/fun-zone/simon/leadbord/leadbord.component"
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { LongPressDirective } from "./directives/long-press.directive"
     TimerComponent,
     WidgetRowComponent,
     SimonComponent,
+    LeadbordComponent,
   ],
   imports: [
     BrowserModule,
