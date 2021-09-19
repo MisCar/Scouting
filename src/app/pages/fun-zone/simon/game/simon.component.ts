@@ -69,7 +69,7 @@ export class SimonComponent {
       }
     } else {
       this.canClick = false
-      this.updateHighScore(this.highScore, this.authentication.user?.email)
+      this.updateHighScore(this.highScore, this.authentication.user?.displayName)
       this.score = 0
       this.snack.open("You Guessed the Wrong Panel! Game Over", "Dismiss")
     }
@@ -97,25 +97,27 @@ export class SimonComponent {
     await new Promise((resolve) => setTimeout(resolve, 250))
   }
 
-  async updateHighScore(highScore: number, email?: string | null) {
-    if (email === undefined || email === null) email = ""
-    let currentHighScore = this.getCurrentHighScore(email)
+  async updateHighScore(highScore: number, name?: string | null) {
+    if (name === undefined || name === null) name = ""
+    console.log(name)
+    let currentHighScore = this.getCurrentHighScore(name)
+    console.log(currentHighScore)
     if (highScore > (await currentHighScore)) {
       setDoc(
         doc(this.firestore, `high scores/simon`),
-        { [email]: { score: highScore } },
+        { [name]: { score: highScore } },
         { merge: true }
       )
     }
   }
 
-  async getCurrentHighScore(targetEmail: string): Promise<number> {
-    let highScore = 15
+  async getCurrentHighScore(targetName: string): Promise<number> {
+    let highScore = 0
     const document = await getDoc(doc(this.firestore, "high scores/simon"))
     const data = document.data()
-    for (let email in data) {
-      if (email === targetEmail) {
-        let score = data[email].score
+    for (let name in data) {
+      if (name === targetName) {
+        let score = data[name].score
         highScore = score
       }
     }

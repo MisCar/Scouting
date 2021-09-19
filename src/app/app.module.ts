@@ -12,6 +12,7 @@ import { MatSelectModule } from "@angular/material/select"
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { MatToolbarModule } from "@angular/material/toolbar"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { MatTableModule } from "@angular/material/table"
 import { BrowserModule } from "@angular/platform-browser"
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 import { ServiceWorkerModule } from "@angular/service-worker"
@@ -59,6 +60,7 @@ import { LeadbordComponent } from "./pages/fun-zone/simon/leadbord/leadbord.comp
     MatSnackBarModule,
     MatSlideToggleModule,
     MatToolbarModule,
+    MatTableModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
