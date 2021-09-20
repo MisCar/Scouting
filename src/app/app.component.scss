@@ -16,5 +16,12 @@
     padding: 20px;
     flex-grow: 1;
     overflow-y: auto;
+    text-align: center;
   }
+}
+
+.app-title {
+  text-decoration: none;
+  color: inherit;
+  padding: 0 10px;
 }
