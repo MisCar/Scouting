@@ -18,7 +18,7 @@
     </ng-template>
     <span style="padding: 0 10px">Scouting</span>
     <div style="flex-grow: 1"></div>
-    <button mat-icon-button>
+    <button mat-icon-button routerLink="fun-zone">
       <mat-icon>celebration</mat-icon>
     </button>
     <button mat-icon-button>
@@ -27,8 +27,11 @@
     <button mat-icon-button>
       <mat-icon>admin_panel_settings</mat-icon>
     </button>
+    <button mat-icon-button routerLink="form">
+      <mat-icon> insert_chart</mat-icon>
+    </button>
   </mat-toolbar>
   <div class="content">
-    <app-leaderboard></app-leaderboard>
+    <router-outlet></router-outlet>
   </div>
 </div>

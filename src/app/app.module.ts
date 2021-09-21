@@ -29,6 +29,7 @@ import { WidgetRowComponent } from "./components/form/widget-row/widget-row.comp
 import { SimonComponent } from "./pages/fun-zone/simon/game/simon.component"
 import { LongPressDirective } from "./directives/long-press.directive"
 import { LeaderboardComponent } from "./pages/fun-zone/simon/leaderboard/leaderboard.component"
+import { FunZoneHomeComponent } from "./pages/fun-zone/fun-zone-home/fun-zone-home.component"
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { LeaderboardComponent } from "./pages/fun-zone/simon/leaderboard/leaderb
     WidgetRowComponent,
     SimonComponent,
     LeaderboardComponent,
+    FunZoneHomeComponent,
   ],
   imports: [
     BrowserModule,
