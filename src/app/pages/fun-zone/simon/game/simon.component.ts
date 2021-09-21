@@ -21,7 +21,7 @@ export class SimonComponent {
   score: number
   highScore: number
   timeBetweenFlashs: number
-  lastPanleGussed?: ElementRef<HTMLDivElement>
+  lastPanelGuessed?: ElementRef<HTMLDivElement>
 
   constructor(
     private snack: MatSnackBar,
@@ -88,10 +88,10 @@ export class SimonComponent {
       this.bottomRight,
     ]
     let panel = panels[Math.floor(Math.random() * panels.length)]
-    if (panel === this.lastPanleGussed) {
+    if (panel === this.lastPanelGuessed) {
       panel = panels[Math.floor(Math.random() * panels.length)]
     }
-    this.lastPanleGussed = panel
+    this.lastPanelGuessed = panel
     return panel
   }
 

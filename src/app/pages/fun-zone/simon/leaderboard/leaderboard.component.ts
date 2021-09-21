@@ -1,4 +1,4 @@
-import { Firestore, doc } from "@angular/fire/firestore"
+import { Firestore, doc, onSnapshot } from "@angular/fire/firestore"
 import { Component, OnInit, ViewChild } from "@angular/core"
 import { getDoc } from "firebase/firestore"
 import { __values } from "tslib"
@@ -13,11 +13,11 @@ export interface RowElement {
 const ELEMENT_DATA: RowElement[] = []
 
 @Component({
-  selector: "app-leaderbord",
-  templateUrl: "./leaderbord.component.html",
-  styleUrls: ["./leaderbord.component.scss"],
+  selector: "app-leaderboard",
+  templateUrl: "./leaderboard.component.html",
+  styleUrls: ["./leaderboard.component.scss"],
 })
-export class LeaderbordComponent implements OnInit {
+export class LeaderboardComponent implements OnInit {
   dataSource = [...ELEMENT_DATA]
   highScores = new Map()
   names: [string]
@@ -28,9 +28,7 @@ export class LeaderbordComponent implements OnInit {
 
   @ViewChild(MatTable) table!: MatTable<RowElement>
 
-  ngOnInit(): void {
-    this.updateTable()
-  }
+  ngOnInit(): void {}
   async getHighScoresArray(): Promise<Map<string, number>> {
     const document = await getDoc(doc(this.firestore, "high scores/simon"))
     const data = document.data()
@@ -41,6 +39,13 @@ export class LeaderbordComponent implements OnInit {
 
     return new Map([...this.highScores].sort((a, b) => b[1] - a[1]))
   }
+
+  updateHighScores = onSnapshot(
+    doc(this.firestore, "high scores/simon"),
+    (snapshot) => {
+      this.updateTable()
+    }
+  )
 
   async updateTable() {
     this.dataSource = [...ELEMENT_DATA]

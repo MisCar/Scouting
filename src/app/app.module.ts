@@ -28,7 +28,7 @@ import { ToggleComponent } from "./components/form/toggle/toggle.component"
 import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component"
 import { SimonComponent } from "./pages/fun-zone/simon/game/simon.component"
 import { LongPressDirective } from "./directives/long-press.directive"
-import { LeaderbordComponent } from "./pages/fun-zone/simon/leaderbord/leaderbord.component"
+import { LeaderboardComponent } from "./pages/fun-zone/simon/leaderboard/leaderboard.component"
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { LeaderbordComponent } from "./pages/fun-zone/simon/leaderbord/leaderbor
     TimerComponent,
     WidgetRowComponent,
     SimonComponent,
-    LeaderbordComponent,
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
