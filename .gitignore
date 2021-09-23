@@ -48,3 +48,4 @@ Thumbs.db
 /src/environments/firebase.json
 /.firebase
 /build
+/src/environments/secrets.json

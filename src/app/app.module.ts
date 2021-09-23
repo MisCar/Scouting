@@ -28,6 +28,7 @@ import { WidgetRowComponent } from "./components/form/widget-row/widget-row.comp
 import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
 import { LongPressDirective } from "./directives/long-press.directive"
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
+import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(config)),
     provideFirestore(getFirestore),
     provideAuth(getAuth),
