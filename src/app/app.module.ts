@@ -29,8 +29,9 @@ import { WidgetRowComponent } from "./components/form/widget-row/widget-row.comp
 import { SimonComponent } from "./pages/fun-zone/simon/game/simon.component"
 import { LongPressDirective } from "./directives/long-press.directive"
 import { LeaderboardComponent } from "./pages/fun-zone/simon/leaderboard/leaderboard.component"
-import { FunZoneHomeComponent } from "./pages/fun-zone/fun-zone-home/fun-zone-home.component";
-import { SettingsComponent } from './pages/settings/settings.component'
+import { FunZoneHomeComponent } from "./pages/fun-zone/fun-zone-home/fun-zone-home.component"
+import { SettingsComponent } from "./pages/settings/settings.component"
+import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SettingsComponent } from './pages/settings/settings.component'
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(config)),
     provideFirestore(getFirestore),
     provideAuth(getAuth),

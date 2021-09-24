@@ -4,6 +4,7 @@ import { LeaderboardComponent } from "./pages/fun-zone/simon/leaderboard/leaderb
 import { FunZoneHomeComponent } from "./pages/fun-zone/fun-zone-home/fun-zone-home.component"
 import { SimonComponent } from "./pages/fun-zone/simon/game/simon.component"
 import { FormComponent } from "./components/form/form.component"
+import { SettingsComponent } from "./pages/settings/settings.component"
 
 const routes: Routes = [
   { path: "", redirectTo: "/form", pathMatch: "full" },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: "fun-zone/leaderboard", component: LeaderboardComponent },
   { path: "fun-zone/simon", component: SimonComponent },
   { path: "form", component: FormComponent },
+  { path: "settings", component: SettingsComponent },
 ]
 
 @NgModule({

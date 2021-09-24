@@ -3,8 +3,11 @@ import { Firestore, doc, onSnapshot, setDoc } from "@angular/fire/firestore"
 import Schema from "app/models/schema.model"
 import { storagePrefix } from "app/utilities/widget"
 import { MatSnackBar } from "@angular/material/snack-bar"
-import { MatSelect } from "@angular/material/select"
 import { AuthenticationService } from "app/services/authentication.service"
+import {
+  Events,
+  TheBlueAllianceService,
+} from "app/services/the-blue-alliance.service"
 
 interface Scout {
   [keyof: string]: {
@@ -18,84 +21,58 @@ interface Scout {
   styleUrls: ["./form.component.scss"],
 })
 export class FormComponent implements OnInit {
-  @ViewChild("stage") stage?: MatSelect
-
+  /** The schema of the scouting form */
   schema: Schema
+  /** The code of the event the user is scouting */
   event?: string
+  /** The competition stage (qualifications, quarterfinals, etc.) the scout is about */
+  stage?: string
+  /** The game number the scout is about */
   game?: number
+  /** The team number the scout is about */
   team?: number
+
+  /** The events your team is competing at */
+  events: Events = []
 
   constructor(
     private firestore: Firestore,
     private snack: MatSnackBar,
-    public authentication: AuthenticationService
+    public authentication: AuthenticationService,
+    private tba: TheBlueAllianceService
   ) {
     this.schema = {
       sections: [],
     }
+
     onSnapshot(doc(firestore, "admin/schema"), (snapshot) => {
       this.schema = snapshot.data() as Schema
     })
+
+    this.tba.getEvents().then((events) => {
+      this.events = events.filter(
+        (event) => new Date(event.end_date).getFullYear() > 2019
+      )
+    })
   }
 
-  changedEvent(event: Event): void {
-    this.event = (event.target as HTMLInputElement).value
-  }
-  changedGame(event: Event): void {
+  /** Bindings */
+
+  onGameChanged(event: Event): void {
     this.game = Number((event.target as HTMLInputElement).value)
   }
-  changedTeam(event: Event): void {
+
+  onTeamChanged(event: Event): void {
     this.team = Number((event.target as HTMLInputElement).value)
   }
 
-  ngOnInit(): void {}
-
-  copy(): void {
-    const values = this.getValues()
-    navigator.clipboard.writeText(JSON.stringify(values, null, 2))
-  }
-
-  save(): void {
-    const values = this.getValues()
-    const link = document.createElement("a")
-    link.href = URL.createObjectURL(
-      new Blob([JSON.stringify(values, null, 4)], { type: "text/plain" })
-    )
-    link.download = "submission.json"
-    link.style.display = "none"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
+  /** Actions */
 
   clear(): void {
-    dispatchEvent(new Event("formclear"))
+    window.dispatchEvent(new Event("formclear"))
   }
 
-  send(): void {
-    setDoc(
-      doc(
-        this.firestore,
-        `${this.event}/${this.stage?.value} ${this.game} ${this.team}`
-      ),
-      this.getValues(),
-      {
-        merge: true,
-      }
-    )
-      .then(() => {
-        this.snack.open("Submission Received", "Dismiss", {
-          duration: 3000,
-        })
-      })
-      .catch(() => {
-        this.snack.open("Couldn't Send Submission", "Dismiss", {
-          duration: 3000,
-        })
-      })
-  }
-
-  getValues(): Scout {
+  get scout(): Scout {
     const result: Scout = {}
 
     for (let i = 0; i < localStorage.length; i++) {
@@ -120,4 +97,45 @@ export class FormComponent implements OnInit {
 
     return result
   }
+
+  copy(): void {
+    navigator.clipboard.writeText(JSON.stringify(this.scout, null, 2))
+  }
+
+  save(): void {
+    const link = document.createElement("a")
+    link.href = URL.createObjectURL(
+      new Blob([JSON.stringify(this.scout, null, 4)], { type: "text/plain" })
+    )
+    link.download = "submission.json"
+    link.style.display = "none"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  send(): void {
+    setDoc(
+      doc(
+        this.firestore,
+        `${this.event}/${this.stage} ${this.game} ${this.team}`
+      ),
+      this.scout,
+      {
+        merge: true,
+      }
+    )
+      .then(() => {
+        this.snack.open("Submission Received", "Dismiss", {
+          duration: 3000,
+        })
+      })
+      .catch(() => {
+        this.snack.open("Couldn't Send Submission", "Dismiss", {
+          duration: 3000,
+        })
+      })
+  }
+
+  ngOnInit(): void {}
 }
