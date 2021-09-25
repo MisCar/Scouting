@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
-import { LeaderboardComponent } from "./pages/fun-zone/simon/leaderboard/leaderboard.component"
+import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.component"
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
-import { SimonComponent } from "./pages/fun-zone/simon/game/simon.component"
+import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
 import { FormComponent } from "./components/form/form.component"
 import { SettingsComponent } from "./pages/settings/settings.component"
 
