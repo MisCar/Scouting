@@ -12,6 +12,7 @@ import { MatSelectModule } from "@angular/material/select"
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { MatToolbarModule } from "@angular/material/toolbar"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { MatTableModule } from "@angular/material/table"
 import { BrowserModule } from "@angular/platform-browser"
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 import { ServiceWorkerModule } from "@angular/service-worker"
@@ -27,7 +28,9 @@ import { ToggleComponent } from "./components/form/toggle/toggle.component"
 import { WidgetRowComponent } from "./components/form/widget-row/widget-row.component"
 import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
 import { LongPressDirective } from "./directives/long-press.directive"
+import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.component"
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
+import { SettingsComponent } from "./pages/settings/settings.component"
 import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
@@ -41,7 +44,9 @@ import { HttpClientModule } from "@angular/common/http"
     TimerComponent,
     WidgetRowComponent,
     SimonComponent,
+    LeaderboardComponent,
     FunZoneComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,7 @@ import { HttpClientModule } from "@angular/common/http"
     MatSnackBarModule,
     MatSlideToggleModule,
     MatToolbarModule,
+    MatTableModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

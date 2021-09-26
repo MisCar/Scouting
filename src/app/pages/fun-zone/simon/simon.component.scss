@@ -17,29 +17,33 @@
 }
 
 .panel:hover {
-  filter: brightness(90%);
+  filter: brightness(60%);
 }
 
 .bottom-right-panel {
-  border-bottom-right-radius: 80%;
+  border-bottom-right-radius: 90%;
   background-color: red;
 }
 
 .bottom-left-panel {
-  border-bottom-left-radius: 80%;
+  border-bottom-left-radius: 90%;
   background-color: blue;
 }
 
 .top-right-panel {
-  border-top-right-radius: 80%;
+  border-top-right-radius: 90%;
   background-color: green;
 }
 
 .top-left-panel {
-  border-top-left-radius: 80%;
+  border-top-left-radius: 90%;
   background-color: yellow;
 }
 
 .active {
   background-color: white;
+}
+
+#highScore {
+  margin-top: 150px;
 }

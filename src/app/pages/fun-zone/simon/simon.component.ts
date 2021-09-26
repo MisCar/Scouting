@@ -1,5 +1,8 @@
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
+import { Firestore, doc, setDoc } from "@angular/fire/firestore"
+import { AuthenticationService } from "app/services/authentication.service"
+import { getDoc } from "@firebase/firestore"
 
 @Component({
   selector: "app-simon",
@@ -16,17 +19,25 @@ export class SimonComponent {
   sequence: ElementRef<HTMLDivElement>[]
   sequenceToGuess: ElementRef<HTMLDivElement>[]
   score: number
+  highScore: number
   timeBetweenFlashs: number
+  lastPanelGuessed?: ElementRef<HTMLDivElement>
 
-  constructor(private snack: MatSnackBar) {
+  constructor(
+    private snack: MatSnackBar,
+    private firestore: Firestore,
+    private authentication: AuthenticationService
+  ) {
     this.canClick = false
     this.sequence = []
     this.sequenceToGuess = []
     this.score = 0
     this.timeBetweenFlashs = 800
+    this.highScore = 0
   }
 
   async start() {
+    this.timeBetweenFlashs = 800
     this.score = 0
     this.sequence = [this.getRandomPanel()]
     this.sequenceToGuess = [...this.sequence]
@@ -51,12 +62,19 @@ export class SimonComponent {
         this.sequence.push(this.getRandomPanel())
         this.sequenceToGuess = [...this.sequence]
         this.score++
+        if (this.score > this.highScore) {
+          this.highScore = this.score
+        }
         this.canClick = false
         await new Promise((resolve) => setTimeout(resolve, 1000))
         this.runSequence()
       }
     } else {
       this.canClick = false
+      this.updateHighScore(
+        this.highScore,
+        this.authentication.user?.displayName
+      )
       this.score = 0
       this.snack.open("You Guessed the Wrong Panel! Game Over", "Dismiss")
     }
@@ -69,7 +87,12 @@ export class SimonComponent {
       this.bottomLeft,
       this.bottomRight,
     ]
-    return panels[Math.floor(Math.random() * panels.length)]
+    let panel = panels[Math.floor(Math.random() * panels.length)]
+    if (panel === this.lastPanelGuessed) {
+      panel = panels[Math.floor(Math.random() * panels.length)]
+    }
+    this.lastPanelGuessed = panel
+    return panel
   }
 
   async flash(panel: ElementRef<HTMLDivElement>) {
@@ -82,5 +105,29 @@ export class SimonComponent {
     panel.nativeElement.classList.remove("active")
 
     await new Promise((resolve) => setTimeout(resolve, 250))
+  }
+
+  async updateHighScore(highScore: number, name?: string | null) {
+    if (name === undefined || name === null) name = ""
+    if (highScore > (await this.getCurrentHighScore(name))) {
+      setDoc(
+        doc(this.firestore, `high scores/simon`),
+        { [name]: { score: highScore } },
+        { merge: true }
+      )
+    }
+  }
+
+  async getCurrentHighScore(targetName: string): Promise<number> {
+    let highScore = 0
+    const document = await getDoc(doc(this.firestore, "high scores/simon"))
+    const data = document.data()
+    for (let name in data) {
+      if (name === targetName) {
+        let score = data[name].score
+        highScore = score
+      }
+    }
+    return highScore
   }
 }

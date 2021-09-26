@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import { FunZoneComponent } from "./fun-zone.component"
+import { LeaderboardComponent } from "./leaderboard.component"
 
-describe("FunZoneComponent", () => {
-  let component: FunZoneComponent
-  let fixture: ComponentFixture<FunZoneComponent>
+describe("leaderbordComponent", () => {
+  let component: LeaderboardComponent
+  let fixture: ComponentFixture<LeaderboardComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FunZoneComponent],
+      declarations: [LeaderboardComponent],
     }).compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FunZoneComponent)
+    fixture = TestBed.createComponent(LeaderboardComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
