@@ -1,1 +1,22 @@
-<button (click)="getData()">sdj</button>
+<mat-form-field appearance="fill">
+  <mat-label>Event</mat-label>
+  <mat-select (selectionChange)="event = $event.value">
+    <mat-option *ngFor="let event of events" [value]="event.key">{{
+      event.year + " " + event.name
+    }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Stage</mat-label>
+  <mat-select (selectionChange)="stage = $event.value">
+    <mat-option value="pr">Practice</mat-option>
+    <mat-option value="qm">Qualifications</mat-option>
+    <mat-option value="qf">Quarterfinals</mat-option>
+    <mat-option value="sf">Semifinals</mat-option>
+    <mat-option value="f">Finals</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Game Number</mat-label>
+  <input matInput type="number" (change)="onGameChanged($event)" />
+</mat-form-field>
