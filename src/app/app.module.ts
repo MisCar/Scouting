@@ -31,7 +31,8 @@ import { LongPressDirective } from "./directives/long-press.directive"
 import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.component"
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
 import { SettingsComponent } from "./pages/settings/settings.component"
-import { HttpClientModule } from "@angular/common/http"
+import { HttpClientModule } from "@angular/common/http";
+import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component'
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { HttpClientModule } from "@angular/common/http"
     LeaderboardComponent,
     FunZoneComponent,
     SettingsComponent,
+    AdminSettingsComponent,
   ],
   imports: [
     BrowserModule,

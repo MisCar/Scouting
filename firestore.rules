@@ -1,2 +1,14 @@
 rules_version = '2';
-ser
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	function isValidUser(request) {
+    	return request.auth.uid != null && request.auth.token.email.matches(".*@miscar1574[.]org");
+    }
+
+
+
+  	match /{document=**} {
+      allow read, write: if isValidUser(request);
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { AdminSettingsComponent } from "./pages/admin-settings/admin-settings.component"
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
 import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.component"
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "fun-zone/simon", component: SimonComponent },
   { path: "form", component: FormComponent },
   { path: "settings", component: SettingsComponent },
+  { path: "admin-settings", component: AdminSettingsComponent },
 ]
 
 @NgModule({
