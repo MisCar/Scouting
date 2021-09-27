@@ -1,3 +1,4 @@
+import { __values } from "tslib"
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { environment } from "environments/environment"
@@ -35,5 +36,19 @@ export class TheBlueAllianceService {
         headers: this.headers,
       })
       .toPromise()
+  }
+
+  async getTeams(event: string): Promise<number[]> {
+    const games = await this.http
+      .get(this.url + `/event/${event}/matches/simple`, {
+        headers: this.headers,
+      })
+      .toPromise()
+
+    console.log(games[0])
+    for (let game of games) {
+    }
+
+    return [0, 1]
   }
 }

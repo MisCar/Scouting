@@ -1,6 +1,10 @@
 import { Firestore } from "@angular/fire/firestore"
 import { Component, OnInit } from "@angular/core"
 import { collection, doc, getDocs } from "firebase/firestore"
+import {
+  Events,
+  TheBlueAllianceService,
+} from "app/services/the-blue-alliance.service"
 
 @Component({
   selector: "app-admin-settings",
@@ -8,9 +12,38 @@ import { collection, doc, getDocs } from "firebase/firestore"
   styleUrls: ["./admin-settings.component.scss"],
 })
 export class AdminSettingsComponent implements OnInit {
-  constructor(private firestore: Firestore) {}
-
   ngOnInit(): void {}
+
+  events: Events = []
+
+  game: number
+
+  stage: string
+
+  event: string
+
+  constructor(
+    private firestore: Firestore,
+    private tba: TheBlueAllianceService
+  ) {
+    this.tba.getEvents().then((events) => {
+      this.events = events.filter(
+        (event) => new Date(event.end_date).getFullYear() > 2019
+      )
+    })
+
+    this.event = ""
+    this.stage = ""
+    this.game = 1
+  }
+
+  onGameChanged(event: Event): void {
+    this.game = Number((event.target as HTMLInputElement).value)
+  }
+
+  getTeams() {
+    this.tba.getTeams(this.event)
+  }
 
   async getData() {
     const document = await getDocs(collection(this.firestore, "undefined"))
