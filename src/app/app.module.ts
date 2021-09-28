@@ -31,8 +31,9 @@ import { LongPressDirective } from "./directives/long-press.directive"
 import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.component"
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
 import { SettingsComponent } from "./pages/settings/settings.component"
-import { HttpClientModule } from "@angular/common/http";
-import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component'
+import { HttpClientModule } from "@angular/common/http"
+import { AdminSettingsComponent } from "./pages/admin-settings/admin-settings.component"
+import { MatListModule } from "@angular/material/list"
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
     MatSlideToggleModule,
     MatToolbarModule,
     MatTableModule,
+    MatListModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
