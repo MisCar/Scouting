@@ -66,7 +66,7 @@ export class AdminSettingsComponent implements OnInit {
     }
     let gameNumbers = []
     for (let number of splitedScouts) {
-      gameNumbers.push(number[1])
+      gameNumbers.push(Number(number[1]))
     }
     for (let i = 1; i < this.findMaxGameNum(gameNumbers) + 1; i++) {
       let specificTeams = []
@@ -93,46 +93,7 @@ export class AdminSettingsComponent implements OnInit {
     this.showMissingTeams = true
   }
 
-  findMaxGameNum(gameNumbers: string[]): number {
-    let max = 1
-    for (let game of gameNumbers) {
-      if (Number(game) > max) {
-        max = Number(game)
-      }
-    }
-    console.log("number of games " + max)
-
-    return max
-  }
-
-  async getData() {
-    const document = await getDocs(collection(this.firestore, "undefined"))
-    const scouts = document.docs
-    let scoutsString: any = null
-    for (let scout of scouts) {
-      let scouter = this.convertToCSV(scout.data())
-      console.log(scouter)
-    }
-    console.log(scoutsString)
-  }
-
-  convertToCSV(objArray: any) {
-    var array = typeof objArray != "object" ? JSON.parse(objArray) : objArray
-    console.log(array)
-    var str = ""
-    console.log("len " + array.length)
-    for (var i = 0; i < array.length; i++) {
-      var line = ""
-      for (var index in array[i]) {
-        if (line != "") line += ","
-
-        line += array[i][index]
-        console.log("line " + line)
-      }
-
-      str += line + "\r\n"
-    }
-
-    return str
+  findMaxGameNum(gameNumbers: number[]): number {
+    return Math.max(...gameNumbers)
   }
 }
