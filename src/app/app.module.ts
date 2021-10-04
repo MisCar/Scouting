@@ -32,6 +32,8 @@ import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.c
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
 import { SettingsComponent } from "./pages/settings/settings.component"
 import { HttpClientModule } from "@angular/common/http"
+import { AdminPanelComponent } from "./pages/admin-panel/admin-panel.component"
+import { MatListModule } from "@angular/material/list"
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { HttpClientModule } from "@angular/common/http"
     LeaderboardComponent,
     FunZoneComponent,
     SettingsComponent,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,7 @@ import { HttpClientModule } from "@angular/common/http"
     MatSlideToggleModule,
     MatToolbarModule,
     MatTableModule,
+    MatListModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

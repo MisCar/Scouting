@@ -74,7 +74,6 @@ export class FormComponent implements OnInit {
 
   get scout(): Scout {
     const result: Scout = {}
-
     for (let i = 0; i < localStorage.length; i++) {
       let fullKey = localStorage.key(i)
       if (!fullKey?.startsWith(storagePrefix)) {
@@ -135,6 +134,9 @@ export class FormComponent implements OnInit {
           duration: 3000,
         })
       })
+
+    localStorage.clear()
+    this.clear()
   }
 
   ngOnInit(): void {}

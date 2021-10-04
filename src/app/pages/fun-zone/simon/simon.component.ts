@@ -96,7 +96,7 @@ export class SimonComponent {
   }
 
   async flash(panel: ElementRef<HTMLDivElement>) {
-    if (this.timeBetweenFlashs > 200) {
+    if (this.timeBetweenFlashs > 130) {
       this.timeBetweenFlashs -= 30
     }
 
