@@ -134,9 +134,10 @@ export class FormComponent implements OnInit {
           duration: 3000,
         })
       })
+
+    localStorage.clear()
+    this.clear()
   }
 
-  ngOnInit(): void {
-    localStorage.clear()
-  }
+  ngOnInit(): void {}
 }

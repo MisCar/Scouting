@@ -32,7 +32,7 @@ import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.c
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
 import { SettingsComponent } from "./pages/settings/settings.component"
 import { HttpClientModule } from "@angular/common/http"
-import { AdminSettingsComponent } from "./pages/admin-settings/admin-settings.component"
+import { AdminPanelComponent } from "./pages/admin-panel/admin-panel.component"
 import { MatListModule } from "@angular/material/list"
 
 @NgModule({
@@ -49,7 +49,7 @@ import { MatListModule } from "@angular/material/list"
     LeaderboardComponent,
     FunZoneComponent,
     SettingsComponent,
-    AdminSettingsComponent,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,

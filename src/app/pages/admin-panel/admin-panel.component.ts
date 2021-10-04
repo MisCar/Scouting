@@ -7,11 +7,11 @@ import {
 } from "app/services/the-blue-alliance.service"
 
 @Component({
-  selector: "app-admin-settings",
-  templateUrl: "./admin-settings.component.html",
-  styleUrls: ["./admin-settings.component.scss"],
+  selector: "app-admin-Panel",
+  templateUrl: "./admin-Panel.component.html",
+  styleUrls: ["./admin-Panel.component.scss"],
 })
-export class AdminSettingsComponent implements OnInit {
+export class AdminPanelComponent implements OnInit {
   ngOnInit(): void {}
 
   events: Events = []
