@@ -1,24 +1,25 @@
 <div class="topPart">
   <h1>Manage Scouts</h1>
-  <mat-form-field appearance="fill" style="margin: 15px">
-    <mat-label>Event</mat-label>
-    <mat-select (selectionChange)="event = $event.value">
-      <mat-option *ngFor="let event of events" [value]="event.key">{{
-        event.year + " " + event.name
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill" style="margin: 15px">
-    <mat-label>Stage</mat-label>
-    <mat-select (selectionChange)="stage = $event.value">
-      <mat-option value="pr">Practice</mat-option>
-      <mat-option value="qm">Qualifications</mat-option>
-      <mat-option value="qf">Quarterfinals</mat-option>
-      <mat-option value="sf">Semifinals</mat-option>
-      <mat-option value="f">Finals</mat-option>
-    </mat-select>
-  </mat-form-field>
-
+  <mat-card>
+    <mat-form-field appearance="fill" style="margin: 15px">
+      <mat-label>Event</mat-label>
+      <mat-select (selectionChange)="event = $event.value">
+        <mat-option *ngFor="let event of events" [value]="event.key">{{
+          event.year + " " + event.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin: 15px">
+      <mat-label>Stage</mat-label>
+      <mat-select (selectionChange)="stage = $event.value">
+        <mat-option value="pr">Practice</mat-option>
+        <mat-option value="qm">Qualifications</mat-option>
+        <mat-option value="qf">Quarterfinals</mat-option>
+        <mat-option value="sf">Semifinals</mat-option>
+        <mat-option value="f">Finals</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
   <button
     (click)="findMissingScouts()"
     mat-raised-button
@@ -28,30 +29,231 @@
     Update List
   </button>
 </div>
-<div class="teams" *ngIf="showMissingTeams">
-  <div class="missing">
-    <h1 style="color: brown">Missing Scouts</h1>
-    <div *ngFor="let team of missingTeams">
-      <button mat-raised-button color="warn" style="margin: 5px">
-        {{ team }}
-      </button>
+<div
+  class="teams"
+  *ngIf="showMissingTeams"
+  style="width: fit-content; margin: auto"
+>
+  <mat-card style="margin: 15px">
+    <div class="missing" style="width: 30rem; margin: auto">
+      <h1 style="color: brown">Missing Scouts</h1>
+      <div *ngFor="let team of missingTeams">
+        <button mat-raised-button color="warn" style="margin: 5px">
+          {{ team }}
+        </button>
+      </div>
     </div>
-  </div>
+  </mat-card>
+  <mat-card style="margin: 15px">
+    <div class="incorrect" style="width: 30rem; margin: auto">
+      <h1 style="color: yellow">Incorrect Scouts</h1>
+      <div *ngFor="let team of incorrectTeams">
+        <button
+          mat-raised-button
+          style="
+            margin: 5px;
+            background-color: yellow;
+            color: #212121;
+            filter: brightness(85%);
+          "
+        >
+          {{ team }}
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<div class="editSchema">
+  <h1 style="text-align: center; margin-top: 50px; color: white">
+    Edit Schema
+  </h1>
+  <mat-card style="margin: auto; width: auto; text-align: center">
+    <button
+      mat-raised-button
+      color="accent"
+      style="margin: 15px; text-align: center"
+      (click)="addSection()"
+    >
+      Add Section
+    </button>
+  </mat-card>
+  <div *ngFor="let section of sections; let sectionIndex = index">
+    <div style="margin: 15px"></div>
+    <mat-card style="text-align: center">
+      <div class="sectionData">
+        <mat-form-field
+          appearance="fill"
+          style="margin: 15px"
+          [hideRequiredMarker]="hideRequiredControl.value"
+        >
+          <mat-label>Prefix</mat-label>
+          <input
+            matInput
+            [defaultValue]="section.prefix"
+            type="text"
+            (change)="section.prefix = eventToString($event)"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="margin: 15px">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            [defaultValue]="section.title"
+            type="text"
+            (change)="section.title = eventToString($event)"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="accent"
+          style="margin: 15px; height: fit-content; margin-top: 24px"
+          (click)="removeSection(sectionIndex)"
+        >
+          Remove Section
+        </button>
+      </div>
+      <div *ngFor="let widget of section.widgets; let widgetIndex = index">
+        <mat-form-field appearance="fill" class="widgetFields">
+          <mat-label>Key</mat-label>
+          <input
+            matInput
+            [defaultValue]="widget.key"
+            type="text"
+            (change)="widget.key = eventToString($event)"
+          />
+        </mat-form-field>
 
-  <div class="incorrect">
-    <h1 style="color: yellow">Incorrect Scouts</h1>
-    <div *ngFor="let team of incorrectTeams">
+        <mat-form-field appearance="fill" class="widgetFields">
+          <mat-label>Label</mat-label>
+          <input
+            matInput
+            [defaultValue]="widget.label"
+            type="text"
+            (change)="widget.label = eventToString($event)"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="widgetFields">
+          <mat-label>Type</mat-label>
+          <mat-select
+            (selectionChange)="widget.type = $event.value"
+            [value]="widget.type"
+          >
+            <mat-option value="Timer">Timer</mat-option>
+            <mat-option value="Counter">Counter</mat-option>
+            <mat-option value="Toggle">Toggle</mat-option>
+            <mat-option value="Text">Text</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field
+          appearance="fill"
+          *ngIf="widget.type == 'Counter' && widget.min != undefined"
+          class="widgetFields"
+        >
+          <mat-label>Min</mat-label>
+          <input
+            matInput
+            [defaultValue]="widget.min"
+            type="text"
+            (change)="widget.min = eventToNumber($event)"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="fill"
+          *ngIf="widget.type == 'Counter' && widget.min == undefined"
+          class="widgetFields"
+        >
+          <mat-label>Min</mat-label>
+          <input
+            matInput
+            type="text"
+            (change)="widget.min = eventToNumber($event)"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="fill"
+          *ngIf="widget.type == 'Counter' && widget.max != undefined"
+          class="widgetFields"
+        >
+          <mat-label>Max</mat-label>
+          <input
+            matInput
+            [defaultValue]="widget.max"
+            type="text"
+            (change)="widget.max = eventToNumber($event)"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="fill"
+          *ngIf="widget.type == 'Counter' && widget.max == undefined"
+          class="widgetFields"
+        >
+          <mat-label>Max</mat-label>
+          <input
+            matInput
+            type="text"
+            (change)="widget.max = eventToNumber($event)"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="fill"
+          *ngIf="widget.type == 'Text' && widget.rows != undefined"
+          class="widgetFields"
+        >
+          <mat-label>Rows</mat-label>
+          <input
+            matInput
+            [defaultValue]="widget.rows"
+            type="text"
+            (change)="widget.rows = eventToNumber($event)"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="fill"
+          *ngIf="widget.type == 'Text' && widget.rows == undefined"
+          class="widgetFields"
+        >
+          <mat-label>Rows</mat-label>
+          <input
+            matInput
+            type="text"
+            (change)="widget.rows = eventToNumber($event)"
+          />
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="accent"
+          class="widgetFields"
+          style="margin-bottom: 28px"
+          (click)="removeWidget(widgetIndex, sectionIndex)"
+        >
+          Remove Widget
+        </button>
+      </div>
+
       <button
         mat-raised-button
-        style="
-          margin: 5px;
-          background-color: yellow;
-          color: #212121;
-          filter: brightness(85%);
-        "
+        color="accent"
+        (click)="addWidget(section)"
+        style="width: 100%"
       >
-        {{ team }}
+        Add Widget
       </button>
-    </div>
+    </mat-card>
   </div>
 </div>
+
+<button
+  mat-raised-button
+  color="accent"
+  (click)="update()"
+  style="width: 100%; margin: auto; text-align: center; margin-top: 15px"
+>
+  Update Schema
+</button>

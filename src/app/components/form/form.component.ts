@@ -45,7 +45,7 @@ export class FormComponent implements OnInit {
       sections: [],
     }
 
-    onSnapshot(doc(firestore, "admin/schema"), (snapshot) => {
+    onSnapshot(doc(firestore, "admin/schema1"), (snapshot) => {
       this.schema = snapshot.data() as Schema
     })
 

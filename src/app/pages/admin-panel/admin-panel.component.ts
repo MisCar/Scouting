@@ -1,10 +1,31 @@
+import { getDoc } from "@firebase/firestore"
 import { Firestore } from "@angular/fire/firestore"
 import { Component, OnInit } from "@angular/core"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs, setDoc, doc } from "firebase/firestore"
 import {
   Events,
   TheBlueAllianceService,
 } from "app/services/the-blue-alliance.service"
+import { FormControl } from "@angular/forms"
+
+interface section {
+  title: string
+  prefix: string
+  widgets: widget[]
+}
+
+interface widget {
+  key: string
+  label: string
+  type: "Counter" | "Toggle" | "Timer" | "Text" | ""
+  min?: number
+  max?: number
+  rows?: number
+}
+
+interface schema {
+  sections: section[]
+}
 
 @Component({
   selector: "app-admin-Panel",
@@ -12,8 +33,11 @@ import {
   styleUrls: ["./admin-Panel.component.scss"],
 })
 export class AdminPanelComponent implements OnInit {
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    await this.getCurrentData()
+  }
 
+  hideRequiredControl = new FormControl(true)
   events: Events = []
 
   stage: string = ""
@@ -28,6 +52,9 @@ export class AdminPanelComponent implements OnInit {
 
   showMissingTeams: boolean = true
 
+  sections: section[] = []
+  schema: schema = { sections: this.sections }
+
   constructor(
     private firestore: Firestore,
     private tba: TheBlueAllianceService
@@ -37,6 +64,14 @@ export class AdminPanelComponent implements OnInit {
         (event) => new Date(event.end_date).getFullYear() > 2019
       )
     })
+  }
+
+  async getCurrentData() {
+    let schema = await getDoc(doc(this.firestore, "admin/schema"))
+    let data = schema.data()
+    for (let section of data?.sections) {
+      this.sections.push(section)
+    }
   }
 
   async getTeams(game: number): Promise<string[]> {
@@ -95,5 +130,38 @@ export class AdminPanelComponent implements OnInit {
 
   findMaxGameNum(gameNumbers: number[]): number {
     return Math.max(...gameNumbers)
+  }
+
+  addSection() {
+    this.sections.push({ title: "", prefix: "", widgets: [] })
+  }
+
+  addWidget(section: section) {
+    section.widgets.push({ key: "", label: "", type: "" })
+  }
+
+  removeWidget(widgetIndex: number, sectionIndex: number) {
+    this.sections[sectionIndex].widgets.splice(widgetIndex, 1)
+  }
+
+  removeSection(sectionIndex: number) {
+    this.sections.splice(sectionIndex, 1)
+  }
+
+  eventToString(event: Event): string {
+    return (event.target as HTMLInputElement).value
+  }
+
+  eventToNumber(event: Event): number {
+    return Number((event.target as HTMLInputElement).value)
+  }
+
+  async update() {
+    this.schema = { sections: this.sections }
+    let stringSchema = JSON.parse(JSON.stringify(this.schema))
+    await setDoc(
+      doc(this.firestore, "admin/schema1"),
+      Object.assign({}, stringSchema)
+    )
   }
 }
