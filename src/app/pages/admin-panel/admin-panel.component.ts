@@ -1,3 +1,5 @@
+import { Section } from "app/models/schema.model"
+import Schema from "app/models/schema.model"
 import { getDoc } from "@firebase/firestore"
 import { Firestore } from "@angular/fire/firestore"
 import { Component, OnInit } from "@angular/core"
@@ -7,25 +9,6 @@ import {
   TheBlueAllianceService,
 } from "app/services/the-blue-alliance.service"
 import { FormControl } from "@angular/forms"
-
-interface section {
-  title: string
-  prefix: string
-  widgets: widget[]
-}
-
-interface widget {
-  key: string
-  label: string
-  type: "Counter" | "Toggle" | "Timer" | "Text" | ""
-  min?: number
-  max?: number
-  rows?: number
-}
-
-interface schema {
-  sections: section[]
-}
 
 @Component({
   selector: "app-admin-Panel",
@@ -52,8 +35,8 @@ export class AdminPanelComponent implements OnInit {
 
   showMissingTeams: boolean = true
 
-  sections: section[] = []
-  schema: schema = { sections: this.sections }
+  sections: Section[] = []
+  schema: Schema = { sections: [] }
 
   constructor(
     private firestore: Firestore,
@@ -67,7 +50,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   async getCurrentData() {
-    let schema = await getDoc(doc(this.firestore, "admin/schema"))
+    let schema = await getDoc(doc(this.firestore, "admin/schema1"))
     let data = schema.data()
     for (let section of data?.sections) {
       this.sections.push(section)
@@ -136,8 +119,8 @@ export class AdminPanelComponent implements OnInit {
     this.sections.push({ title: "", prefix: "", widgets: [] })
   }
 
-  addWidget(section: section) {
-    section.widgets.push({ key: "", label: "", type: "" })
+  addWidget(section: Section) {
+    section.widgets.push({ key: "", label: "", type: "Counter" })
   }
 
   removeWidget(widgetIndex: number, sectionIndex: number) {
@@ -157,11 +140,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   async update() {
-    this.schema = { sections: this.sections }
-    let stringSchema = JSON.parse(JSON.stringify(this.schema))
-    await setDoc(
-      doc(this.firestore, "admin/schema1"),
-      Object.assign({}, stringSchema)
-    )
+    this.schema = { sections: this.sections } as Schema
+    await setDoc(doc(this.firestore, "admin/schema1"), this.schema)
   }
 }
