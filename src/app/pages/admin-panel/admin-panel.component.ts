@@ -143,4 +143,29 @@ export class AdminPanelComponent implements OnInit {
     this.schema = { sections: this.sections } as Schema
     await setDoc(doc(this.firestore, "admin/schema1"), this.schema)
   }
+
+  moveWidgetUp(widgetIndex: number, sectionIndex: number) {
+    if (widgetIndex == 0) return
+
+    const widget = this.sections[sectionIndex].widgets.splice(widgetIndex, 1)
+    this.sections[sectionIndex].widgets.splice(widgetIndex - 1, 0, widget[0])
+  }
+
+  moveWidgetDown(widgetIndex: number, sectionIndex: number) {
+    if (this.sections[sectionIndex].widgets.length == widgetIndex + 1) return
+    const widget = this.sections[sectionIndex].widgets.splice(widgetIndex, 1)
+    this.sections[sectionIndex].widgets.splice(widgetIndex + 1, 0, widget[0])
+  }
+
+  moveSectionUp(sectionIndex: number) {
+    if (sectionIndex == 0) return
+    const section = this.sections.splice(sectionIndex, 1)
+    this.sections.splice(sectionIndex - 1, 0, section[0])
+  }
+
+  moveSectionDown(sectionIndex: number) {
+    if (sectionIndex == this.sections.length) return
+    const section = this.sections.splice(sectionIndex, 1)
+    this.sections.splice(sectionIndex + 1, 0, section[0])
+  }
 }

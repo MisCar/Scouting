@@ -33,3 +33,12 @@
   margin: 15px;
   vertical-align: middle;
 }
+
+.arrows {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionArrow {
+  margin-top: 21px;
+}

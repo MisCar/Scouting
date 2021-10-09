@@ -81,6 +81,20 @@
     <div style="margin: 15px"></div>
     <mat-card style="text-align: center">
       <div class="sectionData">
+        <button
+          mat-icon-button
+          (click)="moveSectionUp(sectionIndex)"
+          class="sectionArrow"
+        >
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="moveSectionDown(sectionIndex)"
+          class="sectionArrow"
+        >
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
         <mat-form-field
           appearance="fill"
           style="margin: 15px"
@@ -113,6 +127,21 @@
         </button>
       </div>
       <div *ngFor="let widget of section.widgets; let widgetIndex = index">
+        <button
+          mat-icon-button
+          (click)="moveWidgetUp(widgetIndex, sectionIndex)"
+          class="widgetArrow"
+        >
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="moveWidgetDown(widgetIndex, sectionIndex)"
+          class="widgetArrow"
+        >
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+
         <mat-form-field appearance="fill" class="widgetFields">
           <mat-label>Key</mat-label>
           <input
@@ -122,7 +151,6 @@
             (change)="widget.key = eventToString($event)"
           />
         </mat-form-field>
-
         <mat-form-field appearance="fill" class="widgetFields">
           <mat-label>Label</mat-label>
           <input
