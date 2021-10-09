@@ -1,25 +1,23 @@
 <div class="topPart">
   <h1>Manage Scouts</h1>
-  <mat-card>
-    <mat-form-field appearance="fill" style="margin: 15px">
-      <mat-label>Event</mat-label>
-      <mat-select (selectionChange)="event = $event.value">
-        <mat-option *ngFor="let event of events" [value]="event.key">{{
-          event.year + " " + event.name
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill" style="margin: 15px">
-      <mat-label>Stage</mat-label>
-      <mat-select (selectionChange)="stage = $event.value">
-        <mat-option value="pr">Practice</mat-option>
-        <mat-option value="qm">Qualifications</mat-option>
-        <mat-option value="qf">Quarterfinals</mat-option>
-        <mat-option value="sf">Semifinals</mat-option>
-        <mat-option value="f">Finals</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </mat-card>
+  <mat-form-field appearance="fill" style="margin: 15px">
+    <mat-label>Event</mat-label>
+    <mat-select (selectionChange)="event = $event.value">
+      <mat-option *ngFor="let event of events" [value]="event.key">{{
+        event.year + " " + event.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" style="margin: 15px">
+    <mat-label>Stage</mat-label>
+    <mat-select (selectionChange)="stage = $event.value">
+      <mat-option value="pr">Practice</mat-option>
+      <mat-option value="qm">Qualifications</mat-option>
+      <mat-option value="qf">Quarterfinals</mat-option>
+      <mat-option value="sf">Semifinals</mat-option>
+      <mat-option value="f">Finals</mat-option>
+    </mat-select>
+  </mat-form-field>
   <button
     (click)="findMissingScouts()"
     mat-raised-button

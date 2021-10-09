@@ -4,6 +4,9 @@ import { getDoc } from "@firebase/firestore"
 import { Firestore } from "@angular/fire/firestore"
 import { Component, OnInit } from "@angular/core"
 import { collection, getDocs, setDoc, doc } from "firebase/firestore"
+import { Firestore } from "@angular/fire/firestore"
+import { Component, OnInit } from "@angular/core"
+import { collection, getDocs } from "firebase/firestore"
 import {
   Events,
   TheBlueAllianceService,
@@ -21,6 +24,8 @@ export class AdminPanelComponent implements OnInit {
   }
 
   hideRequiredControl = new FormControl(true)
+  ngOnInit(): void {}
+
   events: Events = []
 
   stage: string = ""
@@ -37,6 +42,7 @@ export class AdminPanelComponent implements OnInit {
 
   sections: Section[] = []
   schema: Schema = { sections: [] }
+
 
   constructor(
     private firestore: Firestore,
@@ -56,7 +62,6 @@ export class AdminPanelComponent implements OnInit {
       this.sections.push(section)
     }
   }
-
   async getTeams(game: number): Promise<string[]> {
     await this.tba.getTeams(this.event, this.stage, game).then((val) => {
       this.teams = val
