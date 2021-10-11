@@ -57,7 +57,7 @@ import { MatListModule } from "@angular/material/list"
     AppRoutingModule,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(config)),
-    provideFirestore(getFirestore),
+    provideFirestore(() => getFirestore()),
     provideAuth(getAuth),
     BrowserAnimationsModule,
     MatButtonModule,

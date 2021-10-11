@@ -4,9 +4,6 @@ import { getDoc } from "@firebase/firestore"
 import { Firestore } from "@angular/fire/firestore"
 import { Component, OnInit } from "@angular/core"
 import { collection, getDocs, setDoc, doc } from "firebase/firestore"
-import { Firestore } from "@angular/fire/firestore"
-import { Component, OnInit } from "@angular/core"
-import { collection, getDocs } from "firebase/firestore"
 import {
   Events,
   TheBlueAllianceService,
@@ -24,7 +21,6 @@ export class AdminPanelComponent implements OnInit {
   }
 
   hideRequiredControl = new FormControl(true)
-  ngOnInit(): void {}
 
   events: Events = []
 
@@ -42,7 +38,6 @@ export class AdminPanelComponent implements OnInit {
 
   sections: Section[] = []
   schema: Schema = { sections: [] }
-
 
   constructor(
     private firestore: Firestore,

@@ -47,12 +47,13 @@ export class TheBlueAllianceService {
 
   constructor(private http: HttpClient) {}
 
-  getEvents(): Promise<Events> {
-    return this.http
+  async getEvents(): Promise<Events> {
+    const result = await this.http
       .get<Events>(this.url + `/team/frc${environment.team}/events`, {
         headers: this.headers,
       })
       .toPromise()
+    return result ?? []
   }
 
   async getTeams(
