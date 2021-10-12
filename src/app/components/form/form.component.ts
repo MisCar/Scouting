@@ -1,3 +1,4 @@
+import { __values } from "tslib"
 import { Component, OnInit, Input, ViewChild } from "@angular/core"
 import { Firestore, doc, onSnapshot, setDoc } from "@angular/fire/firestore"
 import Schema from "app/models/schema.model"
@@ -32,6 +33,9 @@ export class FormComponent implements OnInit {
   /** The team number the scout is about */
   team?: number
 
+  blueTeams: string[] = []
+  redTeams: string[] = []
+
   /** The events your team is competing at */
   events: Events = []
 
@@ -60,6 +64,7 @@ export class FormComponent implements OnInit {
 
   onGameChanged(event: Event): void {
     this.game = Number((event.target as HTMLInputElement).value)
+    this.showTeams()
   }
 
   onTeamChanged(event: Event): void {
@@ -69,6 +74,10 @@ export class FormComponent implements OnInit {
   /** Actions */
 
   clear(): void {
+    this.team = undefined
+    this.game = undefined
+    this.redTeams = []
+    this.blueTeams = []
     window.dispatchEvent(new Event("formclear"))
   }
 
@@ -137,6 +146,42 @@ export class FormComponent implements OnInit {
 
     localStorage.clear()
     this.clear()
+  }
+
+  async showTeams() {
+    this.redTeams = []
+    this.blueTeams = []
+    if (
+      this.event === undefined ||
+      this.stage === undefined ||
+      this.game === undefined
+    )
+      return
+    const teams = await this.getTeams(this.event, this.stage, this.game)
+    for (let i = 0; i < 6; i++) {
+      if (i < 3) {
+        this.redTeams.push(teams[i])
+      } else {
+        this.blueTeams.push(teams[i])
+      }
+    }
+    console.log(teams)
+  }
+
+  async getTeams(
+    event: string,
+    stage: string,
+    game: number
+  ): Promise<string[]> {
+    let teams: any
+    await this.tba.getTeams(event, stage, game).then((val) => {
+      teams = val
+    })
+    return teams
+  }
+
+  setTeam(number: string) {
+    this.team = parseInt(number, 10)
   }
 
   ngOnInit(): void {}
