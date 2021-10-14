@@ -4,7 +4,7 @@
     <div class="content">
       <mat-form-field appearance="fill">
         <mat-label>Event</mat-label>
-        <mat-select (selectionChange)="event = $event.value">
+        <mat-select (selectionChange)="onEventChange($event)">
           <mat-option *ngFor="let event of events" [value]="event.key">{{
             event.year + " " + event.name
           }}</mat-option>
@@ -12,7 +12,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Stage</mat-label>
-        <mat-select (selectionChange)="stage = $event.value">
+        <mat-select (selectionChange)="onStageChange($event)">
           <mat-option value="pr">Practice</mat-option>
           <mat-option value="qm">Qualifications</mat-option>
           <mat-option value="qf">Quarterfinals</mat-option>
@@ -22,12 +22,44 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Game Number</mat-label>
-        <input matInput type="number" (change)="onGameChanged($event)" />
+        <input
+          matInput
+          type="number"
+          (change)="onGameChanged($event)"
+          [value]="game"
+        />
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Team Number</mat-label>
-        <input matInput type="number" (change)="onTeamChanged($event)" />
+        <input
+          matInput
+          type="number"
+          (change)="onTeamChanged($event)"
+          [value]="team"
+        />
       </mat-form-field>
+    </div>
+    <div style="width: fit-content; margin: auto">
+      <div style="display: flex; flex-direction: row">
+        <button
+          mat-stroked-button
+          *ngFor="let blueTeam of blueTeams"
+          class="teamBottom blue"
+          (click)="setTeam(blueTeam)"
+        >
+          {{ blueTeam }}
+        </button>
+      </div>
+      <div style="display: flex; flex-direction: row">
+        <button
+          mat-stroked-button
+          *ngFor="let redTeam of redTeams"
+          class="teamBottom red"
+          (click)="setTeam(redTeam)"
+        >
+          {{ redTeam }}
+        </button>
+      </div>
     </div>
   </mat-card>
   <mat-card *ngFor="let section of schema.sections" style="margin-bottom: 20px">
