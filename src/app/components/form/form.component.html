@@ -4,7 +4,7 @@
     <div class="content">
       <mat-form-field appearance="fill">
         <mat-label>Event</mat-label>
-        <mat-select (selectionChange)="event = $event.value">
+        <mat-select (selectionChange)="onEventChange($event)">
           <mat-option *ngFor="let event of events" [value]="event.key">{{
             event.year + " " + event.name
           }}</mat-option>
@@ -12,7 +12,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Stage</mat-label>
-        <mat-select (selectionChange)="stage = $event.value">
+        <mat-select (selectionChange)="onStageChange($event)">
           <mat-option value="pr">Practice</mat-option>
           <mat-option value="qm">Qualifications</mat-option>
           <mat-option value="qf">Quarterfinals</mat-option>
@@ -43,21 +43,21 @@
       <div style="display: flex; flex-direction: row">
         <button
           mat-stroked-button
-          *ngFor="let blue of blueTeams"
+          *ngFor="let blueTeam of blueTeams"
           class="teamBottom blue"
-          (click)="setTeam(blue)"
+          (click)="setTeam(blueTeam)"
         >
-          {{ blue }}
+          {{ blueTeam }}
         </button>
       </div>
       <div style="display: flex; flex-direction: row">
         <button
           mat-stroked-button
-          *ngFor="let red of redTeams"
+          *ngFor="let redTeam of redTeams"
           class="teamBottom red"
-          (click)="setTeam(red)"
+          (click)="setTeam(redTeam)"
         >
-          {{ red }}
+          {{ redTeam }}
         </button>
       </div>
     </div>

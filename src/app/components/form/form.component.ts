@@ -9,6 +9,7 @@ import {
   Events,
   TheBlueAllianceService,
 } from "app/services/the-blue-alliance.service"
+import { MatSelectChange } from "@angular/material/select"
 
 interface Scout {
   [keyof: string]: {
@@ -61,6 +62,16 @@ export class FormComponent implements OnInit {
   }
 
   /** Bindings */
+
+  onEventChange(event: MatSelectChange) {
+    this.event = event.value
+    this.showTeams()
+  }
+
+  onStageChange(event: MatSelectChange) {
+    this.stage = event.value
+    this.showTeams()
+  }
 
   onGameChanged(event: Event): void {
     this.game = Number((event.target as HTMLInputElement).value)
