@@ -41,13 +41,13 @@ export default abstract class Widget<T> {
       localStorage.setItem(this.key, JSON.stringify(this.value))
     }
 
-    addEventListener("storage", ({ key, newValue }) => {
+    window.addEventListener("storage", ({ key, newValue }) => {
       if (this.key !== undefined && key === this.key) {
         this.update(newValue)
       }
     })
 
-    addEventListener("formclear", () => {
+    window.addEventListener("formclear", () => {
       this.value = this.initial
     })
   }

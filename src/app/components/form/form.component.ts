@@ -134,6 +134,19 @@ export class FormComponent implements OnInit {
   }
 
   send(): void {
+    if (
+      this.event === undefined ||
+      this.stage === undefined ||
+      this.game === undefined ||
+      this.team === undefined
+    ) {
+      this.snack.open(
+        "You must enter the event, stage, game and team number before submitting your scout",
+        "Dismiss",
+        { duration: 3000 }
+      )
+    }
+
     setDoc(
       doc(
         this.firestore,
@@ -154,9 +167,6 @@ export class FormComponent implements OnInit {
           duration: 3000,
         })
       })
-
-    localStorage.clear()
-    this.clear()
   }
 
   async showTeams() {

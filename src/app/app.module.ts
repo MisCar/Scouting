@@ -1,13 +1,18 @@
 import { NgModule } from "@angular/core"
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app"
 import { getAuth, provideAuth } from "@angular/fire/auth"
-import { getFirestore, provideFirestore } from "@angular/fire/firestore"
-import { ReactiveFormsModule } from "@angular/forms"
+import {
+  enableIndexedDbPersistence,
+  getFirestore,
+  provideFirestore,
+} from "@angular/fire/firestore"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButtonModule } from "@angular/material/button"
 import { MatCardModule } from "@angular/material/card"
 import { MatFormFieldModule } from "@angular/material/form-field"
 import { MatIconModule } from "@angular/material/icon"
 import { MatInputModule } from "@angular/material/input"
+import { MatCheckboxModule } from "@angular/material/checkbox"
 import { MatSelectModule } from "@angular/material/select"
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { MatToolbarModule } from "@angular/material/toolbar"
@@ -30,10 +35,11 @@ import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
 import { LongPressDirective } from "./directives/long-press.directive"
 import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.component"
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
-import { SettingsComponent } from "./pages/settings/settings.component"
 import { HttpClientModule } from "@angular/common/http"
 import { AdminPanelComponent } from "./pages/admin-panel/admin-panel.component"
 import { MatListModule } from "@angular/material/list"
+import { ScoutOverviewComponent } from "./pages/admin-panel/scout-overview/scout-overview.component"
+import { SchemaEditorComponent } from "./pages/admin-panel/schema-editor/schema-editor.component"
 
 @NgModule({
   declarations: [
@@ -48,16 +54,22 @@ import { MatListModule } from "@angular/material/list"
     SimonComponent,
     LeaderboardComponent,
     FunZoneComponent,
-    SettingsComponent,
     AdminPanelComponent,
+    ScoutOverviewComponent,
+    SchemaEditorComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(config)),
-    provideFirestore(() => getFirestore()),
+    provideFirestore(() => {
+      const firestore = getFirestore()
+      enableIndexedDbPersistence(firestore)
+      return firestore
+    }),
     provideAuth(() => getAuth()),
     //provideAuth(getAuth),
     BrowserAnimationsModule,
@@ -70,6 +82,7 @@ import { MatListModule } from "@angular/material/list"
     MatSnackBarModule,
     MatSlideToggleModule,
     MatToolbarModule,
+    MatCheckboxModule,
     MatTableModule,
     MatListModule,
     ServiceWorkerModule.register("ngsw-worker.js", {

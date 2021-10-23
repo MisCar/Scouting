@@ -1,0 +1,43 @@
+.missing {
+  text-align: center;
+  margin: 5px;
+  margin-right: 10rem;
+}
+
+.topPart {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.teams {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: auto;
+}
+.incorrect {
+  text-align: center;
+  margin: 5px;
+  margin-left: 10rem;
+}
+.sectionData {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: fit-content;
+}
+
+.widgetFields {
+  margin: 15px;
+  vertical-align: middle;
+}
+
+.arrows {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionArrow {
+  margin-top: 21px;
+}

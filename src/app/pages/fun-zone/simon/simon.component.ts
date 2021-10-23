@@ -76,7 +76,9 @@ export class SimonComponent {
         this.authentication.user?.displayName
       )
       this.score = 0
-      this.snack.open("You Guessed the Wrong Panel! Game Over", "Dismiss")
+      this.snack.open("You Guessed the Wrong Panel! Game Over", "Dismiss", {
+        duration: 3000,
+      })
     }
   }
 

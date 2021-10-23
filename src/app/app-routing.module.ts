@@ -5,7 +5,9 @@ import { LeaderboardComponent } from "./pages/fun-zone/leaderboard/leaderboard.c
 import { FunZoneComponent } from "./pages/fun-zone/fun-zone.component"
 import { SimonComponent } from "./pages/fun-zone/simon/simon.component"
 import { FormComponent } from "./components/form/form.component"
-import { SettingsComponent } from "./pages/settings/settings.component"
+import { ScoutOverviewComponent } from "./pages/admin-panel/scout-overview/scout-overview.component"
+import { SchemaEditorComponent } from "./pages/admin-panel/schema-editor/schema-editor.component"
+import { AdminGuard } from "./services/admin.guard"
 
 const routes: Routes = [
   { path: "", redirectTo: "/form", pathMatch: "full" },
@@ -13,8 +15,21 @@ const routes: Routes = [
   { path: "fun-zone/leaderboard", component: LeaderboardComponent },
   { path: "fun-zone/simon", component: SimonComponent },
   { path: "form", component: FormComponent },
-  { path: "settings", component: SettingsComponent },
-  { path: "admin-panel", component: AdminPanelComponent },
+  {
+    path: "admin-panel",
+    component: AdminPanelComponent,
+    canActivate: [AdminGuard],
+  },
+  {
+    path: "admin-panel/scout-overview",
+    component: ScoutOverviewComponent,
+    canActivate: [AdminGuard],
+  },
+  {
+    path: "admin-panel/schema-editor",
+    component: SchemaEditorComponent,
+    canActivate: [AdminGuard],
+  },
 ]
 
 @NgModule({
