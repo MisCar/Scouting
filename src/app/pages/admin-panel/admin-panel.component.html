@@ -1,67 +1,83 @@
-<div class="topPart">
-  <h1>Manage Scouts</h1>
-  <mat-form-field appearance="fill" style="margin: 15px">
-    <mat-label>Event</mat-label>
-    <mat-select (selectionChange)="event = $event.value">
-      <mat-option *ngFor="let event of events" [value]="event.key">{{
-        event.year + " " + event.name
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill" style="margin: 15px">
-    <mat-label>Stage</mat-label>
-    <mat-select (selectionChange)="stage = $event.value">
-      <mat-option value="pr">Practice</mat-option>
-      <mat-option value="qm">Qualifications</mat-option>
-      <mat-option value="qf">Quarterfinals</mat-option>
-      <mat-option value="sf">Semifinals</mat-option>
-      <mat-option value="f">Finals</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button
-    (click)="findMissingScouts()"
-    mat-raised-button
-    color="accent"
-    style="margin: 15px"
-  >
-    Update List
-  </button>
-</div>
-<div
-  class="teams"
-  *ngIf="showMissingTeams"
-  style="width: fit-content; margin: auto"
+<mat-card
+  style="text-align: center; width: 80vmax; margin: auto; margin-bottom: 15px"
 >
-  <mat-card style="margin: 15px">
-    <div class="missing" style="width: 30rem; margin: auto">
-      <h1 style="color: brown">Missing Scouts</h1>
-      <div *ngFor="let team of missingTeams">
-        <button mat-raised-button color="warn" style="margin: 5px">
-          {{ team }}
-        </button>
+  <div>
+    <mat-slide-toggle (change)="showMangeScouts = $event.checked"
+      >Manage Scouts</mat-slide-toggle
+    >
+  </div>
+  <div>
+    <mat-slide-toggle (change)="showSchemaEdit = $event.checked"
+      >Schema Edit</mat-slide-toggle
+    >
+  </div>
+</mat-card>
+<mat-card *ngIf="showMangeScouts">
+  <div class="topPart">
+    <h1>Manage Scouts</h1>
+    <mat-form-field appearance="fill" style="margin: 15px">
+      <mat-label>Event</mat-label>
+      <mat-select (selectionChange)="event = $event.value">
+        <mat-option *ngFor="let event of events" [value]="event.key">{{
+          event.year + " " + event.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin: 15px">
+      <mat-label>Stage</mat-label>
+      <mat-select (selectionChange)="stage = $event.value">
+        <mat-option value="pr">Practice</mat-option>
+        <mat-option value="qm">Qualifications</mat-option>
+        <mat-option value="qf">Quarterfinals</mat-option>
+        <mat-option value="sf">Semifinals</mat-option>
+        <mat-option value="f">Finals</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      (click)="findMissingScouts()"
+      mat-raised-button
+      color="accent"
+      style="margin: 15px"
+    >
+      Update List
+    </button>
+  </div>
+  <div
+    class="teams"
+    *ngIf="showMissingTeams"
+    style="width: fit-content; margin: auto"
+  >
+    <mat-card style="margin: 15px">
+      <div class="missing" style="width: 30rem; margin: auto">
+        <h1 style="color: brown">Missing Scouts</h1>
+        <div *ngFor="let team of missingTeams">
+          <button mat-raised-button color="warn" style="margin: 5px">
+            {{ team }}
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-card>
-  <mat-card style="margin: 15px">
-    <div class="incorrect" style="width: 30rem; margin: auto">
-      <h1 style="color: yellow">Incorrect Scouts</h1>
-      <div *ngFor="let team of incorrectTeams">
-        <button
-          mat-raised-button
-          style="
-            margin: 5px;
-            background-color: yellow;
-            color: #212121;
-            filter: brightness(85%);
-          "
-        >
-          {{ team }}
-        </button>
+    </mat-card>
+    <mat-card style="margin: 15px">
+      <div class="incorrect" style="width: 30rem; margin: auto">
+        <h1 style="color: yellow">Incorrect Scouts</h1>
+        <div *ngFor="let team of incorrectTeams">
+          <button
+            mat-raised-button
+            style="
+              margin: 5px;
+              background-color: yellow;
+              color: #212121;
+              filter: brightness(85%);
+            "
+          >
+            {{ team }}
+          </button>
+        </div>
       </div>
-    </div>
-  </mat-card>
-</div>
-<div class="editSchema">
+    </mat-card>
+  </div>
+</mat-card>
+<div class="editSchema" *ngIf="showSchemaEdit">
   <h1 style="text-align: center; margin-top: 50px; color: white">
     Edit Schema
   </h1>
@@ -273,13 +289,12 @@
       </button>
     </mat-card>
   </div>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="update()"
+    style="width: 100%; margin: auto; text-align: center; margin-top: 15px"
+  >
+    Update Schema
+  </button>
 </div>
-
-<button
-  mat-raised-button
-  color="accent"
-  (click)="update()"
-  style="width: 100%; margin: auto; text-align: center; margin-top: 15px"
->
-  Update Schema
-</button>

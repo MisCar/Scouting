@@ -39,6 +39,9 @@ export class AdminPanelComponent implements OnInit {
   sections: Section[] = []
   schema: Schema = { sections: [] }
 
+  showSchemaEdit: boolean = false
+  showMangeScouts: boolean = false
+
   constructor(
     private firestore: Firestore,
     private tba: TheBlueAllianceService
