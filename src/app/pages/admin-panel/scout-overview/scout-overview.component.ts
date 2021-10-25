@@ -76,7 +76,6 @@ export class ScoutOverviewComponent implements OnInit {
     }
     let gameNumbers = []
     for (let number of splitedScouts) {
-      console.log(number)
       gameNumbers.push(Number(number[1]))
     }
 
@@ -134,10 +133,7 @@ export class ScoutOverviewComponent implements OnInit {
         incorrect = this.incorrectTeams[i]
       }
       this.daraSource.push({ missing: missing, incorrect: incorrect })
-
-      console.log(this.daraSource[i])
     }
-    console.log(this.daraSource.length)
     this.showTable = true
   }
 
@@ -149,10 +145,10 @@ export class ScoutOverviewComponent implements OnInit {
       return "Qualifications"
     }
     if (stage == "qf") {
-      return "Quaterfinals"
+      return "Quarterfinals"
     }
     if (stage == "sf") {
-      return "Semfinals"
+      return "Semifinals"
     }
     if (stage == "f") {
       return "Finals"
