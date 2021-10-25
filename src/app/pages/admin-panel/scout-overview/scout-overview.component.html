@@ -1,0 +1,60 @@
+<div class="topPart">
+  <h1>Scout Overview</h1>
+  <mat-form-field appearance="fill" style="margin: 15px">
+    <mat-label>Event</mat-label>
+    <mat-select (selectionChange)="event = $event.value">
+      <mat-option *ngFor="let event of events" [value]="event.key">{{
+        event.year + " " + event.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" style="margin: 15px">
+    <mat-label>Stage</mat-label>
+    <mat-select (selectionChange)="stage = $event.value">
+      <mat-option value="pr">Practice</mat-option>
+      <mat-option value="qm">Qualifications</mat-option>
+      <mat-option value="qf">Quarterfinals</mat-option>
+      <mat-option value="sf">Semifinals</mat-option>
+      <mat-option value="f">Finals</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    (click)="findMissingScouts()"
+    mat-raised-button
+    color="accent"
+    style="margin: 15px"
+  >
+    Update List
+  </button>
+</div>
+
+<br />
+
+<table
+  mat-table
+  [dataSource]="daraSource"
+  class="table"
+  *ngIf="showTable"
+  style="width: 70em; margin: auto"
+>
+  <ng-container matColumnDef="missingScouts">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center">
+      Missing Scouts
+    </th>
+    <td mat-cell *matCellDef="let element" style="text-align: center">
+      {{ element.missing }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="incorrectScouts">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center">
+      Incorrect Scouts
+    </th>
+    <td mat-cell *matCellDef="let element" style="text-align: center">
+      {{ element.incorrect }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

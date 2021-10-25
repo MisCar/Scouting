@@ -1,14 +1,30 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-  	function isValidUser(request) {
-    	return request.auth.uid != null && request.auth.token.email.matches(".*@miscar1574[.]org");
+  	function isAdmin() {
+    	return request.auth != null && request.auth.uid != null && request.auth.uid in get(/databases/$(database)/documents/admin/admins).data.users;
     }
 
-
-
-  	match /{document=**} {
-      allow read, write: if isValidUser(request);
+    function isTeamUser() {
+      return request.auth != null && request.auth.uid != null && request.auth.token.email.matches(".*@miscar1574[.]org");
+    }
+    
+    match /admin/{document} {
+    	allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /users/{document} {
+    	allow read: if true;
+      allow write: if document == request.auth.uid;
+    }
+    
+    match /games/{document} {
+    	allow read, write: if true;
+    }
+    
+    match /{document=**} {
+      allow read, write: if isTeamUser();
     }
   }
 }

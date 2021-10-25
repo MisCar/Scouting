@@ -1,0 +1,222 @@
+<h1 style="text-align: center; margin-top: 50px; color: white">
+  Schema Editor
+</h1>
+<div *ngFor="let section of sections; let sectionIndex = index">
+  <div style="margin: 15px"></div>
+  <mat-card style="text-align: center">
+    <div class="sectionData">
+      <button
+        mat-icon-button
+        (click)="moveSectionUp(sectionIndex)"
+        class="sectionArrow"
+      >
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        (click)="moveSectionDown(sectionIndex)"
+        class="sectionArrow"
+      >
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <mat-form-field
+        appearance="fill"
+        style="margin: 15px"
+        [hideRequiredMarker]="hideRequiredControl.value"
+      >
+        <mat-label>Prefix</mat-label>
+        <input
+          matInput
+          [defaultValue]="section.prefix"
+          type="text"
+          (change)="section.prefix = eventToString($event)"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="margin: 15px">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          [defaultValue]="section.title"
+          type="text"
+          (change)="section.title = eventToString($event)"
+        />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="accent"
+        style="margin: 15px; height: fit-content; margin-top: 24px"
+        (click)="removeSection(sectionIndex)"
+      >
+        Remove Section
+      </button>
+    </div>
+    <div *ngFor="let widget of section.widgets; let widgetIndex = index">
+      <button
+        mat-icon-button
+        (click)="moveWidgetUp(widgetIndex, sectionIndex)"
+        class="widgetArrow"
+      >
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        (click)="moveWidgetDown(widgetIndex, sectionIndex)"
+        class="widgetArrow"
+      >
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+
+      <mat-form-field appearance="fill" class="widgetFields">
+        <mat-label>Key</mat-label>
+        <input
+          matInput
+          [defaultValue]="widget.key"
+          type="text"
+          (change)="widget.key = eventToString($event)"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="widgetFields">
+        <mat-label>Label</mat-label>
+        <input
+          matInput
+          [defaultValue]="widget.label"
+          type="text"
+          (change)="widget.label = eventToString($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="widgetFields">
+        <mat-label>Type</mat-label>
+        <mat-select
+          (selectionChange)="widget.type = $event.value"
+          [value]="widget.type"
+        >
+          <mat-option value="Timer">Timer</mat-option>
+          <mat-option value="Counter">Counter</mat-option>
+          <mat-option value="Toggle">Toggle</mat-option>
+          <mat-option value="Text">Text</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field
+        appearance="fill"
+        *ngIf="widget.type == 'Counter' && widget.min != undefined"
+        class="widgetFields"
+      >
+        <mat-label>Min</mat-label>
+        <input
+          matInput
+          [defaultValue]="widget.min"
+          type="text"
+          (change)="widget.min = eventToNumber($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="fill"
+        *ngIf="widget.type == 'Counter' && widget.min == undefined"
+        class="widgetFields"
+      >
+        <mat-label>Min</mat-label>
+        <input
+          matInput
+          type="text"
+          (change)="widget.min = eventToNumber($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="fill"
+        *ngIf="widget.type == 'Counter' && widget.max != undefined"
+        class="widgetFields"
+      >
+        <mat-label>Max</mat-label>
+        <input
+          matInput
+          [defaultValue]="widget.max"
+          type="text"
+          (change)="widget.max = eventToNumber($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="fill"
+        *ngIf="widget.type == 'Counter' && widget.max == undefined"
+        class="widgetFields"
+      >
+        <mat-label>Max</mat-label>
+        <input
+          matInput
+          type="text"
+          (change)="widget.max = eventToNumber($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="fill"
+        *ngIf="widget.type == 'Text' && widget.rows != undefined"
+        class="widgetFields"
+      >
+        <mat-label>Rows</mat-label>
+        <input
+          matInput
+          [defaultValue]="widget.rows"
+          type="text"
+          (change)="widget.rows = eventToNumber($event)"
+        />
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="fill"
+        *ngIf="widget.type == 'Text' && widget.rows == undefined"
+        class="widgetFields"
+      >
+        <mat-label>Rows</mat-label>
+        <input
+          matInput
+          type="text"
+          (change)="widget.rows = eventToNumber($event)"
+        />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="accent"
+        class="widgetFields"
+        style="margin-bottom: 28px"
+        (click)="removeWidget(widgetIndex, sectionIndex)"
+      >
+        Remove Widget
+      </button>
+    </div>
+
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="addWidget(section)"
+      style="width: 100%"
+    >
+      Add Widget
+    </button>
+  </mat-card>
+</div>
+<mat-card
+  style="margin: auto; width: auto; text-align: center; margin-top: 10px"
+>
+  <button
+    mat-raised-button
+    color="accent"
+    style="margin: 15px; text-align: center"
+    (click)="addSection()"
+  >
+    Add Section
+  </button>
+</mat-card>
+
+<button
+  mat-raised-button
+  color="accent"
+  (click)="update()"
+  style="width: 100%; margin: auto; text-align: center; margin-top: 15px"
+>
+  Update Schema
+</button>

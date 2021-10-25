@@ -1,6 +1,7 @@
 <div id="root">
   <div style="flex-direction: row">
     <h1 id="score">Score: {{ score }}</h1>
+    <h2>High Score: {{ highScore }}</h2>
     <button mat-stroked-button color="secondary" (click)="start()">
       Start Game
     </button>
@@ -31,6 +32,5 @@
         class="bottom-right-panel panel"
       ></div>
     </div>
-    <h2 id="highScore">High Score: {{ highScore }}</h2>
   </div>
 </div>
