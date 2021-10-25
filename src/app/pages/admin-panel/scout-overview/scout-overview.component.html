@@ -27,37 +27,34 @@
     Update List
   </button>
 </div>
-<div
-  class="teams"
-  *ngIf="showMissingTeams"
-  style="width: fit-content; margin: auto"
+
+<br />
+
+<table
+  mat-table
+  [dataSource]="daraSource"
+  class="table"
+  *ngIf="showTable"
+  style="width: 70em; margin: auto"
 >
-  <mat-card style="margin: 15px">
-    <div class="missing" style="width: 30rem; margin: auto">
-      <h1 style="color: brown">Missing Scouts</h1>
-      <div *ngFor="let team of missingTeams">
-        <button mat-raised-button color="warn" style="margin: 5px">
-          {{ team }}
-        </button>
-      </div>
-    </div>
-  </mat-card>
-  <mat-card style="margin: 15px">
-    <div class="incorrect" style="width: 30rem; margin: auto">
-      <h1 style="color: yellow">Incorrect Scouts</h1>
-      <div *ngFor="let team of incorrectTeams">
-        <button
-          mat-raised-button
-          style="
-            margin: 5px;
-            background-color: yellow;
-            color: #212121;
-            filter: brightness(85%);
-          "
-        >
-          {{ team }}
-        </button>
-      </div>
-    </div>
-  </mat-card>
-</div>
+  <ng-container matColumnDef="missingScouts">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center">
+      Missing Scouts
+    </th>
+    <td mat-cell *matCellDef="let element" style="text-align: center">
+      {{ element.missing }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="incorrectScouts">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center">
+      Incorrect Scouts
+    </th>
+    <td mat-cell *matCellDef="let element" style="text-align: center">
+      {{ element.incorrect }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
