@@ -8,23 +8,23 @@ service cloud.firestore {
     function isTeamUser() {
       return request.auth != null && request.auth.uid != null && request.auth.token.email.matches(".*@miscar1574[.]org");
     }
-    
+
     match /admin/{document} {
     	allow read: if true;
       allow write: if isAdmin();
     }
-    
+
     match /users/{document} {
     	allow read: if true;
       allow write: if document == request.auth.uid;
     }
-    
+
     match /games/{document} {
     	allow read, write: if true;
     }
-    
+
     match /{document=**} {
-      allow read, write: if isTeamUser();
+      allow read, write: if isTeamUser() || isAdmin();
     }
   }
 }
