@@ -1,13 +1,12 @@
 import { Component, OnInit } from "@angular/core"
 import { collection, Firestore, onSnapshot } from "@angular/fire/firestore"
-import { MatCheckboxChange } from "@angular/material/checkbox"
 import { doc, setDoc } from "@firebase/firestore"
 import User from "app/models/user.model"
 
 @Component({
-  selector: "app-admin-Panel",
-  templateUrl: "./admin-Panel.component.html",
-  styleUrls: ["./admin-Panel.component.scss"],
+  selector: "app-admin-panel",
+  templateUrl: "./admin-panel.component.html",
+  styleUrls: ["./admin-panel.component.scss"],
 })
 export class AdminPanelComponent implements OnInit {
   users: User[] = []

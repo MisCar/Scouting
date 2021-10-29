@@ -79,7 +79,8 @@ export class ScoutOverviewComponent implements OnInit {
       gameNumbers.push(Number(number[1]))
     }
 
-    for (let i = 1; i < this.findMaxGameNum(gameNumbers) + 1; i++) {
+    const lastGame = this.findMaxGameNum(gameNumbers)
+    for (let i = 1; i < lastGame + 1; i++) {
       let specificTeams = []
       for (let scout of splitedScouts) {
         if (Number(scout[1]) === i) {

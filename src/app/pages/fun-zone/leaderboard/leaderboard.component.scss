@@ -1,8 +1,25 @@
-.table {
-  width: 70em;
+table td {
+  padding: 20px;
+}
+
+table th {
+  padding: 20px;
 }
 
 .update {
   flex-direction: row;
   margin-bottom: 25px;
+}
+
+th.mat-header-cell {
+  text-align: center !important;
+}
+
+td, th {
+  text-align: left !important;
+  vertical-align: left !important;
+}
+
+.mat-sort-header-container {
+  justify-content: left !important;
 }

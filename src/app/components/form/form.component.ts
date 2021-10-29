@@ -10,6 +10,7 @@ import {
   TheBlueAllianceService,
 } from "app/services/the-blue-alliance.service"
 import { MatSelectChange } from "@angular/material/select"
+import { getDoc } from "@firebase/firestore"
 
 interface Scout {
   [keyof: string]: {
@@ -133,12 +134,16 @@ export class FormComponent implements OnInit {
     document.body.removeChild(link)
   }
 
+  get filled() {
+    return this.event !== undefined &&
+      this.stage !== undefined &&
+      this.game !== undefined &&
+      this.team !== undefined
+  }
+
   send(): void {
     if (
-      this.event === undefined ||
-      this.stage === undefined ||
-      this.game === undefined ||
-      this.team === undefined
+      !this.filled
     ) {
       this.snack.open(
         "You must enter the event, stage, game and team number before submitting your scout",
@@ -205,5 +210,27 @@ export class FormComponent implements OnInit {
     this.team = parseInt(number, 10)
   }
 
-  ngOnInit(): void {}
+  async fetchScout(): Promise<void> {
+    const document = await getDoc(doc(
+      this.firestore,
+      `${this.event}/${this.stage} ${this.game} ${this.team}`
+    ))
+    
+    if (!document.exists()) {
+      this.snack.open("Scout Not Available", "Dismiss", { duration: 3000 })
+      return
+    }
+
+    const data = document.data()
+    for (const prefix in data) {
+      for (const key in data[prefix]) {
+        const actualKey = storagePrefix + prefix + " " + key
+        const newValue = JSON.stringify(data[prefix][key])
+        localStorage.setItem(actualKey, newValue)
+        window.dispatchEvent(new StorageEvent("storage", { key: actualKey, newValue }))
+      }
+    }
+  }
+
+  ngOnInit(): void { }
 }
