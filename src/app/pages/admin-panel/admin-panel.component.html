@@ -1,11 +1,32 @@
-<div style="display: flex; flex-direction: column">
-  <button mat-raised-button routerLink="/admin-panel/scout-overview">
+<div style="display: flex; flex-direction: column" class="container">
+  <h1 style="text-align: center">Admin Panel</h1>
+  <button
+    mat-raised-button
+    color="primary"
+    routerLink="/admin-panel/scout-overview"
+  >
     Scout Overview
   </button>
   <br />
-  <button mat-raised-button routerLink="/admin-panel/schema-editor">
+  <button
+    mat-raised-button
+    color="primary"
+    routerLink="/admin-panel/schema-editor"
+  >
     Schema Editor
   </button>
+  <br />
+  <mat-form-field appearance="fill" style="margin-bottom: 10px">
+    <mat-label>Event</mat-label>
+    <mat-select
+      (selectionChange)="backend.event = $event.value"
+      [value]="backend.event"
+    >
+      <mat-option *ngFor="let event of tba.getEvents()" [value]="event.key">{{
+        event.year + " " + event.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <br />
   <table mat-table [dataSource]="users">
     <ng-container matColumnDef="selection">

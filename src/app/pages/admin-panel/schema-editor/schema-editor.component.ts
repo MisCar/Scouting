@@ -9,8 +9,6 @@ import Schema, { Section } from "app/models/schema.model"
   styleUrls: ["./schema-editor.component.scss"],
 })
 export class SchemaEditorComponent implements OnInit {
-  hideRequiredControl = new FormControl(true)
-
   sections: Section[] = []
   schema: Schema = { sections: [] }
 

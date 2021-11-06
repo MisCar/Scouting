@@ -1,8 +1,9 @@
 import { ThrowStmt } from "@angular/compiler"
 import { Component, OnInit } from "@angular/core"
 import { collection, Firestore, getDocs } from "@angular/fire/firestore"
+import { BackendService } from "app/services/backend.service"
 import {
-  Events,
+  TBAEvents,
   TheBlueAllianceService,
 } from "app/services/the-blue-alliance.service"
 
@@ -17,10 +18,9 @@ interface TableRow {
   styleUrls: ["./scout-overview.component.scss"],
 })
 export class ScoutOverviewComponent implements OnInit {
-  events: Events = []
+  events: TBAEvents = []
   stage: string = ""
-  event: string = ""
-  teams: string[] = []
+  teams: number[][] = []
   missingTeams: string[] = []
   incorrectTeams: string[] = []
   showMissingTeams: boolean = true
@@ -30,30 +30,21 @@ export class ScoutOverviewComponent implements OnInit {
 
   constructor(
     private tba: TheBlueAllianceService,
-    private firestore: Firestore
-  ) {
-    this.tba.getEvents().then((events) => {
-      this.events = events.filter(
-        (event) => new Date(event.end_date).getFullYear() > 2019
-      )
-    })
-  }
+    private firestore: Firestore,
+    private backend: BackendService
+  ) {}
 
   ngOnInit(): void {}
 
-  async getTeams(game: number): Promise<string[]> {
-    try {
-      await this.tba.getTeams(this.event, this.stage, game).then((val) => {
-        this.teams = val
-      })
-      return this.teams
-    } catch {
-      return [""]
-    }
+  async getTeams(game: number): Promise<number[][]> {
+    this.teams = await this.tba.getTeams(this.backend.event, this.stage, game)
+    return this.teams
   }
 
   async getScoutsNames(): Promise<string[]> {
-    const document = await getDocs(collection(this.firestore, this.event))
+    const document = await getDocs(
+      collection(this.firestore, this.backend.event)
+    )
     const data = document.docs
     let names: any[] = []
     for (let name of data) {
@@ -81,18 +72,18 @@ export class ScoutOverviewComponent implements OnInit {
 
     const lastGame = this.findMaxGameNum(gameNumbers)
     for (let i = 1; i < lastGame + 1; i++) {
-      let specificTeams = []
+      let specificTeams: number[] = []
       for (let scout of splitedScouts) {
         if (Number(scout[1]) === i) {
-          specificTeams.push(scout[2])
+          specificTeams.push(Number(scout[2]))
         }
       }
 
-      const needTeams: string[] = await this.getTeams(i)
+      const [redTeams, blueTeams] = await this.getTeams(i)
+      const needTeams = [...redTeams, ...blueTeams]
 
       for (let team of needTeams) {
         if (!specificTeams.includes(team)) {
-          if (team === "") continue
           this.missingTeams.push(
             this.convertStage(this.stage) + " " + i + ": Team #" + team
           )

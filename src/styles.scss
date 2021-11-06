@@ -134,10 +134,23 @@ mat-form-field {
   max-width: 100%;
 }
 
+mat-toolbar {
+  min-height: 56px;
+  max-height: 56px;
+}
+
+.mat-form-field-wrapper {
+  padding: 0;
+}
+
+.mat-form-field-underline {
+  bottom: 0;
+}
+
 .container {
   width: 70vw;
 
   @media (max-width: 600px) {
-      width: 90vw;
+    width: 90vw;
   }
 }

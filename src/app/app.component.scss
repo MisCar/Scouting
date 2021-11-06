@@ -8,11 +8,8 @@
     background-color: #333333;
   }
 
-  mat-toolbar {
-    min-height: 56px;
-  }
-
   .content {
+    height: 100vh;
     padding: 20px;
     flex-grow: 1;
     overflow-y: auto;
@@ -20,7 +17,6 @@
     flex-direction: column;
     align-items: center;
   }
-
 }
 
 .app-title {

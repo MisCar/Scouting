@@ -6,11 +6,12 @@ import { storagePrefix } from "app/utilities/widget"
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { AuthenticationService } from "app/services/authentication.service"
 import {
-  Events,
+  TBAEvents,
   TheBlueAllianceService,
 } from "app/services/the-blue-alliance.service"
 import { MatSelectChange } from "@angular/material/select"
 import { getDoc } from "@firebase/firestore"
+import { BackendService } from "app/services/backend.service"
 
 interface Scout {
   [keyof: string]: {
@@ -26,8 +27,6 @@ interface Scout {
 export class FormComponent implements OnInit {
   /** The schema of the scouting form */
   schema: Schema
-  /** The code of the event the user is scouting */
-  event?: string
   /** The competition stage (qualifications, quarterfinals, etc.) the scout is about */
   stage?: string
   /** The game number the scout is about */
@@ -35,48 +34,47 @@ export class FormComponent implements OnInit {
   /** The team number the scout is about */
   team?: number
 
-  blueTeams: string[] = []
-  redTeams: string[] = []
+  blueTeams: number[] = []
+  redTeams: number[] = []
 
   /** The events your team is competing at */
-  events: Events = []
+  events: TBAEvents = []
 
   constructor(
     private firestore: Firestore,
     private snack: MatSnackBar,
     public authentication: AuthenticationService,
-    private tba: TheBlueAllianceService
+    private tba: TheBlueAllianceService,
+    public backend: BackendService
   ) {
     this.schema = {
       sections: [],
     }
 
     onSnapshot(doc(firestore, "admin/schema"), (snapshot) => {
-      this.schema = snapshot.data() as Schema
+      const schema = snapshot.data() as Schema
+      this.schema = schema
+      window.localStorage.setItem("Schema", JSON.stringify(schema))
     })
 
-    this.tba.getEvents().then((events) => {
-      this.events = events.filter(
-        (event) => new Date(event.end_date).getFullYear() > 2019
-      )
-    })
+    this.events = this.tba
+      .getEvents()
+      .filter((event) => new Date(event.end_date).getFullYear() > 2019)
   }
 
   /** Bindings */
-
-  onEventChange(event: MatSelectChange) {
-    this.event = event.value
-    this.showTeams()
-  }
 
   onStageChange(event: MatSelectChange) {
     this.stage = event.value
     this.showTeams()
   }
 
-  onGameChanged(event: Event): void {
-    this.game = Number((event.target as HTMLInputElement).value)
-    this.showTeams()
+  onGameChanged(event: KeyboardEvent): void {
+    const value = (event.target as HTMLInputElement).value
+    if (value !== "") {
+      this.game = Number(value)
+      this.showTeams()
+    }
   }
 
   onTeamChanged(event: Event): void {
@@ -135,27 +133,28 @@ export class FormComponent implements OnInit {
   }
 
   get filled() {
-    return this.event !== undefined &&
+    return (
+      this.backend.event !== undefined &&
       this.stage !== undefined &&
       this.game !== undefined &&
       this.team !== undefined
+    )
   }
 
   send(): void {
-    if (
-      !this.filled
-    ) {
+    if (!this.filled) {
       this.snack.open(
         "You must enter the event, stage, game and team number before submitting your scout",
         "Dismiss",
         { duration: 3000 }
       )
+      return
     }
 
     setDoc(
       doc(
         this.firestore,
-        `${this.event}/${this.stage} ${this.game} ${this.team}`
+        `${this.backend.event}/${this.stage} ${this.game} ${this.team}`
       ),
       this.scout,
       {
@@ -174,63 +173,76 @@ export class FormComponent implements OnInit {
       })
   }
 
-  async showTeams() {
+  open(): void {
+    const input = document.createElement("input")
+    input.type = "file"
+    input.style.display = "none"
+    document.body.appendChild(input)
+    input.click()
+    input.onchange = () => {
+      const file = input.files![0]
+      const reader = new FileReader()
+      reader.onload = () => {
+        const data = JSON.parse(reader.result as string)
+        this.set(data)
+      }
+      reader.readAsText(file)
+      document.body.removeChild(input)
+    }
+  }
+
+  showTeams() {
     this.redTeams = []
     this.blueTeams = []
     if (
-      this.event === undefined ||
+      this.backend.event === undefined ||
       this.stage === undefined ||
       this.game === undefined
-    )
+    ) {
       return
-    const teams = await this.getTeams(this.event, this.stage, this.game)
-    for (let i = 0; i < 6; i++) {
-      if (i < 3) {
-        this.redTeams.push(teams[i])
-      } else {
-        this.blueTeams.push(teams[i])
-      }
     }
-    console.log(teams)
-  }
 
-  async getTeams(
-    event: string,
-    stage: string,
-    game: number
-  ): Promise<string[]> {
-    let teams: any
-    await this.tba.getTeams(event, stage, game).then((val) => {
-      teams = val
-    })
-    return teams
-  }
+    const [redTeams, blueTeams] = this.tba.getTeams(
+      this.backend.event,
+      this.stage,
+      this.game
+    )
 
-  setTeam(number: string) {
-    this.team = parseInt(number, 10)
+    this.redTeams = redTeams
+    this.blueTeams = blueTeams
   }
 
   async fetchScout(): Promise<void> {
-    const document = await getDoc(doc(
-      this.firestore,
-      `${this.event}/${this.stage} ${this.game} ${this.team}`
-    ))
-    
+    const document = await getDoc(
+      doc(
+        this.firestore,
+        `${this.backend.event}/${this.stage} ${this.game} ${this.team}`
+      )
+    )
+
     if (!document.exists()) {
       this.snack.open("Scout Not Available", "Dismiss", { duration: 3000 })
       return
     }
 
     const data = document.data()
+    this.set(data)
+  }
+
+  set(data: Scout): void {
     for (const prefix in data) {
       for (const key in data[prefix]) {
         const actualKey = storagePrefix + prefix + " " + key
         const newValue = JSON.stringify(data[prefix][key])
         localStorage.setItem(actualKey, newValue)
-        window.dispatchEvent(new StorageEvent("storage", { key: actualKey, newValue }))
+        window.dispatchEvent(
+          new StorageEvent("storage", { key: actualKey, newValue })
+        )
       }
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.schema = JSON.parse(localStorage.getItem("Schema") ?? "{}")
+  }
 }

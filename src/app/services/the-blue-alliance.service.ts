@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { environment } from "environments/environment"
 import Secrets from "environments/secrets.json"
+import { BackendService } from "./backend.service"
 
 export interface TBAEvent {
   address: string
@@ -15,7 +16,27 @@ export interface TBAEvent {
   playoff_type: number | null
 }
 
-export type Events = TBAEvent[]
+export type TBAEvents = TBAEvent[]
+
+export interface TBASimpleMatch {
+  key: string
+  comp_level: string
+  match_number: number
+  event_key: string
+  predicted_time: number
+  alliances: {
+    red: {
+      team_keys: string[]
+      surrogate_team_keys: string[]
+      dq_team_keys: string[]
+    }
+    blue: {
+      team_keys: string[]
+      surrogate_team_keys: string[]
+      dq_team_keys: string[]
+    }
+  }
+}
 
 @Injectable({
   providedIn: "root",
@@ -44,57 +65,55 @@ export class TheBlueAllianceService {
   }
 
   private url = "https://www.thebluealliance.com/api/v3"
+  private events: TBAEvents = []
+  private matches: TBASimpleMatch[] = []
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private backend: BackendService) {
+    this.events = JSON.parse(localStorage.getItem("Events") ?? "[]")
+    this.matches = JSON.parse(localStorage.getItem("Matches") ?? "[]")
 
-  async getEvents(): Promise<Events> {
-    const result = await this.http
-      .get<Events>(this.url + `/team/frc${environment.team}/events`, {
+    this.http
+      .get<TBAEvents>(this.url + `/team/frc${environment.team}/events`, {
         headers: this.headers,
       })
       .toPromise()
-    return result ?? []
+      .then((events) => {
+        this.events = events
+        localStorage.setItem("Events", JSON.stringify(events))
+      })
+
+    this.http
+      .get<TBASimpleMatch[]>(
+        this.url + `/event/${this.backend.event}/matches/simple`,
+        {
+          headers: this.headers,
+        }
+      )
+      .toPromise()
+      .then((matches) => {
+        this.matches = matches
+        localStorage.setItem("Matches", JSON.stringify(matches))
+      })
   }
 
-  async getTeams(
-    event: string,
-    stage: string,
-    game: number
-  ): Promise<string[]> {
-    let code = event + "_"
+  getEvents(): TBAEvents {
+    return this.events
+  }
 
-    switch (stage) {
-      case "pm":
-      case "qm":
-        code += stage + game
-        break
-      case "qf":
-        code += this.QUARTERFINALS_ORDER[Number(game) - 1]
-        break
-      case "sf":
-        code += this.SEMIFINALS_ORDER[Number(game) - 1]
-        break
-      case "f":
-        code += this.FINALS_ORDER[Number(game) - 1]
-        break
+  getTeams(event: string, stage: string, game: number): number[][] {
+    const match = this.matches.find(
+      (match) =>
+        match.event_key === event &&
+        match.comp_level === stage &&
+        match.match_number === game
+    )
+    if (match === undefined) {
+      console.log(event, stage, game)
+      return []
     }
-    code = code.replace('"', "")
 
-    const response: any = await this.http
-      .get("https://www.thebluealliance.com/api/v3/match/" + code, {
-        headers: this.headers,
-      })
-      .toPromise()
-
-    const redTeams = response.alliances.red.team_keys.map((key: string) =>
-      Number(key.substring(3))
+    return [match.alliances.red.team_keys, match.alliances.blue.team_keys].map(
+      (teams) => teams.map((team) => Number(team.substring(3)))
     )
-    let blueTeams = response.alliances.blue.team_keys.map((key: string) =>
-      Number(key.substring(3))
-    )
-    const teams = redTeams + "," + blueTeams
-    const teamsArray = teams.split(",")
-
-    return teamsArray
   }
 }

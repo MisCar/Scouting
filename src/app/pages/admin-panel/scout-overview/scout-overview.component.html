@@ -1,16 +1,8 @@
-<div class="topPart">
+<div class="topPart container">
   <h1>Scout Overview</h1>
-  <mat-form-field appearance="fill" style="margin: 15px">
-    <mat-label>Event</mat-label>
-    <mat-select (selectionChange)="event = $event.value">
-      <mat-option *ngFor="let event of events" [value]="event.key">{{
-        event.year + " " + event.name
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill" style="margin: 15px">
+  <mat-form-field appearance="fill" style="margin-bottom: 10px">
     <mat-label>Stage</mat-label>
-    <mat-select (selectionChange)="stage = $event.value">
+    <mat-select (selectionChange)="stage = $event.value; findMissingScouts()">
       <mat-option value="pr">Practice</mat-option>
       <mat-option value="qm">Qualifications</mat-option>
       <mat-option value="qf">Quarterfinals</mat-option>
@@ -18,17 +10,7 @@
       <mat-option value="f">Finals</mat-option>
     </mat-select>
   </mat-form-field>
-  <button
-    (click)="findMissingScouts()"
-    mat-raised-button
-    color="accent"
-    style="margin: 15px"
-  >
-    Update List
-  </button>
 </div>
-
-<br />
 
 <table
   mat-table

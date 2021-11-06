@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core"
 import { collection, Firestore, onSnapshot } from "@angular/fire/firestore"
 import { doc, setDoc } from "@firebase/firestore"
 import User from "app/models/user.model"
+import { BackendService } from "app/services/backend.service"
+import { TheBlueAllianceService } from "app/services/the-blue-alliance.service"
 
 @Component({
   selector: "app-admin-panel",
@@ -13,7 +15,11 @@ export class AdminPanelComponent implements OnInit {
   admins: string[] = []
   columns = ["selection", "name"]
 
-  constructor(private firestore: Firestore) {}
+  constructor(
+    private firestore: Firestore,
+    public backend: BackendService,
+    public tba: TheBlueAllianceService
+  ) {}
 
   ngOnInit(): void {
     onSnapshot(doc(this.firestore, "admin/admins"), (snapshot) => {

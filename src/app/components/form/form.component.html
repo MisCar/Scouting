@@ -1,16 +1,11 @@
-<div style="max-width: 600px; margin-right: auto; margin-left: auto" class="container">
+<div
+  style="max-width: 600px; margin-right: auto; margin-left: auto"
+  class="container"
+>
   <mat-card>
     <mat-card-title>Game</mat-card-title>
     <div class="content">
-      <mat-form-field appearance="fill">
-        <mat-label>Event</mat-label>
-        <mat-select (selectionChange)="onEventChange($event)">
-          <mat-option *ngFor="let event of events" [value]="event.key">{{
-            event.year + " " + event.name
-            }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" style="margin-bottom: 10px">
         <mat-label>Stage</mat-label>
         <mat-select (selectionChange)="onStageChange($event)">
           <mat-option value="pr">Practice</mat-option>
@@ -20,42 +15,88 @@
           <mat-option value="f">Finals</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" style="margin-bottom: 10px">
         <mat-label>Game Number</mat-label>
-        <input matInput type="number" (change)="onGameChanged($event)" [value]="game" />
+        <input
+          matInput
+          type="number"
+          (keyup)="onGameChanged($event)"
+          [value]="game"
+        />
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" style="margin-bottom: 10px">
         <mat-label>Team Number</mat-label>
-        <input matInput type="number" (change)="onTeamChanged($event)" [value]="team" />
+        <input
+          matInput
+          type="number"
+          (change)="onTeamChanged($event)"
+          [value]="team"
+        />
       </mat-form-field>
     </div>
-    <div style="width: fit-content; margin: auto; text-align: center;">
+    <div style="width: fit-content; margin: auto; text-align: center">
       <div style="display: flex; flex-direction: row">
-        <button mat-stroked-button *ngFor="let blueTeam of blueTeams"
-          style="color: black; background-color: #fdd; margin: 10px; border-radius: 1000px" (click)="setTeam(blueTeam)">
-          {{ blueTeam }}
+        <button
+          mat-stroked-button
+          *ngFor="let redTeam of redTeams"
+          style="
+            color: black;
+            background-color: #ddf;
+            margin: 10px;
+            border-radius: 1000px;
+          "
+          (click)="this.team = redTeam"
+        >
+          {{ redTeam }}
         </button>
       </div>
       <div style="display: flex; flex-direction: row">
-        <button mat-stroked-button *ngFor="let redTeam of redTeams"
-          style="color: black; background-color: #ddf; margin: 10px; border-radius: 1000px;" (click)="setTeam(redTeam)">
-          {{ redTeam }}
+        <button
+          mat-stroked-button
+          *ngFor="let blueTeam of blueTeams"
+          style="
+            color: black;
+            background-color: #fdd;
+            margin: 10px;
+            border-radius: 1000px;
+          "
+          (click)="this.team = blueTeam"
+        >
+          {{ blueTeam }}
         </button>
       </div>
       <div *ngIf="filled && authentication.isAdmin">
         <br />
-        <button mat-raised-button color="primary" (click)="fetchScout()">Fetch</button>
+        <button mat-raised-button color="primary" (click)="fetchScout()">
+          Fetch
+        </button>
       </div>
     </div>
   </mat-card>
-  <mat-card *ngFor="let section of schema.sections" style="margin-bottom: 20px;">
+  <mat-card *ngFor="let section of schema.sections" style="margin-bottom: 20px">
     <mat-card-title>{{ section.title }}</mat-card-title>
     <div class="content">
       <div *ngFor="let widget of section.widgets" [ngSwitch]="widget.type">
-        <app-counter *ngSwitchCase="'Counter'" [widget]="widget" [prefix]="section.prefix"></app-counter>
-        <app-toggle *ngSwitchCase="'Toggle'" [widget]="widget" [prefix]="section.prefix"></app-toggle>
-        <app-text *ngSwitchCase="'Text'" [widget]="widget" [prefix]="section.prefix"></app-text>
-        <app-timer *ngSwitchCase="'Timer'" [widget]="widget" [prefix]="section.prefix"></app-timer>
+        <app-counter
+          *ngSwitchCase="'Counter'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-counter>
+        <app-toggle
+          *ngSwitchCase="'Toggle'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-toggle>
+        <app-text
+          *ngSwitchCase="'Text'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-text>
+        <app-timer
+          *ngSwitchCase="'Timer'"
+          [widget]="widget"
+          [prefix]="section.prefix"
+        ></app-timer>
       </div>
     </div>
   </mat-card>
@@ -64,12 +105,17 @@
     <div class="content">
       <p *ngIf="!authentication.signedIn" style="text-align: center">
         <b>Note: </b>
-        <i>You cannot send your response until you are logged in!</i>
+        You cannot send your response until you are logged in!
       </p>
       <div class="button-bar" style="display: flex; justify-content: center">
         <button mat-stroked-button (click)="copy()">Copy</button>
         <button mat-stroked-button (click)="save()">Save</button>
-        <button mat-stroked-button (click)="send()" [disabled]="!authentication.signedIn">
+        <button mat-stroked-button (click)="open()">Open</button>
+        <button
+          mat-stroked-button
+          (click)="send()"
+          [disabled]="!authentication.signedIn"
+        >
           Send
         </button>
         <button mat-stroked-button color="warn" (click)="clear()">Clear</button>
