@@ -30,7 +30,7 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit(): void {}
   async getHighScoresArray(): Promise<Map<string, number>> {
-    const document = await getDoc(doc(this.firestore, "high scores/simon"))
+    const document = await getDoc(doc(this.firestore, "games/simon"))
     const data = document.data()
     for (let name in data) {
       let score = String(data[name].score)
@@ -41,7 +41,7 @@ export class LeaderboardComponent implements OnInit {
   }
 
   updateHighScores = onSnapshot(
-    doc(this.firestore, "high scores/simon"),
+    doc(this.firestore, "games/simon"),
     (snapshot) => {
       this.updateTable()
     }

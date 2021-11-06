@@ -123,7 +123,9 @@ export class FormComponent implements OnInit {
   save(): void {
     const link = document.createElement("a")
     link.href = URL.createObjectURL(
-      new Blob([JSON.stringify(this.scout, null, 4)], { type: "text/plain" })
+      new Blob([JSON.stringify(this.scout, null, 4)], {
+        type: "application/json",
+      })
     )
     link.download = "submission.json"
     link.style.display = "none"
@@ -134,7 +136,6 @@ export class FormComponent implements OnInit {
 
   get filled() {
     return (
-      this.backend.event !== undefined &&
       this.stage !== undefined &&
       this.game !== undefined &&
       this.team !== undefined
@@ -144,7 +145,7 @@ export class FormComponent implements OnInit {
   send(): void {
     if (!this.filled) {
       this.snack.open(
-        "You must enter the event, stage, game and team number before submitting your scout",
+        "You must enter the stage, game and team number before submitting your scout",
         "Dismiss",
         { duration: 3000 }
       )

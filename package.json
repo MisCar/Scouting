@@ -6,9 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "deploy": "ng deploy",
+    "deploy": "ng build --configuration production && firebase deploy --only hosting,firestore:rules",
     "test": "ng test",
-    "firebase:environment": "node scripts/firebase.js"
+    "firebase:environment": "node scripts/firebase.js",
+    "create": "node scripts/create.js && npm run firebase:environment && npm run deploy"
   },
   "private": true,
   "dependencies": {

@@ -11,3 +11,5 @@ const configuration = output.substring(
 )
 
 writeFileSync(join("src", "environments", "firebase.json"), configuration)
+
+// https://console.firebase.google.com/u/0/project/scouting-76930636711/authentication

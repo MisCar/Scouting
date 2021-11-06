@@ -113,7 +113,7 @@ export class SimonComponent {
     if (name === undefined || name === null) name = ""
     if (highScore > (await this.getCurrentHighScore(name))) {
       setDoc(
-        doc(this.firestore, `high scores/simon`),
+        doc(this.firestore, "games/simon"),
         { [name]: { score: highScore } },
         { merge: true }
       )
@@ -122,7 +122,7 @@ export class SimonComponent {
 
   async getCurrentHighScore(targetName: string): Promise<number> {
     let highScore = 0
-    const document = await getDoc(doc(this.firestore, "high scores/simon"))
+    const document = await getDoc(doc(this.firestore, "games/simon"))
     const data = document.data()
     for (let name in data) {
       if (name === targetName) {

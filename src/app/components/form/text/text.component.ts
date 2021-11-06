@@ -33,4 +33,8 @@ export class TextComponent extends Widget<string> implements OnInit {
       this.initialize(this.widget, this.prefix)
     }
   }
+
+  isRTL(x: string): boolean {
+    return /[\u0590-\u05FF]/.test(x)
+  }
 }

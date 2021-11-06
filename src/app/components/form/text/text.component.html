@@ -1,11 +1,13 @@
-<mat-form-field appearance="fill" class="content">
-  <mat-label *ngIf="widget !== undefined && widget.label !== undefined">{{
-    widget.label
-  }}</mat-label>
-  <textarea
-    matInput
-    (input)="changed($event)"
-    rows="widget?.rows ?? 1"
-    [value]="value"
-  ></textarea>
-</mat-form-field>
+<form [dir]="isRTL(widget?.label) ? 'rtl' : 'ltr'">
+  <mat-form-field appearance="fill" class="content">
+    <mat-label *ngIf="widget !== undefined && widget.label !== undefined">{{
+      widget.label
+    }}</mat-label>
+    <textarea
+      matInput
+      (input)="changed($event)"
+      rows="widget?.rows ?? 1"
+      [value]="value"
+    ></textarea>
+  </mat-form-field>
+</form>

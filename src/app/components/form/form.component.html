@@ -74,7 +74,7 @@
     </div>
   </mat-card>
   <mat-card *ngFor="let section of schema.sections" style="margin-bottom: 20px">
-    <mat-card-title>{{ section.title }}</mat-card-title>
+    <mat-card-title dir="auto">{{ section.title }}</mat-card-title>
     <div class="content">
       <div *ngFor="let widget of section.widgets" [ngSwitch]="widget.type">
         <app-counter

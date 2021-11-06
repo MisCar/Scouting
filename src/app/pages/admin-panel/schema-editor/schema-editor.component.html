@@ -2,16 +2,7 @@
   <h1 style="text-align: center">Schema Editor</h1>
   <div *ngFor="let section of sections; let sectionIndex = index">
     <mat-card style="text-align: center; margin: 10px">
-      <div
-        style="
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          margin: 10px;
-          margin-bottom: 20px;
-        "
-      >
+      <div class="row">
         <button mat-icon-button (click)="moveSectionUp(sectionIndex)">
           <mat-icon>keyboard_arrow_up</mat-icon>
         </button>
@@ -53,13 +44,7 @@
 
       <div
         *ngFor="let widget of section.widgets; let widgetIndex = index"
-        style="
-          overflow-x: auto;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          margin: 10px;
-        "
+        class="row"
       >
         <button
           mat-icon-button
