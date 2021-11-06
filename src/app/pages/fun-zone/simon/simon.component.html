@@ -1,8 +1,9 @@
 <div id="root">
+  <h1 style="text-align: center">Simon</h1>
   <div style="flex-direction: row">
-    <h1 id="score">Score: {{ score }}</h1>
+    <h2 id="score">Score: {{ score }}</h2>
     <h2>High Score: {{ highScore }}</h2>
-    <button mat-stroked-button color="secondary" (click)="start()">
+    <button mat-raised-button color="primary" (click)="start()">
       Start Game
     </button>
   </div>

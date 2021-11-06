@@ -24,7 +24,7 @@ service cloud.firestore {
     }
     
     match /{document=**} {
-      allow read, write: if isTeamUser();
+      allow read, write: if isTeamUser() || isAdmin();
     }
   }
 }
