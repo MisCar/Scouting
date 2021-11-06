@@ -22,6 +22,7 @@ export interface TBASimpleMatch {
   key: string
   comp_level: string
   match_number: number
+  set_number: number
   event_key: string
   predicted_time: number
   alliances: {
@@ -42,24 +43,24 @@ export interface TBASimpleMatch {
   providedIn: "root",
 })
 export class TheBlueAllianceService {
-  QUARTERFINALS_ORDER = [
-    "qf1m1",
-    "qf2m1",
-    "qf3m1",
-    "qf4m1",
-    "qf1m2",
-    "qf2m2",
-    "qf3m2",
-    "qf4m2",
-    "qf1m3",
-    "qf2m3",
-    "qf3m3",
-    "qf4m3",
-  ]
+  QUARTERFINALS_ORDER = [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]
 
-  SEMIFINALS_ORDER = ["sf1m1", "sf2m1", "sf1m2", "sf2m2", "sf1m3", "sf2m3"]
+  SEMIFINALS_ORDER = [1, 2, 1, 2, 1, 2]
 
-  FINALS_ORDER = ["f1m1", "f1m2", "f1m3"]
+  FINALS_ORDER = [1, 1, 1]
+
+  private setNumber(match: number, stage: string): number {
+    if (stage === "qf") {
+      return this.QUARTERFINALS_ORDER[match - 1]
+    } else if (stage === "sf") {
+      return this.SEMIFINALS_ORDER[match - 1]
+    } else if (stage === "f") {
+      return this.FINALS_ORDER[match - 1]
+    } else {
+      return match
+    }
+  }
+
   private headers = {
     "X-TBA-Auth-Key": Secrets.TBAKey,
   }
@@ -91,6 +92,7 @@ export class TheBlueAllianceService {
       )
       .toPromise()
       .then((matches) => {
+        console.log(matches)
         this.matches = matches
         localStorage.setItem("Matches", JSON.stringify(matches))
       })
@@ -101,12 +103,23 @@ export class TheBlueAllianceService {
   }
 
   getTeams(event: string, stage: string, game: number): number[][] {
-    const match = this.matches.find(
-      (match) =>
-        match.event_key === event &&
-        match.comp_level === stage &&
-        match.match_number === game
-    )
+    let match: TBASimpleMatch | undefined
+    if (stage == "qm" || stage == "pr") {
+      match = this.matches.find(
+        (match) =>
+          match.event_key === event &&
+          match.comp_level === stage &&
+          match.match_number === game
+      )
+    } else {
+      const setNumber = this.setNumber(game, stage)
+      match = this.matches.find(
+        (match) =>
+          match.event_key === event &&
+          match.comp_level === stage &&
+          match.set_number === setNumber
+      )
+    }
     if (match === undefined) {
       console.log(event, stage, game)
       return []

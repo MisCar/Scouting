@@ -26,6 +26,20 @@ export class AuthenticationService {
     onAuthStateChanged(this.authentication, async (user) => {
       this.user = user ?? undefined
 
+      if (this.user !== undefined) {
+        const document = doc(this.firestore, `users/${this.user.uid}`)
+        if (await (await getDoc(document)).exists()) {
+          setDoc(
+            document,
+            {
+              name: this.user.displayName,
+              photo: this.user.photoURL,
+            },
+            { merge: true }
+          )
+        }
+      }
+
       const data = (await getDoc(doc(this.firestore, "admin/admins"))).data()
       if (data === undefined) {
         this.isAdmin = false
@@ -51,24 +65,13 @@ export class AuthenticationService {
   }
 
   signIn(): void {
-    signInWithPopup(this.authentication, new GoogleAuthProvider())
-      .then((credential) => {
-        if (credential !== undefined) {
-          setDoc(
-            doc(this.firestore, `users/${credential.user.uid}`),
-            {
-              name: credential.user.displayName,
-              photo: credential.user.photoURL,
-            },
-            { merge: true }
-          )
-        }
-      })
-      .catch((error) => {
+    signInWithPopup(this.authentication, new GoogleAuthProvider()).catch(
+      (error) => {
         this.snack.open("Could not log in because of a " + error, "Dismiss", {
           duration: 3000,
         })
-      })
+      }
+    )
   }
 
   signOut(): void {
