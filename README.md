@@ -23,12 +23,27 @@
 ## Features
 
 - Customizable Schema
+  - Sections and widgets can be customized to fit your team's analysis criteria.
+<p align="center">
+  <img alt="schema" src="https://user-images.githubusercontent.com/88707580/141786924-28b0a64e-bfef-40bd-9ef2-c137e6f9397b.png" height="600"> 
+</p>
+
 - Offline Work
 - Simple Cross-Platform Installation
 - Completions and Verification using The Blue Alliance
 - Quick Overview of Missing and Invalid Scouts
+
+<p align="center">
+  <img alt="schema" src="https://user-images.githubusercontent.com/88707580/141787195-a28a8a48-31a7-419a-972a-c95d0ea9d646.png" height="600"> 
+</p>
+
 - In-App Schema Editor
 - Minigames
+
+<p align="center">
+  <img alt="schema" src="https://user-images.githubusercontent.com/88707580/141787255-bd9559ad-20c9-48cf-b5b8-cbb0ea44a2a0.png" height="600"> 
+</p>
+
 - Security
 
 ## Getting Started
