@@ -93,6 +93,8 @@ export class FormComponent implements OnInit {
 
   get scout(): Scout {
     const result: Scout = {}
+    result["Scouter"] = {}
+    result["Scouter"]["Name"] = this.authentication.user?.displayName
     for (let i = 0; i < localStorage.length; i++) {
       let fullKey = localStorage.key(i)
       if (!fullKey?.startsWith(storagePrefix)) {
@@ -109,10 +111,9 @@ export class FormComponent implements OnInit {
       }
 
       const key = fullKey.substring(prefix.length + 1)
-
+      console.log(result)
       result[prefix][key] = value
     }
-
     return result
   }
 
@@ -193,6 +194,7 @@ export class FormComponent implements OnInit {
   }
 
   showTeams() {
+    console.log("i search teams from tba")
     this.redTeams = []
     this.blueTeams = []
     if (
@@ -211,6 +213,7 @@ export class FormComponent implements OnInit {
 
     this.redTeams = redTeams
     this.blueTeams = blueTeams
+    console.log("this is the teams i find", redTeams, blueTeams)
   }
 
   async fetchScout(): Promise<void> {
