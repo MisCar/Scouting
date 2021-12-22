@@ -6,10 +6,15 @@ import {
   GoogleAuthProvider,
   Auth,
 } from "@angular/fire/auth"
-import { Firestore } from "@angular/fire/firestore"
+import {
+  doc,
+  getDoc,
+  onSnapshot,
+  setDoc,
+  Firestore,
+} from "@angular/fire/firestore"
+import { User } from "@angular/fire/auth"
 import { MatSnackBar } from "@angular/material/snack-bar"
-import { User } from "@firebase/auth"
-import { doc, getDoc, onSnapshot, setDoc } from "@firebase/firestore"
 
 @Injectable({
   providedIn: "root",

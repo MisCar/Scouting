@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http"
+import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { environment } from "environments/environment"
 import Secrets from "environments/secrets.json"
 import { BackendService } from "./backend.service"
+import { firstValueFrom } from "rxjs"
 
 export interface TBAEvent {
   address: string
@@ -73,29 +74,30 @@ export class TheBlueAllianceService {
     this.events = JSON.parse(localStorage.getItem("Events") ?? "[]")
     this.matches = JSON.parse(localStorage.getItem("Matches") ?? "[]")
 
-    this.http
-      .get<TBAEvents>(this.url + `/team/frc${environment.team}/events`, {
-        headers: this.headers,
-      })
-      .toPromise()
-      .then((events) => {
-        this.events = events
-        localStorage.setItem("Events", JSON.stringify(events))
-      })
+    firstValueFrom(
+      this.http.get<TBAEvents>(
+        this.url + `/team/frc${environment.team}/events`,
+        {
+          headers: this.headers,
+        }
+      )
+    ).then((events) => {
+      this.events = events
+      localStorage.setItem("Events", JSON.stringify(events))
+    })
 
-    this.http
-      .get<TBASimpleMatch[]>(
+    firstValueFrom(
+      this.http.get<TBASimpleMatch[]>(
         this.url + `/event/${this.backend.event}/matches/simple`,
         {
           headers: this.headers,
         }
       )
-      .toPromise()
-      .then((matches) => {
-        console.log(matches)
-        this.matches = matches
-        localStorage.setItem("Matches", JSON.stringify(matches))
-      })
+    ).then((matches) => {
+      console.log(matches)
+      this.matches = matches
+      localStorage.setItem("Matches", JSON.stringify(matches))
+    })
   }
 
   getEvents(): TBAEvents {

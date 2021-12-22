@@ -1,7 +1,5 @@
-import { Firestore, doc, onSnapshot } from "@angular/fire/firestore"
+import { Firestore, doc, getDoc, onSnapshot } from "@angular/fire/firestore"
 import { Component, OnInit, ViewChild } from "@angular/core"
-import { getDoc } from "firebase/firestore"
-import { __values } from "tslib"
 import { MatTable } from "@angular/material/table"
 
 export interface RowElement {

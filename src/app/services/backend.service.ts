@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core"
-import { Firestore } from "@angular/fire/firestore"
-import { doc, onSnapshot, setDoc } from "@firebase/firestore"
+import { Firestore, doc, onSnapshot, setDoc } from "@angular/fire/firestore"
 
 @Injectable({
   providedIn: "root",

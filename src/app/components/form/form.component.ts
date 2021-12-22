@@ -1,6 +1,11 @@
-import { __values } from "tslib"
-import { Component, OnInit, Input, ViewChild } from "@angular/core"
-import { Firestore, doc, onSnapshot, setDoc } from "@angular/fire/firestore"
+import { Component, OnInit } from "@angular/core"
+import {
+  Firestore,
+  doc,
+  onSnapshot,
+  setDoc,
+  getDoc,
+} from "@angular/fire/firestore"
 import Schema from "app/models/schema.model"
 import { storagePrefix } from "app/utilities/widget"
 import { MatSnackBar } from "@angular/material/snack-bar"
@@ -10,7 +15,6 @@ import {
   TheBlueAllianceService,
 } from "app/services/the-blue-alliance.service"
 import { MatSelectChange } from "@angular/material/select"
-import { getDoc } from "@firebase/firestore"
 import { BackendService } from "app/services/backend.service"
 
 interface Scout {

@@ -27,10 +27,11 @@
 ## Features
 
 - Customizable Schema
+
   - Sections and widgets can be customized to fit your team's analysis criteria.
-<p align="center">
-  <img alt="schema" src="https://user-images.githubusercontent.com/88707580/141786924-28b0a64e-bfef-40bd-9ef2-c137e6f9397b.png" height="600"> 
-</p>
+  <p align="center">
+    <img alt="schema" src="https://user-images.githubusercontent.com/88707580/141786924-28b0a64e-bfef-40bd-9ef2-c137e6f9397b.png" height="600"> 
+  </p>
 
 - Offline Work
 - Simple Cross-Platform Installation
@@ -54,7 +55,7 @@
 
 - Download the repository, either with `git clone https://github.com/miscar/Scouting` or by downloading the zip archive from GitHub.
 - Install [NodeJS](https://nodejs.org/en/download/) and the Node Package Manager.
-- Install Scouting's dependencies by running `npm install` in the command-line inside the repository.
+- Install Scouting's dependencies by running `npm install` in the command-line inside the repository. You may need to run `npm install --force`.
 - Create a new project by running `npm run create`.
 - Open the [Firebase Console](https://console.firebase.google.com).
 - Enable Cloud Firestore by clicking `Firestore Database` in the side panel and then `Create database`. You may start in production/test mode (this will get overridden upon deploy), and pick your own Cloud Firestore location.
@@ -133,6 +134,7 @@ Error: Failed to create project. See firebase-debug.log for more info.
 node:child_process:826
     err = new Error(msg);
 ```
+
 when running `npm run create` to set up a new Scouting instance.
 
 **Solution**
@@ -143,7 +145,7 @@ Your Google Organization probably blocks creating Firebase projects. Run `fireba
 
 **How do you view submitted scout data?**
 
-A quick overview of invalid scouts (where the team number doesn't match the match teams from The Blue Alliance) and missing scouts (where the match has some scouts but not of all teams) appear in the Admin Panel. 
+A quick overview of invalid scouts (where the team number doesn't match the match teams from The Blue Alliance) and missing scouts (where the match has some scouts but not of all teams) appear in the Admin Panel.
 
 The data is stored in Cloud Firestore, where each event creates its own collection (You may need to refresh after the first event scout).
 

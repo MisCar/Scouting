@@ -1,8 +1,7 @@
 import { MatSnackBar } from "@angular/material/snack-bar"
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
-import { Firestore, doc, setDoc } from "@angular/fire/firestore"
+import { Component, ElementRef, ViewChild } from "@angular/core"
+import { Firestore, doc, setDoc, getDoc } from "@angular/fire/firestore"
 import { AuthenticationService } from "app/services/authentication.service"
-import { getDoc } from "@firebase/firestore"
 
 @Component({
   selector: "app-simon",

@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core"
-import { collection, Firestore, onSnapshot } from "@angular/fire/firestore"
-import { doc, setDoc } from "@firebase/firestore"
+import {
+  collection,
+  Firestore,
+  onSnapshot,
+  doc,
+  setDoc,
+} from "@angular/fire/firestore"
 import User from "app/models/user.model"
 import { BackendService } from "app/services/backend.service"
 import { TheBlueAllianceService } from "app/services/the-blue-alliance.service"
