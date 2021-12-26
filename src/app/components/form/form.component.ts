@@ -58,6 +58,7 @@ export class FormComponent implements OnInit {
     onSnapshot(doc(firestore, "admin/schema"), (snapshot) => {
       const schema = snapshot.data() as Schema
       this.schema = schema
+      window.localStorage.removeItem("Schema")
       window.localStorage.setItem("Schema", JSON.stringify(schema))
     })
 
@@ -97,6 +98,18 @@ export class FormComponent implements OnInit {
 
   get scout(): Scout {
     const result: Scout = {}
+    const schema = JSON.parse(localStorage.getItem("Schema") ?? "")
+    let keys = []
+    let sections = []
+    for (let section of schema["sections"]) {
+      console.log(section)
+      sections.push(section["prefix"])
+      for (let widget of section["widgets"]) {
+        console.log(widget)
+        keys.push(widget["key"])
+      }
+    }
+
     for (let i = 0; i < localStorage.length; i++) {
       let fullKey = localStorage.key(i)
       if (!fullKey?.startsWith(storagePrefix)) {
@@ -108,13 +121,18 @@ export class FormComponent implements OnInit {
 
       const prefix = fullKey.substring(0, fullKey.indexOf(" "))
 
+      if (!sections.includes(prefix)) {
+        continue
+      }
+
       if (!Object.keys(result).includes(prefix)) {
         result[prefix] = {}
       }
 
       const key = fullKey.substring(prefix.length + 1)
-
-      result[prefix][key] = value
+      if (keys.includes(key)) {
+        result[prefix][key] = value
+      }
     }
 
     return result
