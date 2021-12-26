@@ -23,8 +23,8 @@ service cloud.firestore {
     	allow read, write: if true;
     }
     
-    match /{document=**} {
-      allow read, write: if isTeamUser() || isAdmin();
+    match /{collection}/{document=**} {
+      allow read, write: if (collection != "admin" && collection != "users" && collection != "games") && (isTeamUser() || isAdmin());
     }
   }
 }
