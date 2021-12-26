@@ -1,6 +1,7 @@
-import { ThrowStmt } from "@angular/compiler"
 import { Component, OnInit } from "@angular/core"
 import { collection, Firestore, getDocs } from "@angular/fire/firestore"
+import { MatSnackBar } from "@angular/material/snack-bar"
+import { level } from "app/models/level.model"
 import { BackendService } from "app/services/backend.service"
 import {
   TBAEvents,
@@ -19,29 +20,39 @@ interface TableRow {
 })
 export class ScoutOverviewComponent implements OnInit {
   events: TBAEvents = []
-  stage: string = ""
-  teams: number[][] = []
+  stage?: level
   missingTeams: string[] = []
   incorrectTeams: string[] = []
   showMissingTeams: boolean = true
   displayedColumns: string[] = ["missingScouts", "incorrectScouts"]
   daraSource: TableRow[] = []
   showTable = false
+  allTeamsWithScouts: string[] = []
+  team: string = ""
 
   constructor(
     private tba: TheBlueAllianceService,
     private firestore: Firestore,
-    private backend: BackendService
-  ) {}
+    private backend: BackendService,
+    private snack: MatSnackBar
+  ) {
+    this.updateAllTeams()
+  }
 
   ngOnInit(): void {}
 
-  async getTeams(game: number): Promise<number[][]> {
-    this.teams = await this.tba.getTeams(this.backend.event, this.stage, game)
-    return this.teams
+  getTeams(game: number) {
+    if (this.stage === undefined) {
+      return []
+    }
+    return this.tba.getTeams(this.backend.event, this.stage, game)
   }
 
   async getScoutsNames(): Promise<string[]> {
+    if (this.stage === undefined) {
+      return []
+    }
+
     const document = await getDocs(
       collection(this.firestore, this.backend.event)
     )
@@ -58,6 +69,10 @@ export class ScoutOverviewComponent implements OnInit {
   }
 
   async findMissingScouts() {
+    if (this.stage === undefined) {
+      return
+    }
+
     this.missingTeams = []
     this.incorrectTeams = []
     const scouts = await this.getScoutsNames()
@@ -129,7 +144,7 @@ export class ScoutOverviewComponent implements OnInit {
     this.showTable = true
   }
 
-  convertStage(stage: string): string {
+  convertStage(stage: level): string {
     if (stage == "pr") {
       return "Practice"
     }
@@ -146,5 +161,40 @@ export class ScoutOverviewComponent implements OnInit {
       return "Finals"
     }
     return ""
+  }
+
+  fetchAllScouts() {
+    getDocs(collection(this.firestore, this.backend.event))
+      .then((result) => {
+        const scouts = result.docs.map((doc) => {
+          const [level, match, team] = doc.id.split(" ")
+          return {
+            level,
+            match: Number(match),
+            team: Number(team),
+            ...doc.data(),
+          }
+        })
+        window.localStorage.setItem("Scouts", JSON.stringify(scouts))
+        this.snack.open("Scouts Fetched Succesfully", "Dismiss", {
+          duration: 3000,
+        })
+      })
+      .catch(() => {
+        this.snack.open("Couldn't Fetch Scouts", "Dismiss", {
+          duration: 3000,
+        })
+      })
+  }
+
+  updateAllTeams() {
+    const scouts = JSON.parse(window.localStorage.getItem("Scouts") ?? "[]")
+    let teams: string[] = []
+    for (const scout of scouts) {
+      if (!teams.includes(scout.team)) {
+        teams.push(scout.team)
+      }
+    }
+    this.allTeamsWithScouts = teams.sort()
   }
 }

@@ -4,6 +4,7 @@ import { environment } from "environments/environment"
 import Secrets from "environments/secrets.json"
 import { BackendService } from "./backend.service"
 import { firstValueFrom } from "rxjs"
+import { MatSnackBar } from "@angular/material/snack-bar"
 
 export interface TBAEvent {
   address: string
@@ -70,9 +71,21 @@ export class TheBlueAllianceService {
   private events: TBAEvents = []
   private matches: TBASimpleMatch[] = []
 
-  constructor(private http: HttpClient, private backend: BackendService) {
+  constructor(
+    private http: HttpClient,
+    private backend: BackendService,
+    private snack: MatSnackBar
+  ) {
     this.events = JSON.parse(localStorage.getItem("Events") ?? "[]")
     this.matches = JSON.parse(localStorage.getItem("Matches") ?? "[]")
+
+    const checkTBAKey = (reason: any) => {
+      if (reason.error.Error.includes("X-TBA-Auth-Key")) {
+        this.snack.open("Your TBA Read Key is Invalid", "Dismiss", {
+          duration: 3000,
+        })
+      }
+    }
 
     firstValueFrom(
       this.http.get<TBAEvents>(
@@ -81,10 +94,12 @@ export class TheBlueAllianceService {
           headers: this.headers,
         }
       )
-    ).then((events) => {
-      this.events = events
-      localStorage.setItem("Events", JSON.stringify(events))
-    })
+    )
+      .then((events) => {
+        this.events = events
+        localStorage.setItem("Events", JSON.stringify(events))
+      })
+      .catch(checkTBAKey)
 
     firstValueFrom(
       this.http.get<TBASimpleMatch[]>(
@@ -93,11 +108,12 @@ export class TheBlueAllianceService {
           headers: this.headers,
         }
       )
-    ).then((matches) => {
-      console.log(matches)
-      this.matches = matches
-      localStorage.setItem("Matches", JSON.stringify(matches))
-    })
+    )
+      .then((matches) => {
+        this.matches = matches
+        localStorage.setItem("Matches", JSON.stringify(matches))
+      })
+      .catch(checkTBAKey)
   }
 
   getEvents(): TBAEvents {
@@ -123,7 +139,6 @@ export class TheBlueAllianceService {
       )
     }
     if (match === undefined) {
-      console.log(event, stage, game)
       return []
     }
 

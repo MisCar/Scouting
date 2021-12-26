@@ -1,11 +1,6 @@
 import { Injectable } from "@angular/core"
 import { MatSnackBar } from "@angular/material/snack-bar"
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-  UrlTree,
-} from "@angular/router"
+import { CanActivate, UrlTree } from "@angular/router"
 import { Observable } from "rxjs"
 import { AuthenticationService } from "./authentication.service"
 
@@ -18,10 +13,7 @@ export class AdminGuard implements CanActivate {
     private snack: MatSnackBar
   ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  canActivate():
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean

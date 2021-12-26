@@ -40,6 +40,7 @@ import { AdminPanelComponent } from "./pages/admin-panel/admin-panel.component"
 import { MatListModule } from "@angular/material/list"
 import { ScoutOverviewComponent } from "./pages/admin-panel/scout-overview/scout-overview.component"
 import { SchemaEditorComponent } from "./pages/admin-panel/schema-editor/schema-editor.component"
+import { TeamScoutsComponent } from "./pages/admin-panel/scout-overview/team-scouts/team-scouts.component"
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { SchemaEditorComponent } from "./pages/admin-panel/schema-editor/schema-
     AdminPanelComponent,
     ScoutOverviewComponent,
     SchemaEditorComponent,
+    TeamScoutsComponent,
   ],
   imports: [
     BrowserModule,

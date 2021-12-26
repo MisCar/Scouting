@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 
-import { SchemaEditorComponent } from "./schema-editor.component"
+import { TeamScoutsComponent } from "./team-scouts.component"
 
-describe("SchemaEditorComponent", () => {
-  let component: SchemaEditorComponent
-  let fixture: ComponentFixture<SchemaEditorComponent>
+describe("TeamScoutsComponent", () => {
+  let component: TeamScoutsComponent
+  let fixture: ComponentFixture<TeamScoutsComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SchemaEditorComponent],
+      declarations: [TeamScoutsComponent],
     }).compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SchemaEditorComponent)
+    fixture = TestBed.createComponent(TeamScoutsComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

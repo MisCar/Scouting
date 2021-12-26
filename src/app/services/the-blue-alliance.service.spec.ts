@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing"
 
-import { TheBlueAllianceService } from './the-blue-alliance.service';
+import { TheBlueAllianceService } from "./the-blue-alliance.service"
 
-describe('TheBlueAllianceService', () => {
-  let service: TheBlueAllianceService;
+describe("TheBlueAllianceService", () => {
+  let service: TheBlueAllianceService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(TheBlueAllianceService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(TheBlueAllianceService)
+  })
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+  it("should be created", () => {
+    expect(service).toBeTruthy()
+  })
+})

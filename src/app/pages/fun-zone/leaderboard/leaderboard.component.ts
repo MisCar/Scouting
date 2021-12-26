@@ -38,12 +38,9 @@ export class LeaderboardComponent implements OnInit {
     return new Map([...this.highScores].sort((a, b) => b[1] - a[1]))
   }
 
-  updateHighScores = onSnapshot(
-    doc(this.firestore, "games/simon"),
-    (snapshot) => {
-      this.updateTable()
-    }
-  )
+  updateHighScores = onSnapshot(doc(this.firestore, "games/simon"), () => {
+    this.updateTable()
+  })
 
   async updateTable() {
     this.dataSource = [...ELEMENT_DATA]

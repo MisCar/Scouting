@@ -29,7 +29,6 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit(): void {
     onSnapshot(doc(this.firestore, "admin/admins"), (snapshot) => {
       this.admins = snapshot.data()?.users ?? []
-      console.log(this.admins)
     })
 
     onSnapshot(collection(this.firestore, "users"), (snapshot) => {
@@ -37,7 +36,6 @@ export class AdminPanelComponent implements OnInit {
         const data = document.data()
         return { uid: document.ref.id, name: data.name, photo: data.photo }
       })
-      console.log(this.users)
     })
   }
 

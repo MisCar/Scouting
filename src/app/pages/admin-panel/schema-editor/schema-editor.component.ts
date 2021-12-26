@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core"
 import { doc, Firestore, getDoc, setDoc } from "@angular/fire/firestore"
-import { FormControl } from "@angular/forms"
 import Schema, { Section } from "app/models/schema.model"
 
 @Component({

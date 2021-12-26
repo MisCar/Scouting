@@ -8,6 +8,7 @@ import { FormComponent } from "./components/form/form.component"
 import { ScoutOverviewComponent } from "./pages/admin-panel/scout-overview/scout-overview.component"
 import { SchemaEditorComponent } from "./pages/admin-panel/schema-editor/schema-editor.component"
 import { AdminGuard } from "./services/admin.guard"
+import { TeamScoutsComponent } from "./pages/admin-panel/scout-overview/team-scouts/team-scouts.component"
 
 const routes: Routes = [
   { path: "", redirectTo: "/form", pathMatch: "full" },
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path: "admin-panel/scout-overview",
     component: ScoutOverviewComponent,
+    canActivate: [AdminGuard],
+  },
+  {
+    path: "admin-panel/scout-overview/team",
+    component: TeamScoutsComponent,
     canActivate: [AdminGuard],
   },
   {

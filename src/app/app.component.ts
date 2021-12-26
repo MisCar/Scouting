@@ -1,5 +1,4 @@
 import { Component } from "@angular/core"
-import { Firestore } from "@angular/fire/firestore"
 import { AuthenticationService } from "./services/authentication.service"
 
 @Component({
@@ -10,8 +9,5 @@ import { AuthenticationService } from "./services/authentication.service"
 export class AppComponent {
   title = "Scouting"
 
-  constructor(
-    public authentication: AuthenticationService,
-    private firestore: Firestore
-  ) {}
+  constructor(public authentication: AuthenticationService) {}
 }

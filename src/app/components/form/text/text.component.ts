@@ -1,5 +1,4 @@
-import { CdkTextareaAutosize } from "@angular/cdk/text-field"
-import { Component, Input, OnInit, ViewChild } from "@angular/core"
+import { Component, Input, OnInit } from "@angular/core"
 import { WidgetInfo } from "app/models/schema.model"
 import Widget from "app/utilities/widget"
 
