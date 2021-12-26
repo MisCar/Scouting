@@ -21,7 +21,7 @@ import { MatSnackBar } from "@angular/material/snack-bar"
 })
 export class AuthenticationService {
   public user?: User
-  public isAdmin = true
+  public isAdmin = false
 
   constructor(
     private firestore: Firestore,
@@ -33,7 +33,7 @@ export class AuthenticationService {
 
       if (this.user !== undefined) {
         const document = doc(this.firestore, `users/${this.user.uid}`)
-        if (await (await getDoc(document)).exists()) {
+        if (!(await (await getDoc(document)).exists())) {
           setDoc(
             document,
             {
