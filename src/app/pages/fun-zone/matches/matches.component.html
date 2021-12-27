@@ -1,0 +1,55 @@
+<mat-card
+  *ngFor="let match of teamMatches"
+  style="margin: 13px; text-align: center"
+>
+  <mat-card-title style="margin: 13px">{{
+    getMatchName(match)
+  }}</mat-card-title>
+  <div style="margin: 13px">
+    <button
+      mat-raised-button
+      style="background-color: red; margin: 8px"
+      matBadge="{{ getTeamRanking(match.redTeams[0]) }}"
+    >
+      {{ match.redTeams[0] }}
+    </button>
+    <button
+      mat-raised-button
+      style="background-color: red; margin: 8px"
+      matBadge="{{ getTeamRanking(match.redTeams[1]) }}"
+    >
+      {{ match.redTeams[1] }}
+    </button>
+    <button
+      mat-raised-button
+      style="background-color: red; margin: 8px"
+      matBadge="{{ getTeamRanking(match.redTeams[2]) }}"
+    >
+      {{ match.redTeams[2] }}
+    </button>
+  </div>
+
+  <div style="margin: 13px">
+    <button
+      mat-raised-button
+      style="background-color: blue; margin: 8px"
+      matBadge="{{ getTeamRanking(match.blueTeams[0]) }}"
+    >
+      {{ match.blueTeams[0] }}
+    </button>
+    <button
+      mat-raised-button
+      style="background-color: blue; margin: 8px"
+      matBadge="{{ getTeamRanking(match.blueTeams[1]) }}"
+    >
+      {{ match.blueTeams[1] }}
+    </button>
+    <button
+      mat-raised-button
+      style="background-color: blue; margin: 8px"
+      matBadge="{{ getTeamRanking(match.blueTeams[2]) }}"
+    >
+      {{ match.blueTeams[2] }}
+    </button>
+  </div>
+</mat-card>

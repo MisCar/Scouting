@@ -9,6 +9,7 @@ import { ScoutOverviewComponent } from "./pages/admin-panel/scout-overview/scout
 import { SchemaEditorComponent } from "./pages/admin-panel/schema-editor/schema-editor.component"
 import { AdminGuard } from "./services/admin.guard"
 import { TeamScoutsComponent } from "./pages/admin-panel/scout-overview/team-scouts/team-scouts.component"
+import { MatchesComponent } from "./pages/fun-zone/matches/matches.component"
 
 const routes: Routes = [
   { path: "", redirectTo: "/form", pathMatch: "full" },
@@ -35,6 +36,10 @@ const routes: Routes = [
     path: "admin-panel/schema-editor",
     component: SchemaEditorComponent,
     canActivate: [AdminGuard],
+  },
+  {
+    path: "fun-zone/team-games",
+    component: MatchesComponent,
   },
 ]
 

@@ -17,6 +17,7 @@ import { MatSelectModule } from "@angular/material/select"
 import { MatSlideToggleModule } from "@angular/material/slide-toggle"
 import { MatToolbarModule } from "@angular/material/toolbar"
 import { MatSnackBarModule } from "@angular/material/snack-bar"
+import { MatBadgeModule } from "@angular/material/badge"
 import { MatTableModule } from "@angular/material/table"
 import { BrowserModule } from "@angular/platform-browser"
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
@@ -41,6 +42,7 @@ import { MatListModule } from "@angular/material/list"
 import { ScoutOverviewComponent } from "./pages/admin-panel/scout-overview/scout-overview.component"
 import { SchemaEditorComponent } from "./pages/admin-panel/schema-editor/schema-editor.component"
 import { TeamScoutsComponent } from "./pages/admin-panel/scout-overview/team-scouts/team-scouts.component"
+import { MatchesComponent } from "./pages/fun-zone/matches/matches.component"
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { TeamScoutsComponent } from "./pages/admin-panel/scout-overview/team-sco
     ScoutOverviewComponent,
     SchemaEditorComponent,
     TeamScoutsComponent,
+    MatchesComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +90,7 @@ import { TeamScoutsComponent } from "./pages/admin-panel/scout-overview/team-sco
     MatCheckboxModule,
     MatTableModule,
     MatListModule,
+    MatBadgeModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
