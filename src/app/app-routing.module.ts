@@ -16,6 +16,10 @@ const routes: Routes = [
   { path: "fun-zone", component: FunZoneComponent },
   { path: "fun-zone/leaderboard", component: LeaderboardComponent },
   { path: "fun-zone/simon", component: SimonComponent },
+  {
+    path: "fun-zone/matches",
+    component: MatchesComponent,
+  },
   { path: "form", component: FormComponent },
   {
     path: "admin-panel",
@@ -36,10 +40,6 @@ const routes: Routes = [
     path: "admin-panel/schema-editor",
     component: SchemaEditorComponent,
     canActivate: [AdminGuard],
-  },
-  {
-    path: "fun-zone/team-games",
-    component: MatchesComponent,
   },
 ]
 

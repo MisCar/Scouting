@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { collection, Firestore, getDocs } from "@angular/fire/firestore"
 import { MatSnackBar } from "@angular/material/snack-bar"
-import { level } from "app/models/level.model"
+import { display, stage } from "app/models/stage.model"
 import { BackendService } from "app/services/backend.service"
 import {
   TBAEvents,
@@ -20,7 +20,7 @@ interface TableRow {
 })
 export class ScoutOverviewComponent implements OnInit {
   events: TBAEvents = []
-  stage?: level
+  stage?: stage
   missingTeams: string[] = []
   incorrectTeams: string[] = []
   showMissingTeams: boolean = true
@@ -100,7 +100,7 @@ export class ScoutOverviewComponent implements OnInit {
       for (let team of needTeams) {
         if (!specificTeams.includes(team)) {
           this.missingTeams.push(
-            this.convertStage(this.stage) + " " + i + ": Team #" + team
+            display(this.stage) + " " + i + ": Team #" + team
           )
         }
       }
@@ -108,7 +108,7 @@ export class ScoutOverviewComponent implements OnInit {
       for (let team of specificTeams) {
         if (!needTeams.includes(team)) {
           this.incorrectTeams.push(
-            this.convertStage(this.stage) + " " + i + ": Team #" + team
+            display(this.stage) + " " + i + ": Team #" + team
           )
         }
       }
@@ -142,25 +142,6 @@ export class ScoutOverviewComponent implements OnInit {
       this.daraSource.push({ missing: missing, incorrect: incorrect })
     }
     this.showTable = true
-  }
-
-  convertStage(stage: level): string {
-    if (stage == "pr") {
-      return "Practice"
-    }
-    if (stage == "qm") {
-      return "Qualifications"
-    }
-    if (stage == "qf") {
-      return "Quarterfinals"
-    }
-    if (stage == "sf") {
-      return "Semifinals"
-    }
-    if (stage == "f") {
-      return "Finals"
-    }
-    return ""
   }
 
   fetchAllScouts() {
