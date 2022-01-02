@@ -57,6 +57,8 @@ export class SimonComponent {
 
     const expectedPanel = this.sequenceToGuess.shift()
     if (expectedPanel?.nativeElement.classList.contains(panel)) {
+      this.playSound(panel)
+
       if (this.sequenceToGuess.length === 0) {
         this.sequence.push(this.getRandomPanel())
         this.sequenceToGuess = [...this.sequence]
@@ -69,6 +71,7 @@ export class SimonComponent {
         this.runSequence()
       }
     } else {
+      this.playSound("wrong")
       this.canClick = false
       this.updateHighScore(
         this.highScore,
@@ -101,6 +104,8 @@ export class SimonComponent {
       this.timeBetweenFlashs -= 30
     }
 
+    this.playSound(panel.nativeElement.classList[0])
+
     panel.nativeElement.classList.add("active")
     await new Promise((resolve) => setTimeout(resolve, this.timeBetweenFlashs))
     panel.nativeElement.classList.remove("active")
@@ -130,5 +135,26 @@ export class SimonComponent {
       }
     }
     return highScore
+  }
+
+  playSound(color: string) {
+    let audio = new Audio()
+    if (color == "top-right-panel") {
+      audio.src = "assets/sounds/simonSound1.mp3"
+    }
+    if (color == "top-left-panel") {
+      audio.src = "assets/sounds/simonSound2.mp3"
+    }
+    if (color == "bottom-right-panel") {
+      audio.src = "assets/sounds/simonSound3.mp3"
+    }
+    if (color == "bottom-left-panel") {
+      audio.src = "assets/sounds/simonSound4.mp3"
+    }
+    if (color == "wrong") {
+      audio.src = "assets/sounds/error.mp3"
+    }
+    audio.load()
+    audio.play()
   }
 }

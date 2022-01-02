@@ -1,55 +1,79 @@
-<mat-card
-  *ngFor="let match of teamMatches"
-  style="margin: 13px; text-align: center"
->
-  <mat-card-title style="margin: 13px">{{
-    getMatchName(match)
-  }}</mat-card-title>
-  <div style="margin: 13px">
-    <button
-      mat-raised-button
-      style="background-color: red; margin: 8px"
-      matBadge="{{ getTeamRanking(match.redTeams[0]) }}"
-    >
-      {{ match.redTeams[0] }}
-    </button>
-    <button
-      mat-raised-button
-      style="background-color: red; margin: 8px"
-      matBadge="{{ getTeamRanking(match.redTeams[1]) }}"
-    >
-      {{ match.redTeams[1] }}
-    </button>
-    <button
-      mat-raised-button
-      style="background-color: red; margin: 8px"
-      matBadge="{{ getTeamRanking(match.redTeams[2]) }}"
-    >
-      {{ match.redTeams[2] }}
-    </button>
-  </div>
+<div style="text-align: center">
+  <h1>Matches</h1>
 
-  <div style="margin: 13px">
-    <button
-      mat-raised-button
-      style="background-color: blue; margin: 8px"
-      matBadge="{{ getTeamRanking(match.blueTeams[0]) }}"
-    >
-      {{ match.blueTeams[0] }}
-    </button>
-    <button
-      mat-raised-button
-      style="background-color: blue; margin: 8px"
-      matBadge="{{ getTeamRanking(match.blueTeams[1]) }}"
-    >
-      {{ match.blueTeams[1] }}
-    </button>
-    <button
-      mat-raised-button
-      style="background-color: blue; margin: 8px"
-      matBadge="{{ getTeamRanking(match.blueTeams[2]) }}"
-    >
-      {{ match.blueTeams[2] }}
-    </button>
-  </div>
-</mat-card>
+  <mat-card
+    *ngFor="let match of matches"
+    style="
+      margin: 10px;
+      padding-right: 0;
+      padding-left: 0;
+      padding-bottom: 0;
+      text-align: center;
+      display: inline-block;
+    "
+  >
+    <mat-card-title>{{ getMatchName(match) }}</mat-card-title>
+    <div style="padding: 10px">
+      <button
+        mat-raised-button
+        color="accent"
+        style="margin: 10px"
+        matBadge="{{ getTeamRanking(match.alliances.red.team_keys[0]) }}"
+      >
+        {{ tba.removeFRCPrefix(match.alliances.red.team_keys[0]) }}
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        style="margin: 10px"
+        matBadge="{{ getTeamRanking(match.alliances.red.team_keys[1]) }}"
+      >
+        {{ tba.removeFRCPrefix(match.alliances.red.team_keys[1]) }}
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        style="margin: 10px"
+        matBadge="{{ getTeamRanking(match.alliances.red.team_keys[2]) }}"
+      >
+        {{ tba.removeFRCPrefix(match.alliances.red.team_keys[2]) }}
+      </button>
+    </div>
+
+    <div style="padding: 10px">
+      <button
+        mat-raised-button
+        style="background-color: #3468d8; margin: 10px"
+        matBadge="{{ getTeamRanking(match.alliances.blue.team_keys[0]) }}"
+      >
+        {{ tba.removeFRCPrefix(match.alliances.blue.team_keys[0]) }}
+      </button>
+      <button
+        mat-raised-button
+        style="background-color: #3468d8; margin: 10px"
+        matBadge="{{ getTeamRanking(match.alliances.blue.team_keys[1]) }}"
+      >
+        {{ tba.removeFRCPrefix(match.alliances.blue.team_keys[1]) }}
+      </button>
+      <button
+        mat-raised-button
+        style="background-color: #3468d8; margin: 10px"
+        matBadge="{{ getTeamRanking(match.alliances.blue.team_keys[2]) }}"
+      >
+        {{ tba.removeFRCPrefix(match.alliances.blue.team_keys[2]) }}
+      </button>
+    </div>
+
+    <div
+      *ngIf="match.winning_alliance"
+      style="
+        padding: 10px;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+      "
+      [style.backgroundColor]="
+        match.winning_alliance === getTeamAlliance(match) ? 'green' : 'red'
+      "
+    ></div>
+  </mat-card>
+</div>

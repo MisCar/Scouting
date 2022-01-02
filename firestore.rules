@@ -10,7 +10,7 @@ service cloud.firestore {
     }
     
     match /admin/{document} {
-    	allow read: if true;
+    	allow read: if isTeamUser();
       allow write: if isAdmin();
     }
     

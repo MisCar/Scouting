@@ -1,7 +1,7 @@
-import { level } from "./level.model"
+import { stage } from "./stage.model"
 
 export interface Scout {
-  level: level
+  level: stage
   match: number
   team: number
   [key: string]: any
