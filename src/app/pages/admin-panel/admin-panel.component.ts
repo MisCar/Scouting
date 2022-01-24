@@ -24,12 +24,14 @@ export class AdminPanelComponent implements OnInit {
     private firestore: Firestore,
     public backend: BackendService,
     public tba: TheBlueAllianceService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     onSnapshot(doc(this.firestore, "admin/admins"), (snapshot) => {
       this.admins = snapshot.data()?.users ?? []
     })
+
+    //console.log(this.backend.event)
 
     onSnapshot(collection(this.firestore, "users"), (snapshot) => {
       this.users = snapshot.docs.map((document) => {

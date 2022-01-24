@@ -1,30 +1,19 @@
 <div style="display: flex; flex-direction: column" class="container">
   <h1 style="text-align: center">Admin Panel</h1>
-  <button
-    mat-raised-button
-    color="primary"
-    routerLink="/admin-panel/scout-overview"
-  >
+  <button mat-raised-button color="primary" routerLink="/admin-panel/scout-overview">
     Scout Overview
   </button>
   <br />
-  <button
-    mat-raised-button
-    color="primary"
-    routerLink="/admin-panel/schema-editor"
-  >
+  <button mat-raised-button color="primary" routerLink="/admin-panel/schema-editor">
     Schema Editor
   </button>
   <br />
   <mat-form-field appearance="fill" style="margin-bottom: 10px">
     <mat-label>Event</mat-label>
-    <mat-select
-      (selectionChange)="backend.event = $event.value"
-      [value]="backend.event"
-    >
+    <mat-select (selectionChange)="backend.event = $event.value" [value]="backend.event">
       <mat-option *ngFor="let event of tba.getEvents()" [value]="event.key">{{
         event.year + " " + event.name
-      }}</mat-option>
+        }}</mat-option>
     </mat-select>
   </mat-form-field>
   <br />
@@ -32,11 +21,8 @@
     <ng-container matColumnDef="selection">
       <th mat-header-cell *matHeaderCellDef>Admin</th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox
-          style="margin-right: 20px; margin-left: 20px"
-          [checked]="admins.includes(element.uid)"
-          (change)="updateAdmin(element.uid, $event.checked)"
-        >
+        <mat-checkbox style="margin-right: 20px; margin-left: 20px" [checked]="admins.includes(element.uid)"
+          (change)="updateAdmin(element.uid, $event.checked)">
         </mat-checkbox>
       </td>
     </ng-container>

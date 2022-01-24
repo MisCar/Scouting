@@ -58,8 +58,8 @@ export class FormComponent implements OnInit {
     onSnapshot(doc(firestore, "admin/schema"), (snapshot) => {
       const schema = snapshot.data() as Schema
       this.schema = schema
-      window.localStorage.removeItem("Schema")
       window.localStorage.setItem("Schema", JSON.stringify(schema))
+      this.clearWidgets();
     })
 
     this.events = this.tba
@@ -268,4 +268,15 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.schema = JSON.parse(localStorage.getItem("Schema") ?? "{}")
   }
+
+  clearWidgets(): void {
+    for (let i = 0; i < localStorage.length; i++) {
+      let fullKey = localStorage.key(i)
+      if (!fullKey?.startsWith(storagePrefix)) {
+        continue
+      }
+      localStorage.removeItem(fullKey)
+    }
+  }
 }
+

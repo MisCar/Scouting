@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { environment } from "environments/environment"
-import Secrets from "environments/secrets.json"
+import Secrets from "environments/Secrets.json"
 import { BackendService } from "./backend.service"
 import { firstValueFrom } from "rxjs"
 import { MatSnackBar } from "@angular/material/snack-bar"
