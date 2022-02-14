@@ -14,7 +14,7 @@ export class LongPressDirective {
   onMouseDown() {
     this.timeout = setTimeout(() => {
       this.longclick.emit()
-    }, 350)
+    }, 1500)
   }
 
   @HostListener("touchend")

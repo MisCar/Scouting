@@ -52,6 +52,8 @@ export class AuthenticationService {
       }
 
       this.isAdmin = data.users.includes(this.user?.uid)
+
+      localStorage.setItem("[Form] zScouter Name", this.user?.displayName ?? "")
     })
 
     onSnapshot(doc(this.firestore, "admin/admins"), (snapshot) => {

@@ -1,8 +1,11 @@
-<div
-  style="max-width: 600px; margin-right: auto; margin-left: auto"
-  class="container"
->
+<div style="max-width: 600px; margin-right: auto; margin-left: auto" class="container">
   <h1 style="text-align: center">Form</h1>
+  <mat-card style="text-align: center;">
+    <mat-form-field appearance="fill" style="margin-bottom: 10px;">
+      <mat-label>Scouter Name</mat-label>
+      <input matInput [value]="scouterName" type="text" (change)="onScouterNameChange($event)" />
+    </mat-form-field>
+  </mat-card>
   <mat-card>
     <mat-card-title>Game</mat-card-title>
     <div class="content">
@@ -18,51 +21,31 @@
       </mat-form-field>
       <mat-form-field appearance="fill" style="margin-bottom: 10px">
         <mat-label>Game Number</mat-label>
-        <input
-          matInput
-          type="number"
-          (keyup)="onGameChanged($event)"
-          [value]="game"
-        />
+        <input matInput type="number" (keyup)="onGameChanged($event)" [value]="game" />
       </mat-form-field>
       <mat-form-field appearance="fill" style="margin-bottom: 10px">
         <mat-label>Team Number</mat-label>
-        <input
-          matInput
-          type="number"
-          (change)="onTeamChanged($event)"
-          [value]="team"
-        />
+        <input matInput [value]="team" type="number" (change)="onTeamChanged($event)" />
       </mat-form-field>
     </div>
     <div style="width: fit-content; margin: auto; text-align: center">
       <div style="display: flex; flex-direction: row">
-        <button
-          mat-stroked-button
-          *ngFor="let redTeam of redTeams"
-          style="
+        <button mat-stroked-button *ngFor="let redTeam of redTeams" style="
             color: black;
             background-color: #ddf;
             margin: 10px;
             border-radius: 1000px;
-          "
-          (click)="this.team = redTeam"
-        >
+          " (click)="this.team = redTeam">
           {{ redTeam }}
         </button>
       </div>
       <div style="display: flex; flex-direction: row">
-        <button
-          mat-stroked-button
-          *ngFor="let blueTeam of blueTeams"
-          style="
+        <button mat-stroked-button *ngFor="let blueTeam of blueTeams" style="
             color: black;
             background-color: #fdd;
             margin: 10px;
             border-radius: 1000px;
-          "
-          (click)="this.team = blueTeam"
-        >
+          " (click)="this.team = blueTeam">
           {{ blueTeam }}
         </button>
       </div>
@@ -78,26 +61,10 @@
     <mat-card-title dir="auto">{{ section.title }}</mat-card-title>
     <div class="content">
       <div *ngFor="let widget of section.widgets" [ngSwitch]="widget.type">
-        <app-counter
-          *ngSwitchCase="'Counter'"
-          [widget]="widget"
-          [prefix]="section.prefix"
-        ></app-counter>
-        <app-toggle
-          *ngSwitchCase="'Toggle'"
-          [widget]="widget"
-          [prefix]="section.prefix"
-        ></app-toggle>
-        <app-text
-          *ngSwitchCase="'Text'"
-          [widget]="widget"
-          [prefix]="section.prefix"
-        ></app-text>
-        <app-timer
-          *ngSwitchCase="'Timer'"
-          [widget]="widget"
-          [prefix]="section.prefix"
-        ></app-timer>
+        <app-counter *ngSwitchCase="'Counter'" [widget]="widget" [prefix]="section.prefix"></app-counter>
+        <app-toggle *ngSwitchCase="'Toggle'" [widget]="widget" [prefix]="section.prefix"></app-toggle>
+        <app-text *ngSwitchCase="'Text'" [widget]="widget" [prefix]="section.prefix"></app-text>
+        <app-timer *ngSwitchCase="'Timer'" [widget]="widget" [prefix]="section.prefix"></app-timer>
       </div>
     </div>
   </mat-card>
@@ -112,11 +79,7 @@
         <button mat-stroked-button (click)="copy()">Copy</button>
         <button mat-stroked-button (click)="save()">Save</button>
         <button mat-stroked-button (click)="open()">Open</button>
-        <button
-          mat-stroked-button
-          (click)="send()"
-          [disabled]="!authentication.signedIn"
-        >
+        <button mat-stroked-button (click)="send()" [disabled]="!authentication.signedIn">
           Send
         </button>
         <button mat-stroked-button color="warn" (click)="clear()">Clear</button>

@@ -41,8 +41,12 @@ export class FormComponent implements OnInit {
   blueTeams: number[] = []
   redTeams: number[] = []
 
+  scouterName: string;
+
   /** The events your team is competing at */
   events: TBAEvents = []
+
+  aouth: any
 
   constructor(
     private firestore: Firestore,
@@ -65,6 +69,10 @@ export class FormComponent implements OnInit {
     this.events = this.tba
       .getEvents()
       .filter((event) => new Date(event.end_date).getFullYear() > 2019)
+
+    console.log(authentication)
+
+    this.scouterName = (localStorage.getItem("[Form] zScouter Name") ?? "")
   }
 
   /** Bindings */
@@ -86,6 +94,10 @@ export class FormComponent implements OnInit {
     this.team = Number((event.target as HTMLInputElement).value)
   }
 
+  onScouterNameChange(event: Event): void {
+    localStorage.setItem('[Form] zScouter Name', String((event.target as HTMLInputElement).value))
+  }
+
   /** Actions */
 
   clear(): void {
@@ -97,6 +109,7 @@ export class FormComponent implements OnInit {
   }
 
   get scout(): Scout {
+    localStorage.setItem("[Form] zScouter Name", "\"" + localStorage.getItem("[Form] zScouter Name") + "\"")
     const result: Scout = {}
     const schema = JSON.parse(localStorage.getItem("Schema") ?? "")
     let keys = []
@@ -116,12 +129,16 @@ export class FormComponent implements OnInit {
         continue
       }
 
+      console.log(fullKey)
+
       const value = JSON.parse(localStorage.getItem(fullKey)!)
       fullKey = fullKey.substring(storagePrefix.length)
 
       const prefix = fullKey.substring(0, fullKey.indexOf(" "))
 
-      if (!sections.includes(prefix)) {
+      console.log(prefix)
+
+      if (!sections.includes(prefix) && prefix != "zScouter") {
         continue
       }
 
@@ -130,10 +147,12 @@ export class FormComponent implements OnInit {
       }
 
       const key = fullKey.substring(prefix.length + 1)
-      if (keys.includes(key)) {
+      if (keys.includes(key) || key == "Name") {
         result[prefix][key] = value
       }
     }
+
+    localStorage.setItem("[Form] zScouter Name", (localStorage.getItem("[Form] zScouter Name") ?? "").replace("\"", "").replace("\"", ""))
 
     return result
   }
