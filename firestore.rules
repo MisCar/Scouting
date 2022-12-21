@@ -6,7 +6,7 @@ service cloud.firestore {
     }
 
     function isTeamUser() {
-      return request.auth != null && request.auth.uid != null && request.auth.token.email.matches(".*@miscar1574[.]org");
+      return request.auth != null && request.auth.uid != null;
     }
     
     match /admin/{document} {
